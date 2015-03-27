@@ -1,0 +1,19 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 bootcards-list">
+            <div class="panel panel-default">
+                <div class="panel-heading clearfix">
+                    <h3 class="panel-title pull-left">Teams</h3>
+                    <div class="btn-group pull-right">
+                        <button ng-click="teamCtrl.loesche()">lösche</button>
+                    </div>
+                </div>
+                <div class="list-group">
+                    <div class="list-group-item" ng-repeat="team in teamCtrl.teams" ng-class="team.player1.danger ? 'text-danger': ''">
+                        <h4 class="list-group-item-heading">{{ team.player1.name + ' / ' + team.player2.name }}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

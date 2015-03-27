@@ -1,0 +1,38 @@
+<html ng-app="kickertool">
+
+<head>
+    <title>Kickertool</title>
+    <link rel="stylesheet" href="css/bootcards-desktop.min.css">
+    <link rel="stylesheet" href="css/kickertool.css">
+
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-route.min.js"></script>
+    <script src="js/kickertool.js"></script>
+    <script src="js/dataservice.js"></script>
+    <script src="js/teaminput.js"></script>
+    <script src="js/teamctrl.js"></script>
+    <script src="js/turnier.js"></script>
+    
+</head>
+
+<body>
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand">Kickerturnier Software</a>
+                <ul class="nav navbar-nav">
+                    <li><a href="#player">Spieler</a></li>
+                    <li><a href="#teams">Teams</a></li>
+                    <li><a href="#turnier">Turnier</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div ng-view></div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootcards.min.js"></script>
+    
+</body>
+</html>
