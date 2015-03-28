@@ -53,7 +53,7 @@
 
         // create randmon players
         (function() {
-            for (var i = 0; i < 28; i++) {
+            for (var i = 0; i < 12; i++) {
                 var type = Math.floor(Math.random() * 2);
                 var position = Math.floor(Math.random() * 3);
                 $scope.player.push({

@@ -3,7 +3,7 @@
 
     app.controller('KORundeController', function(DataService) {
         var _self = this;
-        _self.ranking = DataService.ranking || DataService.teams;
+        _self.ranking = DataService.teams;
 
         _self.matches = [];
         _self.playedMatches = [];
@@ -31,12 +31,10 @@
                     var team = {
                         team1: team1,
                         team2: {
-                            player1: {
-                                name: 'Freilos'
-                            }
+                            name: 'Freilos'
                         },
                         score: {
-                            team1: 7,
+                            team1: 2,
                             team2: 0
                         },
                         round: type / 2 + '. Finale'
@@ -56,7 +54,7 @@
         var calculateMatches = function(teamslist) {
             var teams = teamslist.length;
             if (teams == 1) {
-                alert(teamslist[0].player1.name);
+                alert(teamslist[0].name);
             }
             else if (teams <= 2) {
                 buildMatches(2, teamslist)

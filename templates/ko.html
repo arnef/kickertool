@@ -19,9 +19,9 @@
                 <tr ng-repeat="table in koCtrl.tables" >
                     <td class="active">{{ $index+1 }}</td>
                     <td>{{ table.round }}</td>
-                    <td ng-click="koCtrl.insertScore($index, table.team1)">{{ table.team1.player1.name + ' / ' + table.team1.player2.name }}</td>
+                    <td ng-click="koCtrl.insertScore($index, table.team1)">{{ table.team1.name }}</td>
                     <td>{{ table.score.team1 + ':' + table.score.team2 }}</td>
-                    <td ng-click="koCtrl.insertScore($index, table.team2)">{{ table.team2.player1.name + ' / ' + table.team2.player2.name }}</td>
+                    <td ng-click="koCtrl.insertScore($index, table.team2)">{{ table.team2.name }}</td>
                 </tr>
             </tbody>
         </table>
@@ -47,9 +47,9 @@
                 <tr ng-repeat="match in koCtrl.matches">
                     <td class="active"></td>
                     <td>{{ match.round }}</td>
-                    <td>{{ match.team1.player1.name + ' / ' + match.team1.player2.name }}</td>
+                    <td>{{ match.team1.name }}</td>
                     <td>{{ match.score.team1 + ':' + match.score.team2 }}</td>
-                    <td>{{ match.team2.player1.name + ' / ' + match.team2.player2.name }}</td>
+                    <td>{{ match.team2.name }}</td>
                 </tr>
             </tbody>
         </table>
@@ -75,9 +75,9 @@
                 <tr ng-repeat="match in koCtrl.playedMatches">
                     <td class="active"></td>
                     <td>{{ match.round }}</td>
-                    <td>{{ match.team1.player1.name + ' / ' + match.team1.player2.name }}</td>
+                    <td>{{ match.team1.name }}</td>
                     <td>{{ match.score.team1 + ':' + match.score.team2 }}</td>
-                    <td>{{ match.team2.player1.name + ' / ' + match.team2.player2.name }}</td>
+                    <td>{{ match.team2.name }}</td>
                 </tr>
             </tbody>
         </table>

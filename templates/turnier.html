@@ -47,7 +47,10 @@
                             <td class="active">{{ $index+1 }}</td>
                             <td>{{ table.round }}</td>
                             <td>{{ table.team1.name }}</td>
-                            <td>vs.</td>
+                            <td>
+                                <span ng-show="table.team1.name != null">vs.</span>
+                                <span ng-show="table.team1.name == null">Frei</span>
+                            </td>
                             <td>{{ table.team2.name }}</td>
                         </tr>
                     </tbody>
