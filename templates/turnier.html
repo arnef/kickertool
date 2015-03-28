@@ -1,76 +1,12 @@
 <div class="container-fluid bootcards-container">
 
-    <div class="modal fade in" role="dialog" id="insertScoreModal">
-        <div class="modal-dialog">
-
-            <div class="modal-content">
-                <form class="form-inline" ng-submit="turnierCtrl.saveScore()">
-
-                    <div class="modal-header">
-                        <div class="btn-group pull-left">
-                            <button type="button" class="btn btn-danger" onClick="$('#insertScoreModal').hide()">
-                                Abbrechen
-                            </button>
-                        </div>
-                        <div class="btn-group pull-right">
-                            <button type="submit" class="btn btn-success">
-                                Speichern
-                            </button>
-                        </div>
-
-                        <h3 class="modal-title">Ergebnis eintragen</h3>
-                    </div>
-
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="team1">{{ turnierCtrl.selectedMatch.team1.player1.name + ' / ' + turnierCtrl.selectedMatch.team1.player2.name }}
-                            </label>
-                            <input type="number" class="form-control" ng-model="turnierCtrl.selectedMatch.score.team1">
-                        </div>
-                        <div class="form-group">
-                            <label for="team2">{{ turnierCtrl.selectedMatch.team2.player1.name + ' / ' + turnierCtrl.selectedMatch.team2.player2.name }}
-                            </label>
-                            <input type="number" class="form-control" ng-model="turnierCtrl.selectedMatch.score.team2">
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-        </div>
-    </div>
-    
-    <div class="modal fade in" role="dialog" id="newRoundModal">
-        <div class="modal-dialog">
-
-            <div class="modal-content">
-                    <div class="modal-header">
-                        <div class="btn-grpup pull-left">
-                            <button type="button" class="btn btn-primary">
-                                KO Runde
-                            </button>
-                        </div>
-                        <div class="btn-group pull-right">
-                            <button type="button" class="btn btn-success" ng-click="turnierCtrl.startRound()">
-                                Neue Vorrunde
-                            </button>
-                        </div>
-
-                        <h3 class="modal-title">Vorrunde {{ turnierCtrl.currentRound }} beendet</h3>
-                    </div>
-            </div>
-
-        </div>
-    </div>
-    
-    
-
     <div class="row">
         <div class="col-md-4 bootcards-list">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Tabelle</h3>
                 </div>
-                <table class="table table-hover">
+                <table class="table">
                     <thead>
                         <tr class="active">
                             <th width="5%" class="text-center">Nr.</th>
@@ -79,10 +15,10 @@
                         </tr>
                     </thead>
                     <tbody class="text-center">
-                        <tr ng-repeat="team in turnierCtrl.ranking">
+                        <tr ng-repeat="team in ranking">
                             <td class="active">{{ $index+1 }}</td>
 
-                            <td>{{ team.player1.name + ' / ' + team.player2.name }}</td>
+                            <td>{{ team.name }}</td>
                             <td>{{ team.points }}</td>
 
                         </tr>
@@ -107,12 +43,12 @@
                         </tr>
                     </thead>
                     <tbody class="text-center">
-                        <tr ng-repeat="table in turnierCtrl.tables" ng-click="turnierCtrl.insertScore($index)">
+                        <tr ng-repeat="table in tables" ng-click="turnierCtrl.insertScore($index)">
                             <td class="active">{{ $index+1 }}</td>
                             <td>{{ table.round }}</td>
-                            <td>{{ table.team1.player1.name + ' / ' + table.team1.player2.name }}</td>
-                            <td>{{ table.score.team1 + ':' + table.score.team2 }}</td>
-                            <td>{{ table.team2.player1.name + ' / ' + table.team2.player2.name }}</td>
+                            <td>{{ table.team1.name }}</td>
+                            <td>vs.</td>
+                            <td>{{ table.team2.name }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -135,18 +71,18 @@
                         </tr>
                     </thead>
                     <tbody class="text-center">
-                        <tr ng-repeat="match in turnierCtrl.matches">
+                        <tr ng-repeat="match in matches">
                             <td class="active"></td>
                             <td>{{ match.round }}</td>
-                            <td>{{ match.team1.player1.name + ' / ' + match.team1.player2.name }}</td>
-                            <td>{{ match.score.team1 + ':' + match.score.team2 }}</td>
-                            <td>{{ match.team2.player1.name + ' / ' + match.team2.player2.name }}</td>
+                            <td>{{ match.team1.name }}</td>
+                            <td>vs. </td>
+                            <td>{{ match.team1.name }}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        
+
         <div class="col-md-8 bootcards-cards">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -166,9 +102,9 @@
                         <tr ng-repeat="match in turnierCtrl.playedMatches">
                             <td class="active"></td>
                             <td>{{ match.round }}</td>
-                            <td>{{ match.team1.player1.name + ' / ' + match.team1.player2.name }}</td>
+                            <td>{{ match.team1.name }}</td>
                             <td>{{ match.score.team1 + ':' + match.score.team2 }}</td>
-                            <td>{{ match.team2.player1.name + ' / ' + match.team2.player2.name }}</td>
+                            <td>{{ match.team2.name }}</td>
                         </tr>
                     </tbody>
                 </table>

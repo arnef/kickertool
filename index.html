@@ -1,17 +1,25 @@
+<!DOCTYPE html>
 <html ng-app="kickertool">
 
 <head>
+    <meta charset="utf-8">
     <title>Kickertool</title>
-    <link rel="stylesheet" href="css/bootcards-desktop.min.css">
+    
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/kickertool.css">
 
     <script src="js/angular.min.js"></script>
     <script src="js/angular-route.min.js"></script>
+    <script src="js/angular-sanitize.min.js"></script>
+    <script src="js/ui-bootstrap.min.js"></script>
+    <script src="js/dialogs.min.js"></script>
     <script src="js/kickertool.js"></script>
     <script src="js/dataservice.js"></script>
-    <script src="js/teaminput.js"></script>
+    <script src="js/fair-dyp.js"></script>
     <script src="js/teamctrl.js"></script>
     <script src="js/turnier.js"></script>
+    <script src="js/ko.js"></script>
+    <script src="js/start.js"></script>
     
 </head>
 
@@ -19,20 +27,17 @@
     <div class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand">Kickerturnier Software</a>
+                <a class="navbar-brand" href="#/">Kickerturnier Software</a>
                 <ul class="nav navbar-nav">
                     <li><a href="#player">Spieler</a></li>
                     <li><a href="#teams">Teams</a></li>
                     <li><a href="#turnier">Turnier</a></li>
+                    <li><a href="#ko">KO</a></li>
                 </ul>
             </div>
         </div>
     </div>
     
-    <div ng-view></div>
-
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootcards.min.js"></script>
-    
+    <div ng-view></div>    
 </body>
 </html>

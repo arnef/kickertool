@@ -9,8 +9,8 @@
                     </div>
                 </div>
                 <div class="list-group">
-                    <div class="list-group-item" ng-repeat="team in teamCtrl.teams" ng-class="team.player1.danger ? 'text-danger': ''">
-                        <h4 class="list-group-item-heading">{{ team.player1.name + ' / ' + team.player2.name }}</h4>
+                    <div class="list-group-item" ng-repeat="team in teamCtrl.teams" >
+                        <h4 class="list-group-item-heading" ng-class="team.danger ? 'text-danger': ''">{{ team.name }}</h4>
                     </div>
                 </div>
             </div>

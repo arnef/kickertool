@@ -1,7 +1,7 @@
 (function() {
     var app = angular.module('kteaminput', []);
 
-    app.controller('TeamInputController', function(DataService) {
+    app.controller('TeamInputController', function($scope, $location, dialogs, DataService) {
         var _self = this;
 
         const GOALIE = 1;
@@ -10,7 +10,7 @@
         const PRO = 8;
         const AMATEUR = 16;
 
-        _self.optionsType = [{
+        $scope.TYPES = [{
             name: 'Gesetzt',
             value: PRO
         }, {
@@ -18,8 +18,8 @@
             value: AMATEUR
         }];
 
-        _self.optionsPosition = [{
-            name: 'Torwart / Stürmer',
+        $scope.POSITIONS = [{
+            name: 'Torwart/Stürmer',
             value: BOTH
         }, {
             name: 'Torwart',
@@ -29,38 +29,37 @@
             value: STRIKER
         }];
 
-        _self.newPlayer = {
+        $scope.newPlayer = {
             type: PRO,
             position: BOTH
         };
-
-        _self.players = DataService.player;
-
-
-        _self.teams = DataService.teams;
-
+        
+        $scope.teams = DataService.teams;
+        $scope.player = DataService.player;
 
         /**
          * Fügt Spieler zu Liste hinzu
          **/
-        _self.addPlayer = function() {
-            _self.players.push(_self.newPlayer);
-            _self.newPlayer = {
-                type: PRO,
-                position: BOTH
-            };
+        $scope.addPlayer = function() {
+            if ($scope.newPlayer.name != '') {
+                $scope.player.push($scope.newPlayer);
+                $scope.newPlayer = {
+                    type: PRO,
+                    position: BOTH
+                };
+            }
         };
 
 
         // create randmon players
         (function() {
-            for (var i = 0; i < 12; i++) {
+            for (var i = 0; i < 28; i++) {
                 var type = Math.floor(Math.random() * 2);
                 var position = Math.floor(Math.random() * 3);
-                _self.players.push({
-                    name: 'player ' + (i + 1) + ' ' + _self.optionsPosition[position].name + ' ' + _self.optionsType[type].name,
-                    position: _self.optionsPosition[position].value,
-                    type: _self.optionsType[type].value,
+                $scope.player.push({
+                    name: 'player ' + (i + 1),
+                    position: $scope.POSITIONS[position].value,
+                    type: $scope.TYPES[type].value,
                 });
             }
         })();
@@ -111,7 +110,7 @@
             return player1.name != player2.name;
         }
 
-        var compairePlayers = function(players, matchMethod) {
+        var compairePlayers = function(players, matchMethod, danger) {
             var players2 = shuffleArray(players);
             var noMatches = [];
             while (players2.length > 0) {
@@ -120,10 +119,10 @@
                 for (var i = 0; i < players.length; i++) {
                     var teamplayer2 = players[i];
                     if (matchMethod(teamplayer1, teamplayer2)) {
-                        _self.teams.push({
-                            player1: teamplayer1,
-                            player2: teamplayer2,
-                            points: 0
+                        $scope.teams.push({
+                            name: teamplayer1.name + ' / ' + teamplayer2.name,
+                            points: 0,
+                            danger: danger
                         });
                         players.splice(i, 1);
                         match = true;
@@ -141,34 +140,51 @@
         /**
          * Lose Teams aus
          **/
-        _self.createTeams = function() {
-            var players = [].concat(_self.players);
-            players = compairePlayers(players, niceMatch);
+        $scope.createTeams = function() {
+            var players = [].concat($scope.player);
+            players = compairePlayers(players, niceMatch, false);
             if (players.length > 0) {
-                players = compairePlayers(players, fairMatch);
-                for (var i = 0; i < players.length; i++) {
-                    players[i].danger = true;
-                }
+                players = compairePlayers(players, fairMatch, false);
             }
-
             if (players.length > 0) {
-                players = compairePlayers(players, badMatch);
+                players = compairePlayers(players, badMatch, true);
             }
         };
 
-        _self.getPosition = function(value) {
-            switch (value) {
-                case GOALIE:
-                    return _self.optionsPosition[1].name;
-                case STRIKER:
-                    return _self.optionsPosition[2].name;
+
+        $scope.getPosition = function(value) {
+            switch(value) {
                 case BOTH:
-                    return _self.optionsPosition[0].name;
+                    return $scope.POSITIONS[0].name;
+                case GOALIE:
+                    return $scope.POSITIONS[1].name;
+                case STRIKER:
+                    return $scope.POSITIONS[2].name;
             }
         };
-
-        _self.removePlayer = function(index) {
-            _self.players.splice(index, 1);
-        }
+        
+        $scope.getType = function(value) {
+            switch (value) {
+                case PRO:
+                    return $scope.TYPES[0].name;
+                case AMATEUR:
+                    return $scope.TYPES[1].name;
+            }
+        };
+    
+        $scope.removePlayer = function(index) {
+            var dlg = dialogs.confirm(
+                'Spieler löschen', 
+                'Spieler "' + $scope.player[index].name + '" entfernen?', 
+                {size: 'sm'});
+            dlg.result.then(function(btn){
+                $scope.player.splice(index, 1);
+            });
+            
+        };
+        
+        $scope.startTourment = function() {
+            $location.path('turnier');
+        };
     });
 })();
