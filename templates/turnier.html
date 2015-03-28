@@ -43,7 +43,7 @@
                         </tr>
                     </thead>
                     <tbody class="text-center">
-                        <tr ng-repeat="table in tables" ng-click="turnierCtrl.insertScore($index)">
+                        <tr ng-repeat="table in tables" ng-click="insertScore($index)">
                             <td class="active">{{ $index+1 }}</td>
                             <td>{{ table.round }}</td>
                             <td>{{ table.team1.name }}</td>
@@ -99,7 +99,7 @@
                         </tr>
                     </thead>
                     <tbody class="text-center">
-                        <tr ng-repeat="match in turnierCtrl.playedMatches">
+                        <tr ng-repeat="match in playedMatches">
                             <td class="active"></td>
                             <td>{{ match.round }}</td>
                             <td>{{ match.team1.name }}</td>
