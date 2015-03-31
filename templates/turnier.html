@@ -1,33 +1,36 @@
-<div class="container-fluid bootcards-container">
+<div class="container-fluid">
 
     <div class="row">
-        <div class="col-md-4 bootcards-list">
+        <div class="col-md-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Tabelle</h3>
                 </div>
-                <table class="table">
-                    <thead>
-                        <tr class="active">
-                            <th width="5%" class="text-center">Nr.</th>
-                            <th width="90%" class="text-center">Team</th>
-                            <th width="5%" class="text-center">Punkte</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-center">
-                        <tr ng-repeat="team in ranking">
-                            <td class="active">{{ $index+1 }}</td>
+                <div scrolltable>
+                    <table class="table">
+                        <thead>
+                            <tr class="active">
+                                <th width="5%" class="text-center">Nr.</th>
+                                <th width="90%" class="text-center">Team</th>
+                                <th width="5%" class="text-center">Punkte</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+                            <tr ng-repeat="team in ranking">
+                                <td class="active">{{ $index+1 }}</td>
 
-                            <td>{{ team.name }}</td>
-                            <td>{{ team.points }}</td>
+                                <td>{{ team.name }}</td>
+                                <td>{{ team.points }}</td>
 
-                        </tr>
-                    </tbody>
-                </table>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
-        <div class="col-md-8 bootcards-cards">
+<div scrolltable>
+        <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Laufende Partien</h3>
@@ -58,7 +61,7 @@
             </div>
         </div>
 
-        <div class="col-md-8 bootcards-cards">
+        <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Nächste Partien</h3>
@@ -86,7 +89,7 @@
             </div>
         </div>
 
-        <div class="col-md-8 bootcards-cards">
+        <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Gespielte Partien</h3>
@@ -114,5 +117,6 @@
             </div>
         </div>
     </div>
+</div>
 
 </div>

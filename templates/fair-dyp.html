@@ -34,26 +34,30 @@
         <div class="col-sm-4" ng-hide="player.length == 0">
             <h2>Angemeldete Spieler
                 <a href class="btn btn-sm btn-success pull-right" ng-click="createTeams()" ng-disabled="player.length % 2 == 1">Lose Teams</a></h2>
-            <table class="table table-hover">
-                <tbody>
-                    <tr ng-repeat="p in player" ng-click="removePlayer($index)">
-                        <td>{{ p.name }}</td>
-                        <td>{{ getPosition(p.position) }}</td>
-                        <td>{{ getType(p.type) }}</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div scrolltable>
+                <table class="table table-hover">
+                    <tbody>
+                        <tr ng-repeat="p in player" ng-click="removePlayer($index)">
+                            <td>{{ p.name }}</td>
+                            <td>{{ getPosition(p.position) }}</td>
+                            <td>{{ getType(p.type) }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <div class="col-sm-4" ng-hide="teams.length == 0">
             <h2>Teams</h2>
-            <table class="table">
-                <tbody>
-                    <tr ng-repeat="team in teams">
-                        <td ng-class="team.danger ? 'text-danger' : ''">{{ team.name }}</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div scrolltable>
+                <table class="table">
+                    <tbody>
+                        <tr ng-repeat="team in teams">
+                            <td ng-class="team.danger ? 'text-danger' : ''">{{ team.name }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

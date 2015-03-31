@@ -49,13 +49,25 @@
                         match.score = { team1: 0, team2: 2};
                     }
                     $scope.playedMatches.push(match);
+                    var all_done = false;
                     if ($scope.matches.length == 0) {
                         $scope.tables[tableIndex] = {};
+                        all_done = true;
+                        for (var i = 0; i < $scope.tables.length; i++) {
+                            if ($scope.tables[i].team1 != null) {
+                                all_done = false;
+                                break;
+                            }
+                        }
                     }
                     else {
                         $scope.tables[tableIndex] = $scope.matches.pop();
                     }
                     $scope.ranking = $filter('orderBy')($scope.ranking, '-points');
+                    if (all_done) {
+                        alert('Runde beendet');
+                        $scope.startRound();
+                    }
                 });
             }
         };

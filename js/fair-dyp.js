@@ -1,7 +1,7 @@
 (function() {
     var app = angular.module('kteaminput', []);
 
-    app.controller('TeamInputController', function($scope, $location, dialogs, DataService) {
+    app.controller('TeamInputController', function($scope, $location, $window, dialogs, DataService) {
         var _self = this;
 
         const GOALIE = 1;
@@ -33,7 +33,7 @@
             type: PRO,
             position: BOTH
         };
-        
+
         $scope.teams = DataService.teams;
         $scope.player = DataService.player;
 
@@ -53,7 +53,7 @@
 
         // create randmon players
         (function() {
-            for (var i = 0; i < 12; i++) {
+            for (var i = 0; i < 24; i++) {
                 var type = Math.floor(Math.random() * 2);
                 var position = Math.floor(Math.random() * 3);
                 $scope.player.push({
@@ -149,11 +149,12 @@
             if (players.length > 0) {
                 players = compairePlayers(players, badMatch, true);
             }
+            console.log(JSON.stringify($scope.teams));
         };
 
 
         $scope.getPosition = function(value) {
-            switch(value) {
+            switch (value) {
                 case BOTH:
                     return $scope.POSITIONS[0].name;
                 case GOALIE:
@@ -162,7 +163,7 @@
                     return $scope.POSITIONS[2].name;
             }
         };
-        
+
         $scope.getType = function(value) {
             switch (value) {
                 case PRO:
@@ -171,18 +172,19 @@
                     return $scope.TYPES[1].name;
             }
         };
-    
+
         $scope.removePlayer = function(index) {
             var dlg = dialogs.confirm(
-                'Spieler löschen', 
-                'Spieler "' + $scope.player[index].name + '" entfernen?', 
-                {size: 'sm'});
-            dlg.result.then(function(btn){
+                'Spieler löschen',
+                'Spieler "' + $scope.player[index].name + '" entfernen?', {
+                    size: 'sm'
+                });
+            dlg.result.then(function(btn) {
                 $scope.player.splice(index, 1);
             });
-            
+
         };
-        
+
         $scope.startTourment = function() {
             $location.path('turnier');
         };
