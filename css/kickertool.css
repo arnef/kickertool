@@ -1,11 +1,19 @@
 body {
-    padding-top: 60px;
-    padding-bottom: 0px;
-}
-.table-hover tbody {
-    cursor: pointer;
+	padding-top: 60px;
 }
 
+.hover:hover {
+    background-color:#f5f5f5;
+    cursor: pointer;
+}
+.table-border {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+.table {
+    margin-bottom: 0;
+}
 .navbar-fixed-bottom {
     padding-bottom: 10px;
     background-color: #fcfcfc !important;

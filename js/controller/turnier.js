@@ -3,14 +3,23 @@
     
     app.controller('TurnierController', function($scope, $filter, $location, dialogs, Tourment) {
         var _self = this;
-                    
+        var _currentTab = 0;
         _self.selectedMatch = null;
         
         $scope.getRanking = function() {
             return Tourment.getRanking();
         };
         
+        $scope.isTab = function(tab) {
+            return _currentTab == tab;
+        }
         
+        $scope.setTab = function(tab) {
+            _currentTab = tab;
+            if (tab == 1) {
+                $scope.startKORound();
+            }
+        }
         
         $scope.getCurrentMatches = function() {
             return Tourment.getCurrentMatches();

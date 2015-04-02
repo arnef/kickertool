@@ -9,6 +9,7 @@
         const BOTH = 4;
         const PRO = 8;
         const AMATEUR = 16;
+    
 
         $scope.TYPES = [{
             name: 'Gesetzt',
@@ -63,7 +64,7 @@
 
         // create randmon players
         (function() {
-            for (var i = 0; i < 16; i++) {
+            for (var i = 0; i < 8; i++) {
                 var type = Math.floor(Math.random() * 2);
                 var position = Math.floor(Math.random() * 3);
                 _player.push({

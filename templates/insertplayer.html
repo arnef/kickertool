@@ -31,10 +31,9 @@
 
             </form>
         </div>
-        <div class="col-sm-4" ng-show="showPlayerList()">
+        <div class="col-sm-4" ng-show="showPlayerList()" colscroll>
             <h2>Angemeldete Spieler
                 <a href class="btn btn-sm btn-success pull-right" ng-click="createTeams()" ng-disabled="disabledDraw()">Lose Teams</a></h2>
-            <div scrolltable>
                 <table class="table table-hover">
                     <tbody>
                         <tr ng-repeat="p in getPlayer()" ng-click="removePlayer($index)">
@@ -44,7 +43,6 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
         </div>
 
         <div class="col-sm-4" ng-show="showTeamsList()">

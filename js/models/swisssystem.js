@@ -19,6 +19,11 @@ function SwissSystem() {
     *
     */
     _self.newRound = function() {
+        
+        if (_self.round == _teams.length-1) {
+            alert('K.O. Runde starten!');
+            return;
+        }
         _self.round += 1;
         var teams = [].concat(_teams);
         var useNext = 0;
@@ -34,9 +39,9 @@ function SwissSystem() {
             }
             else {
                 _self.nextMatches.push(match);
-                useNext = 0;
                 teams.splice(0, 1);
                 teams.splice(useNext, 1);
+                useNext = 0;
             }
         }
     }
@@ -52,6 +57,7 @@ function SwissSystem() {
                 || (playedMatch.team1.name == match.team2.name
                     && playedMatch.team2.name == match.team1.name)) {
                         played = true;
+                        console.log('Played');
                         break;
                     }
         }

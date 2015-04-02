@@ -2,15 +2,15 @@
 
     <div class="row">
         <div class="col-md-4">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Tabelle</h3>
-                    <a href ng-click="startKORound()">Ko Runde</a>
-                </div>
-                <div scrolltable>
+            <div>
+                <ul class="nav nav-tabs">
+                    <li class="active"><a>Tabelle</a></li>
+                </ul>
+            </div>
+            <div class="tab-content table-border" scrolltable>
                     <table class="table">
                         <thead>
-                            <tr class="active">
+                            <tr>
                                 <th width="5%" class="text-center">Nr.</th>
                                 <th width="90%" class="text-center">Team</th>
                                 <th width="5%" class="text-center">Punkte</th>
@@ -28,17 +28,20 @@
                     </table>
                 </div>
             </div>
-        </div>
-
-<div scrolltable>
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Laufende Partien</h3>
-                </div>
-                <table class="table table-hover">
+        
+        <div class="col-md-8">
+            <div>
+                <ul class="nav nav-tabs">
+                    <li ng-class="isTab(0) ? 'active' : ''" ng-click="setTab(0)"><a href>Vorrunde</a></li>
+                    <li ng-class="isTab(1) ? 'active' : ''" ng-click="setTab(1)"><a href>K.O. Runde</a></li>
+                    <li ng-class="isTab(2) ? 'active' : ''" ng-click="setTab(2)"><a href>Gespielte Begegnungen</a></li>
+                </ul>
+            </div>
+            <div class="tab-content">
+                <div class="tab-pane active" ng-show="isTab(0) || isTab(1)">
+                <table class="table table-border">
                     <thead>
-                        <tr class="active">
+                        <tr>
                             <th width="5%" class="text-center">Tisch</th>
                             <th width="10%" class="text-center">Runde</th>
                             <th width="40%" class="text-center">Team 1</th>
@@ -47,7 +50,7 @@
                         </tr>
                     </thead>
                     <tbody class="text-center">
-                        <tr ng-repeat="table in getCurrentMatches() track by $index" ng-click="insertScore($index)">
+                        <tr ng-repeat="table in getCurrentMatches() track by $index" ng-click="insertScore($index)" class="hover">
                             <td class="active">{{ $index+1 }}</td>
                             <td>{{ table.round }}</td>
                             <td>{{ table.team1.name }}</td>
@@ -57,27 +60,6 @@
                             </td>
                             <td>{{ table.team2.name }}</td>
                         </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Nächste Partien</h3>
-                </div>
-                <table class="table">
-                    <thead>
-                        <tr class="active">
-                            <th width="5%" class="text-center">Tisch</th>
-                            <th width="10%" class="text-center">Runde</th>
-                            <th width="40%" class="text-center">Team 1</th>
-                            <th width="5%" class="text-center"></th>
-                            <th width="40%" class="text-center">Team 2</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-center">
                         <tr ng-repeat="match in getNextMatches()">
                             <td class="active"></td>
                             <td>{{ match.round }}</td>
@@ -88,16 +70,12 @@
                     </tbody>
                 </table>
             </div>
-        </div>
+        
 
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Gespielte Partien</h3>
-                </div>
-                <table class="table">
+        <div class="tab-pane active" ng-show="isTab(2)">
+                <table class="table table-border">
                     <thead>
-                        <tr class="active">
+                        <tr>
                             <th width="5%" class="text-center">Tisch</th>
                             <th width="10%" class="text-center">Runde</th>
                             <th width="40%" class="text-center">Team 1</th>
@@ -116,8 +94,8 @@
                     </tbody>
                 </table>
             </div>
+
         </div>
     </div>
-</div>
 
 </div>
