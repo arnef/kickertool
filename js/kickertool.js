@@ -13,8 +13,8 @@
                 controller: 'StartController'
             })
             .when('/player', {
-                templateUrl: 'templates/fair-dyp.html',
-                controller: 'TeamInputController'
+                templateUrl: 'templates/insertplayer.html',
+                controller: 'InsertPlayerController'
             })
             .when('/teams', {
                 templateUrl: 'templates/teams.html',
@@ -45,7 +45,7 @@
         return function(scope, element, attrs) {
             resize(element);
             angular.element($window).bind('resize', function(e) {
-                resize(element);
+                // resize(element);
              });
         }
     });

@@ -5,6 +5,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Tabelle</h3>
+                    <a href ng-click="startKORound()">Ko Runde</a>
                 </div>
                 <div scrolltable>
                     <table class="table">
@@ -16,7 +17,7 @@
                             </tr>
                         </thead>
                         <tbody class="text-center">
-                            <tr ng-repeat="team in ranking">
+                            <tr ng-repeat="team in getRanking()">
                                 <td class="active">{{ $index+1 }}</td>
 
                                 <td>{{ team.name }}</td>
@@ -46,13 +47,13 @@
                         </tr>
                     </thead>
                     <tbody class="text-center">
-                        <tr ng-repeat="table in tables" ng-click="insertScore($index)">
+                        <tr ng-repeat="table in getCurrentMatches() track by $index" ng-click="insertScore($index)">
                             <td class="active">{{ $index+1 }}</td>
                             <td>{{ table.round }}</td>
                             <td>{{ table.team1.name }}</td>
                             <td>
-                                <span ng-show="table.team1.name != null">vs.</span>
-                                <span ng-show="table.team1.name == null">Frei</span>
+                                <span ng-show="table.team1 != null">vs.</span>
+                                <span ng-show="table.team1 == null">Frei</span>
                             </td>
                             <td>{{ table.team2.name }}</td>
                         </tr>
@@ -77,12 +78,12 @@
                         </tr>
                     </thead>
                     <tbody class="text-center">
-                        <tr ng-repeat="match in matches">
+                        <tr ng-repeat="match in getNextMatches()">
                             <td class="active"></td>
                             <td>{{ match.round }}</td>
                             <td>{{ match.team1.name }}</td>
                             <td>vs. </td>
-                            <td>{{ match.team1.name }}</td>
+                            <td>{{ match.team2.name }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -105,7 +106,7 @@
                         </tr>
                     </thead>
                     <tbody class="text-center">
-                        <tr ng-repeat="match in playedMatches">
+                        <tr ng-repeat="match in getPlayedMatches()">
                             <td class="active"></td>
                             <td>{{ match.round }}</td>
                             <td>{{ match.team1.name }}</td>

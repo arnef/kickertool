@@ -44,7 +44,7 @@
                 </tr>
             </thead>
             <tbody class="text-center">
-                <tr ng-repeat="match in koCtrl.matches">
+                <tr ng-repeat="match in getNextMaches()">
                     <td class="active"></td>
                     <td>{{ match.round }}</td>
                     <td>{{ match.team1.name }}</td>

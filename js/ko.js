@@ -1,15 +1,19 @@
 (function() {
     var app = angular.module('kko', []);
 
-    app.controller('KORundeController', function(DataService) {
+    app.controller('KORundeController', function($scope, Tourment) {
         var _self = this;
-        _self.ranking = DataService.teams;
+        // _self.ranking = DataService.teams;
 
         _self.matches = [];
         _self.playedMatches = [];
         _self.tables = [{}, {}];
 
         _self.winner = [];
+        Tourment.startKORound();
+        $scope.getNextMatches  = function() {
+            return Tourment.getMatches();
+        }
 
         var buildMatches = function(type, teams) {
             _self.winner = [];
@@ -71,39 +75,39 @@
                 console.log('64telfinale');
             }
         };
-        calculateMatches(_self.ranking);
+    //    calculateMatches(_self.ranking);
 
         _self.insertScore = function(index, team) {
-            if (_self.tables[index].score != null) {
-                var match = _self.tables[index];
-                if (team.player1.name == match.team1.player1.name) {
-                    match.score.team1 = 7;
-                    match.score.team2 = 0;
-                } else {
-                    match.score.team1 = 0;
-                    match.score.team2 = 7;
-                }
-                _self.playedMatches.push(match);
-                _self.winner.push(team);
-
-                var roundDone = false;
-                if (_self.matches.length == 0) {
-                    _self.tables[index] = {};
-                    roundDone = true;
-                    for (var i = 0; i < _self.tables.length; i++) {
-                        if (_self.tables[i].team1 != null) {
-                            roundDone = false;
-                            break;
-                        }
-                    }
-                } else {
-                    _self.tables[index] = _self.matches.pop();
-                }
-                if (roundDone) {
-                    calculateMatches(_self.winner);
-
-                }
-            }
+            // if (_self.tables[index].score != null) {
+            //     var match = _self.tables[index];
+            //     if (team.player1.name == match.team1.player1.name) {
+            //         match.score.team1 = 7;
+            //         match.score.team2 = 0;
+            //     } else {
+            //         match.score.team1 = 0;
+            //         match.score.team2 = 7;
+            //     }
+            //     _self.playedMatches.push(match);
+            //     _self.winner.push(team);
+            // 
+            //     var roundDone = false;
+            //     if (_self.matches.length == 0) {
+            //         _self.tables[index] = {};
+            //         roundDone = true;
+            //         for (var i = 0; i < _self.tables.length; i++) {
+            //             if (_self.tables[i].team1 != null) {
+            //                 roundDone = false;
+            //                 break;
+            //             }
+            //         }
+            //     } else {
+            //         _self.tables[index] = _self.matches.pop();
+            //     }
+            //     if (roundDone) {
+            //         calculateMatches(_self.winner);
+            // 
+            //     }
+            // }
         };
     });
 })();

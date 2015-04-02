@@ -4,23 +4,31 @@
 <head>
     <meta charset="utf-8">
     <title>Kickertool</title>
-    
+
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/kickertool.css">
 
-    <script src="js/angular.min.js"></script>
-    <script src="js/angular-route.min.js"></script>
-    <script src="js/angular-sanitize.min.js"></script>
-    <script src="js/ui-bootstrap.min.js"></script>
+    <script src="js/libs/angular.min.js"></script>
+    <script src="js/libs/angular-route.min.js"></script>
+    <script src="js/libs/angular-sanitize.min.js"></script>
+    <script src="js/libs/ui-bootstrap.min.js"></script>
+
+    <script src="js/models/drawteams.js"></script>
+    <script src="js/models/swisssystem.js"></script>
+    <script src="js/models/koround.js"></script>
+    <script src="js/models/fairforalldyp.js"></script>
+    
+
     <script src="js/dialogs.min.js"></script>
     <script src="js/kickertool.js"></script>
     <script src="js/dataservice.js"></script>
-    <script src="js/fair-dyp.js"></script>
+    <script src="js/controller/insertplayer.js"></script>
+
     <script src="js/teamctrl.js"></script>
-    <script src="js/turnier.js"></script>
+    <script src="js/controller/turnier.js"></script>
     <script src="js/ko.js"></script>
     <script src="js/start.js"></script>
-    
+
 </head>
 
 <body>
@@ -28,16 +36,29 @@
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#/">Kickerturnier Software</a>
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav navbar-left">
                     <li><a href="#player">Spieler</a></li>
                     <li><a href="#teams">Teams</a></li>
                     <li><a href="#turnier">Turnier</a></li>
-                    <li><a href="#ko">KO</a></li>
+                    <li><a href="#ko">Starte K.O. Runde</a></li>
                 </ul>
+            </div>
+            <div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Einstellungen <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
             </div>
         </div>
     </div>
-    
-    <div ng-view></div>    
+
+    <div ng-view></div>
 </body>
+
 </html>
