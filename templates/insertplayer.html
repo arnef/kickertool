@@ -2,68 +2,88 @@
     <div class="row">
         <div class="col-sm-4">
             <form ng-submit="addPlayer()">
-                <h2>Spieler eintragen
-                    <button type="submit" class="btn btn-success btn-sm pull-right" ng-disabled="newPlayer.name == null">
+                <div>
+                    <button type="submit" class="btn btn-success btn-sm pull-right btn-nav" ng-disabled="newPlayer.name == null">
                         Hinzufügen
                     </button>
-                </h2>
-
-                <div class="form-group" class="horizontal-form">
-                    <label class="sr-only">Name</label>
-                    <input type="text" class="form-control input-sm" ng-model="newPlayer.name" required placeholder="Name">
-
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a>Spieler hinzufügen</a></li>
+                    </ul>
+                    
                 </div>
-                <div class="form-group">
-                    <label class="sr-only">Position</label>
-                    <div class="btn-group btn-group-justified">
-                        <label class="btn btn-primary btn-sm" ng-model="newPlayer.position" ng-repeat="position in POSITIONS" btn-radio="{{ position.value }}">{{ position.name }}</label>
+
+
+                <div class="tab-content table-border text-right" style="padding:10px">
+
+                    <div class="form-group">
+                        <label class="sr-only">Name</label>
+                        <input type="text" class="form-control input-sm" ng-model="newPlayer.name" required placeholder="Name">
 
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="sr-only">Stärke</label>
-                    <div class="btn-group btn-group-justified">
-                        <label class="btn btn-primary btn-sm" ng-model="newPlayer.type" ng-repeat="type in TYPES" btn-radio="{{ type.value }}">{{ type.name }}</label>
+                    <div class="form-group">
+                        <label class="sr-only">Position</label>
+                        <div class="btn-group btn-group-justified">
+                            <label class="btn btn-default btn-sm" ng-model="newPlayer.position" ng-repeat="position in POSITIONS" btn-radio="{{ position.value }}">{{ position.name }}</label>
+
+                        </div>
                     </div>
+                    <div class="form-group">
+                        <label class="sr-only">Stärke</label>
+                        <div class="btn-group btn-group-justified">
+                            <label class="btn btn-default btn-sm" ng-model="newPlayer.type" ng-repeat="type in TYPES" btn-radio="{{ type.value }}">{{ type.name }}</label>
+                        </div>
+                    </div>
+
+                    
+
                 </div>
-
-
-
             </form>
         </div>
         <div class="col-sm-4" ng-show="showPlayerList()" colscroll>
-            <h2>Angemeldete Spieler
-                <a href class="btn btn-sm btn-success pull-right" ng-click="createTeams()" ng-disabled="disabledDraw()">Lose Teams</a></h2>
-                <table class="table table-hover">
-                    <tbody>
-                        <tr ng-repeat="p in getPlayer()" ng-click="removePlayer($index)">
-                            <td>{{ p.name }}</td>
-                            <td>{{ getPosition(p.position) }}</td>
-                            <td>{{ getType(p.type) }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div>
+                <a href class="btn btn-success btn-sm btn-nav pull-right" ng-click="createTeams()" ng-disabled="disabledDraw()">Lose Teams</a>
+                <ul class="nav nav-tabs">
+                    <li class="active"><a>Angemeldete Spieler</a></li>
+                </ul>
+                
+            </div>
+            <div class="tab-content table-border">
+                
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="p in getPlayer()" ng-click="removePlayer($index)" class="hover">
+                        <td>{{ p.name }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         </div>
 
         <div class="col-sm-4" ng-show="showTeamsList()">
-            <h2>Teams</h2>
-            <div scrolltable>
+            <div>
+                <a href class="btn btn-success btn-sm btn-nav" ng-click="startTourment()">Vorrunde starten</a>
+                <ul class="nav nav-tabs">
+                    <li class="active"><a>Teams</a></li>
+                </ul>
+            </div>
+            <div scrolltable class="tab-content table-border">
                 <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Spieler 1 / Spieler 2</th>
+                        </tr>
+                    </thead>
                     <tbody>
-                        <tr ng-repeat="team in getTeams()">
+                        <tr ng-repeat="team in getTeams()" ng-hide="team.ghost">
                             <td ng-class="team.danger ? 'text-danger' : ''">{{ team.name }}</td>
                         </tr>
                     </tbody>
                 </table>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="navbar navbar-fixed-bottom" ng-show="showTeamsList()">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12">
-                <a href class="btn btn-success btn-block btn-lg" ng-click="startTourment()">Vorrunde starten</a>
             </div>
         </div>
     </div>

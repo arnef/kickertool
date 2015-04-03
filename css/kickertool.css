@@ -18,3 +18,7 @@ body {
     padding-bottom: 10px;
     background-color: #fcfcfc !important;
 }
+.btn-nav {
+	margin-top: 7px;
+	float:right;
+}

@@ -21,9 +21,10 @@ function FairForAllDyp() {
     *
     */
     this.setModus = function(newModus) {
-        console.log('neuer Modus');
+        var playedMatches = _qualifyingRoundModus.playedMatches;
         _qualifyingRoundModus = newModus;
         if (_ranking != null) {
+            _qualifyingRoundModus.playedMatches = playedMatches;
             _qualifyingRoundModus.setTeams(_ranking);
             _qualifyingRoundModus.newRound();
         }
@@ -89,8 +90,7 @@ function FairForAllDyp() {
     _self.nextRound = function() {
         _qualifyingRoundModus.newRound();
         for (var i = 0; i < _tables.length; i++) {
-            _tables[i] = _qualifyingRoundModus.nextMatches[0];
-            _qualifyingRoundModus.nextMatches.splice(0,1);
+            _self.setMatchOnTable(i);
         }
     };
     
@@ -100,7 +100,7 @@ function FairForAllDyp() {
     * @param score: use 0 for home team wins, 1 for duice and 2 for away team
     *           wins
     */
-    this.setWinnerOnTable = function(tableIdx, score) {
+    _self.setWinnerOnTable = function(tableIdx, score) {
         var match = _tables[tableIdx];
         if (score == 0) {
             match.score.team1 = 2;
@@ -130,8 +130,12 @@ function FairForAllDyp() {
     */
     _self.setMatchOnTable = function(tableIdx) {
         if (!_self.roundIsDone()) {
-            _tables[tableIdx] = _qualifyingRoundModus.nextMatches[0];
+            var nextMatch = _qualifyingRoundModus.nextMatches[0];
+            _tables[tableIdx] = nextMatch;
             _qualifyingRoundModus.nextMatches.splice(0,1);
+            if (nextMatch != null && nextMatch.team2.ghost) {
+                _self.setWinnerOnTable(tableIdx, 0);
+            }            
         }
         else {
             _self.nextRound();

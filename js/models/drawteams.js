@@ -42,7 +42,8 @@ function TeamDrawer() {
                     _teams.push({
                         name: teamplayer1.name + ' / ' + teamplayer2.name,
                         points: 0,
-                        danger: danger
+                        danger: danger,
+                        ghost: false
                     });
                     players.splice(i, 1);
                     match = true;

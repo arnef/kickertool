@@ -5,6 +5,7 @@
         var _self = this;
         var _currentTab = 0;
         _self.selectedMatch = null;
+        var _koRoundActive = false;
         
         $scope.getRanking = function() {
             return Tourment.getRanking();
@@ -15,9 +16,11 @@
         }
         
         $scope.setTab = function(tab) {
-            _currentTab = tab;
             if (tab == 1) {
                 $scope.startKORound();
+            }
+            else {
+                _currentTab = tab;
             }
         }
         
@@ -46,7 +49,21 @@
         
         
         $scope.startKORound = function() {
-            Tourment.setModus(new KORound());
+            if (_koRoundActive) {
+                _currentTab = 1;
+                return;
+            }
+            var dlg = dialogs.confirm(
+                'K.O. Runde starten',
+                'Soll die K.O. Runde gestartet werden?<br>Danach kann nicht mehr zur Vorrunde zurück gewechselt werden!'
+            );
+            dlg.result.then(function(btn) {
+                _currentTab = 1;
+                _koRoundActive = true;
+                Tourment.setModus(new KORound());
+                Tourment.nextRound();
+            });
+            
         };
     });
     
