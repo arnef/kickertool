@@ -8,7 +8,6 @@ function FairForAllDyp() {
     var _teamdrawer = new TeamDrawer();
     var _qualifyingRoundModus = new SwissSystem();
     
-    
     /**
     *
     */
@@ -102,24 +101,7 @@ function FairForAllDyp() {
     */
     _self.setWinnerOnTable = function(tableIdx, score) {
         var match = _tables[tableIdx];
-        if (score == 0) {
-            match.score.team1 = 2;
-            match.team1.points += 2;
-        }
-        if (score == 1) {
-            match.score.team1 = 1;
-            match.score.team2 = 1;
-            match.team1.points += 1;
-            match.team2.points += 1;
-        }
-        if (score == 2) {
-            match.score.team2 = 2;
-            match.team2.points += 2;
-        }
-        _ranking.sort(function (a, b) {
-            return b.points - a.points;
-        });
-        _qualifyingRoundModus.playedMatches.push(match);
+        _qualifyingRoundModus.setWinner(match, score);
         _tables[tableIdx] = null;
         _self.setMatchOnTable(tableIdx);
     };

@@ -8,7 +8,7 @@ function KORound() {
     
     _self.setTeams = function (newRanking) {
         _ranking = newRanking;
-        _winner = newRanking;
+        _winner = [].concat(newRanking);
     };
     
     
@@ -40,10 +40,23 @@ function KORound() {
     };
     
     
+    _self.setWinner = function(match, score) {
+        if (score == 0) {
+            match.score = { team1: 2, team2: 0};
+            _winner.push(match.team1);
+        }
+        if (score == 2) {
+            match.score = { team1: 0, team2: 2};
+            _winner.push(match.team2);
+        };
+        _self.playedMatches.push(match);
+    }
+    
     var getRound = function() {
         var teams = _winner.length;
         if (teams == 1) {
-            alert("Finale");
+            console.log('finale');
+            return;
         }
         else if (teams <= 2) {
             buildMatches(2, _winner);
