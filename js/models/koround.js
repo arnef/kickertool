@@ -50,10 +50,11 @@ function KORound() {
             _winner.push(match.team2);
         };
         _self.playedMatches.push(match);
-    }
+    };
     
     var getRound = function() {
         var teams = _winner.length;
+        console.log('Teams: ' + teams);
         if (teams == 1) {
             console.log('finale');
             return;

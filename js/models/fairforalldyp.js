@@ -25,7 +25,6 @@ function FairForAllDyp() {
         if (_ranking != null) {
             _qualifyingRoundModus.playedMatches = playedMatches;
             _qualifyingRoundModus.setTeams(_ranking);
-            _qualifyingRoundModus.newRound();
         }
         for (var i = 0; i < _tables.length; i++) {
             _tables[i] = null;
