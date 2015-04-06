@@ -40,12 +40,15 @@
         $scope.insertScore = function(tableIdx) {
             if (Tourment.getCurrentMatches()[tableIdx] != null) {
                 var match = Tourment.getCurrentMatches()[tableIdx];
-                var dlg = dialogs.create('templates/result_dialog.html', 'InsertResultDialogController', match, {size: 'sm'});
+                var dlg = dialogs.create('templates/result_dialog.html', 'InsertResultDialogController', {match: match, koRound: _koRoundActive}, {size: 'sm'});
                 dlg.result.then(function(score) {
                     Tourment.setWinnerOnTable(tableIdx, score);
                 });
             }
         };
+        
+        
+        
         
         
         $scope.startKORound = function() {
@@ -69,7 +72,8 @@
     
     app.controller('InsertResultDialogController', function($scope, $modalInstance, data) {
         
-        $scope.match = data;
+        $scope.match = data.match;
+        var _koRoundActive = data.koRound;
         
         $scope.saveResult = function(index) {
             $modalInstance.close(index);
@@ -78,6 +82,10 @@
         $scope.cancel = function(){
 			$modalInstance.dismiss('Canceled');
 		};
+        
+        $scope.isKORound = function() {
+            return _koRoundActive;
+        };
         
     });
 })();
