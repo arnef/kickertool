@@ -1,5 +1,10 @@
 {
     "name": "Kickerturnier Software",
-    "main": "main.js",
-    "version": "0.1.0"
+    "main": "index.html",
+    "version": "0.1.0",
+    "window": {
+        "toolbar": false,
+        "width": 1100,
+        "height": 600
+    }
 }

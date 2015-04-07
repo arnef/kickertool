@@ -4,7 +4,7 @@
 <div class="modal-body">
     <div class="btn-group-vertical btn-block">
         <label class="btn btn-primary" ng-click="saveResult(0)">{{ match.team1.name }}</label>
-        <label class="btn btn-primary" ng-click="saveResult(1)" ng-disabled="isKORound()">unentschieden</label>
+        <label class="btn btn-primary" ng-click="saveResult(1)" ng-hide="isKORound()">unentschieden</label>
         <label class="btn btn-primary" ng-click="saveResult(2)">{{ match.team2.name }}</label>
     </div>
 </div>

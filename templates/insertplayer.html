@@ -3,11 +3,14 @@
         <div class="col-sm-4">
             <form ng-submit="addPlayer()">
                 <div>
-                    <button type="submit" class="btn btn-success btn-sm pull-right btn-nav" ng-disabled="newPlayer.name == null">
-                        Hinzufügen
-                    </button>
+                    
                     <ul class="nav nav-tabs">
                         <li class="active"><a>Spieler hinzufügen</a></li>
+                        <li class="pull-right">
+                            <button type="submit" class="btn btn-success btn-sm btn-nav" ng-disabled="newPlayer.name == null">
+                                Hinzufügen
+                            </button>
+                        </li>
                     </ul>
                     
                 </div>
@@ -41,13 +44,16 @@
         </div>
         <div class="col-sm-4" ng-show="showPlayerList()" colscroll>
             <div>
-                <a href class="btn btn-success btn-sm btn-nav pull-right" ng-click="createTeams()" ng-disabled="disabledDraw()">Lose Teams</a>
+                
                 <ul class="nav nav-tabs">
                     <li class="active"><a>Angemeldete Spieler</a></li>
+                    <li class="pull-right">
+                        <button class="btn btn-success btn-sm btn-nav" ng-click="createTeams()" ng-disabled="disabledDraw()">Lose Teams</button>
+                    </li>
                 </ul>
                 
             </div>
-            <div class="tab-content table-border">
+            <div class="tab-content table-border" scrolltable>
                 
             <table class="table">
                 <thead>
@@ -66,9 +72,12 @@
 
         <div class="col-sm-4" ng-show="showTeamsList()">
             <div>
-                <a href class="btn btn-success btn-sm btn-nav" ng-click="startTourment()">Vorrunde starten</a>
+                
                 <ul class="nav nav-tabs">
                     <li class="active"><a>Teams</a></li>
+                    <li class="pull-right">
+                        <button class="btn btn-success btn-sm btn-nav" ng-click="startTourment()">Vorrunde starten</button>
+                    </li>
                 </ul>
             </div>
             <div scrolltable class="tab-content table-border">

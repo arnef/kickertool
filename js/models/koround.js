@@ -47,6 +47,11 @@ function KORound() {
         }
 
     };
+    
+    
+    _self.hasNextRound = function() {
+        return _self.winner.length > 1;
+    };
 
 
     _self.setWinner = function(match, score) {
@@ -55,6 +60,7 @@ function KORound() {
                 team1: 2,
                 team2: 0
             };
+            match.team2.out = true;
             _self.winner.push(match.team1);
         }
         if (score == 2) {
@@ -62,8 +68,14 @@ function KORound() {
                 team1: 0,
                 team2: 2
             };
+            match.team1.out = true;
             _self.winner.push(match.team2);
         };
+        _ranking.sort(function(a, b) {
+            var t1 = a.out ? 1 : 0;
+            var t2 = b.out ? 2 : 0;
+            return t1 - t2;
+        });
         _self.playedMatches.push(match);
     };
 

@@ -118,7 +118,7 @@ function FairForAllDyp() {
                 _self.setWinnerOnTable(tableIdx, 0);
             }            
         }
-        else {
+        else if (_qualifyingRoundModus.hasNextRound()) {
             _self.nextRound();
         }
     };

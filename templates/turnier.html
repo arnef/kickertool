@@ -17,7 +17,7 @@
                             </tr>
                         </thead>
                         <tbody class="text-center">
-                            <tr ng-repeat="team in getRanking()" ng-hide="team.ghost">
+                            <tr ng-repeat="team in getRanking()" ng-hide="team.ghost" ng-class="team.out ? 'text-muted': ''">
                                 <td class="active">{{ $index+1 }}</td>
 
                                 <td>{{ team.name }}</td>
@@ -32,14 +32,14 @@
         <div class="col-md-8">
             <div>
                 <ul class="nav nav-tabs">
-                    <li ng-class="isTab(0) ? 'active' : ''" ng-click="setTab(0)" ><a href>Vorrunde</a></li>
+                    <li ng-class="isTab(0) ? 'active' : ''" ng-click="setTab(0)"><a href>Vorrunde</a></li>
                     <li ng-class="isTab(1) ? 'active' : ''" ng-click="setTab(1)"><a href>K.O. Runde</a></li>
                     <li ng-class="isTab(2) ? 'active' : ''" ng-click="setTab(2)"><a href>Gespielte Begegnungen</a></li>
                 </ul>
             </div>
-            <div class="tab-content">
+            <div class="tab-content table-border" scrolltable>
                 <div class="tab-pane active" ng-show="isTab(0) || isTab(1)">
-                <table class="table table-border">
+                <table class="table">
                     <thead>
                         <tr>
                             <th width="5%" class="text-center">Tisch</th>
@@ -73,7 +73,7 @@
         
 
         <div class="tab-pane active" ng-show="isTab(2)">
-                <table class="table table-border">
+                <table class="table">
                     <thead>
                         <tr>
                             <th width="5%" class="text-center">Tisch</th>

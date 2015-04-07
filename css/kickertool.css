@@ -7,6 +7,7 @@ body {
     cursor: pointer;
 }
 .table-border {
+	border-top: 0px solid #ddd;
     border-left: 1px solid #ddd;
     border-right: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
@@ -21,4 +22,7 @@ body {
 .btn-nav {
 	margin-top: 7px;
 	float:right;
+}
+.padding {
+	padding: 10px;
 }

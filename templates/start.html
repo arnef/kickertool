@@ -1,35 +1,43 @@
-<form ng-submit="startTourment()">
 <div class="container-fluid">
-    
-        <div class="row">
 
-            <div class="col-md-3 col-md-offset-3">
-                <h2>Modus</h2>
-                <div class="btn-group-vertical btn-block">
-                    <label class="btn btn-primary btn-lg" ng-model="modus" btn-radio="1">Fair for All DYP</label>
-                    <label class="btn btn-primary btn-lg" ng-model="modus" btn-radio="2">Monster DYP</label>
-                    <label class="btn btn-primary btn-lg" ng-model="modus" btn-radio="3">Festes Doppel</label>
+    <div class="row">
+        <form ng-submit="startTourment()">
+            <div class="col-md-8 col-md-offset-2">
+                
+                <div>
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a>Fair for All DYP</a></li>
+                        <li><a>Monster DYP</a></li>
+                        <li><a>Festes Doppel</a></li>
+                    
+                    <li  class="pull-right">
+                        <button type="submit" ng-disabled="tables <= 0" class="btn btn-success btn-sm btn-nav" >Turnier starten</button>
+                    </li>
+                </ul>
+                
+                </div>
+                <div class="tab-content table-border" scrolltable>
+                    <div class="tab-pane active">
+                        <div class="padding">
+                            <p>
+                                Spieler werden nach Position und Stärke eingetragen. Zu Begin des Turniers werden ausgeglichene Teams zusammen gelost.
+                            </p>
+                            <p>
+                                Die Vorrunde wird nach Schweizer System gespielt, sie kann jederzeit beendet werden und die K.O. Runde gestartet.
+                            </p>
+                        </div>
+                    </div>
+                    <!-- <div class="tab-pane">
+                        Jede Runder neuer Partner
+                    </div> -->
+                    <div class="tab-pane active">
+                        <div class="padding">
+                            <input class="form-control" type="number" ng-model="tables" autofocus placeholder="Anzahl Tische">
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <div class="col-md-3" ng-show="modus != null">
-                <h2>Anzahl Tische</h2>
-                <div class="horizontal-form">
-                    <input class="form-control input-lg" type="number" ng-model="tables" autofocus>
-
-                </div>
-            </div>
-        </div>
-</div>
-<div class="navbar navbar-fixed-bottom">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3" ng-show="modus != null && tables > 0">
-                <h2>&nbsp;</h2>
-                <button type="submit" class="btn btn-success btn-lg btn-block">Turnier starten</button>
-            </div>
-        </div>
-        
+        </form>
     </div>
+
 </div>
-</form>

@@ -26,7 +26,7 @@
     app.directive('scrolltable', function($window) {
         var resize = function(element) {
             var winHeight = $window.innerHeight;
-            var diff = 120;
+            var diff = 70;
                 element.css("max-height", (winHeight - diff) + "px");
                 element.css("overflow-x", "hidden");
                 element.css("overflow-y", "auto");

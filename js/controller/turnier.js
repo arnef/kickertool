@@ -11,6 +11,7 @@
             return Tourment.getRanking();
         };
         
+        
         $scope.isTab = function(tab) {
             return _currentTab == tab;
         }
@@ -19,7 +20,7 @@
             if (tab == 1) {
                 $scope.startKORound();
             }
-            else {
+            else if (!(_koRoundActive && tab == 0)) {
                 _currentTab = tab;
             }
         }

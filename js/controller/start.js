@@ -3,8 +3,8 @@
     
     app.controller('StartController', function($scope, $location, Tourment) {
         
-        $scope.modus = null;
-        $scope.tables = null;
+        $scope.modus = 1;
+        $scope.tables = 0;
         
         $scope.startTourment = function() {
             if ($scope.tables > 0) {
