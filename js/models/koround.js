@@ -13,6 +13,23 @@ function KORound() {
     };
 
 
+    var getRoundName = function(count) {
+        switch (count) {
+            case 32:
+                return '32. Finale';
+            case 16:
+                return '16. Finale';
+            case 8:
+                return 'Achtelfinale';
+            case 4:
+                return 'Viertelfinale';
+            case 2:
+                return 'Halbfinale';
+            case 1:
+                return 'Finale';
+        }
+    };
+
     var buildMatches = function(type, teams) {
         _self.winner = [];
         for (var i = 0; i < type / 2; i++) {
@@ -27,7 +44,7 @@ function KORound() {
                         team1: 0,
                         team2: 0
                     },
-                    round: (type / 2) + '. Finale'
+                    round: getRoundName(type/2)
                 };
             } else {
                 match = {
@@ -40,7 +57,7 @@ function KORound() {
                         team1: 2,
                         team2: 0
                     },
-                    round: (type / 2) + '. Finale'
+                    round: getRoundName(type/2)
                 };
             }
             _self.nextMatches.push(match);
@@ -81,7 +98,6 @@ function KORound() {
 
     var getRound = function() {
         var teams = _self.winner.length;
-        console.log('Teams: ' + teams);
         if (teams <= 2) {
             buildMatches(2, _self.winner);
         } else if (teams <= 4) {
