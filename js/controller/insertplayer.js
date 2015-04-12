@@ -39,9 +39,9 @@
         $scope.addPlayer = function() {
             if ($scope.newPlayer.name != '') {
                 _player.push($scope.newPlayer);
-                $scope.newPlayer = {
-                    type: PRO,
-                    position: BOTH
+                $scope.newPlayer  = {
+                    type: $scope.newPlayer.type,
+                    position: $scope.newPlayer.position
                 };
             }
         };
