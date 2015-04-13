@@ -73,7 +73,7 @@
                     type: $scope.TYPES[type].value,
                 });
             }
-        })();
+        });
 
 
         /**
