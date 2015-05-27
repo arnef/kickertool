@@ -84,7 +84,7 @@
 
         // create randmon players
         (function() {
-            for (var i = 0; i < 10; i++) {
+            for (var i = 0; i < 26; i++) {
                 var type = Math.floor(Math.random() * 2);
                 var position = Math.floor(Math.random() * 3);
                 _player.push({
@@ -93,7 +93,7 @@
                     type: $scope.TYPES[type].value,
                 });
             }
-        });
+        })();
 
 
         /**
@@ -121,7 +121,6 @@
         }
 
         $scope.startTourment = function() {
-            
             Tourment.nextRound();
             $location.path('turnier');
         };

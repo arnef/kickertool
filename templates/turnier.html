@@ -44,21 +44,25 @@
                         <tr>
                             <th width="5%" class="text-center">Tisch</th>
                             <th width="10%" class="text-center">Runde</th>
-                            <th width="40%" class="text-center">Team 1</th>
+                            <th width="38%" class="text-center">Team 1</th>
                             <th width="5%" class="text-center"></th>
-                            <th width="40%" class="text-center">Team 2</th>
+                            <th width="38%" class="text-center">Team 2</th>
+                            <th width="4%"></th>
                         </tr>
                     </thead>
                     <tbody class="text-center">
-                        <tr ng-repeat="table in getCurrentMatches() track by $index" ng-click="insertScore($index)" class="hover">
+                        <tr ng-repeat="table in getCurrentMatches() track by $index" class="hover">
                             <td class="active">{{ $index+1 }}</td>
-                            <td>{{ table.round }}</td>
-                            <td>{{ table.team1.name }}</td>
-                            <td>
+                            <td ng-click="insertScore($index)">{{ table.round }}</td>
+                            <td ng-click="insertScore($index)">{{ table.team1.name }}</td>
+                            <td ng-click="insertScore($index)">
                                 <span ng-show="table.team1 != null">vs.</span>
                                 <span ng-show="table.team1 == null">Frei</span>
                             </td>
-                            <td>{{ table.team2.name }}</td>
+                            <td ng-click="insertScore($index)">{{ table.team2.name }}</td>
+                            <td ng-click="requeueMatch($index)">
+                                <span class="glyphicon glyphicon-share-alt text-muted"
+                                      ng-show="table.team1 != null"></span></td>
                         </tr>
                         <tr ng-repeat="match in getNextMatches()">
                             <td class="active"></td>
@@ -66,6 +70,7 @@
                             <td>{{ match.team1.name }}</td>
                             <td>vs. </td>
                             <td>{{ match.team2.name }}</td>
+                            <td></td>
                         </tr>
                     </tbody>
                 </table>

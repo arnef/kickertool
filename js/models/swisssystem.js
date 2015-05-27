@@ -15,7 +15,8 @@ function SwissSystem() {
         if (teams.length % 2 == 1) {
             teams.push({
                 name: 'Freilos',
-                ghost: true
+                ghost: true,
+                points: -100
             });
         }
         _teams = teams;

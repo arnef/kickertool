@@ -35,7 +35,11 @@
         
         $scope.getPlayedMatches = function() {
             return Tourment.getPlayedMatches();
-        }
+        };
+        
+        $scope.requeueMatch = function (tableIdx) {
+            Tourment.requeueMatch(tableIdx);
+        };
         
         
         $scope.insertScore = function(tableIdx) {

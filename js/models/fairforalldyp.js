@@ -114,8 +114,8 @@ function FairForAllDyp() {
             var nextMatch = _qualifyingRoundModus.nextMatches[0];
             _tables[tableIdx] = nextMatch;
             _qualifyingRoundModus.nextMatches.splice(0,1);
-            if (nextMatch != null && nextMatch.team2.ghost) {
-                _self.setWinnerOnTable(tableIdx, 0);
+            if (nextMatch != null && (nextMatch.team2.ghost || nextMatch.team1.ghost)) {
+                _self.setWinnerOnTable(tableIdx, (nextMatch.team1.ghost ? 2 : 0));
             }            
         }
         else if (_qualifyingRoundModus.hasNextRound()) {
@@ -123,6 +123,18 @@ function FairForAllDyp() {
         }
     };
     
+    
+    /**
+    *
+    **/
+    _self.requeueMatch  = function (tableIdx) {
+        var match = _tables[tableIdx];
+        if (match != null) {
+            _tables[tableIdx] = null;
+            _qualifyingRoundModus.nextMatches.push(match);
+            _self.setMatchOnTable(tableIdx);
+        }
+    };
     
     
     /**
