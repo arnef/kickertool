@@ -36,15 +36,35 @@
         };
 
         var _player = [];
+        
+        var player_in_list = function (player) {
+            player = player.name.split(' ').join('').toLowerCase();
+            for (var i = 0; i < _player.length; i++) {
+                var current_player = _player[i].name.split(' ').join('').toLowerCase();
+                if (current_player == player) {
+                    return true;
+                }
+            }
+            return false;
+        };
+        
         $scope.addPlayer = function() {
-            if ($scope.newPlayer.name != '') {
+            if ($scope.newPlayer.name != '' && !player_in_list($scope.newPlayer)) {
                 _player.push($scope.newPlayer);
                 $scope.newPlayer  = {
                     type: $scope.newPlayer.type,
                     position: $scope.newPlayer.position
                 };
             }
+            else {
+                var dlg = dialogs.error(
+                    'Spieler schon eingetragen!',
+                    'Der Name ' + $scope.newPlayer.name 
+                    + ' ist schon vergeben.', { size: 'sm'});
+            }
         };
+        
+        
         
         $scope.showPlayerList = function() {
             return _player.length > 0;
