@@ -54,6 +54,7 @@ function FairForAllDyp() {
     *
     */
     this.getRanking = function() {
+        
         return _ranking;
     };
     

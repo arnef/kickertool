@@ -78,6 +78,8 @@ function KORound() {
                 team2: 0
             };
             match.team2.out = true;
+            match.team1.out = false;
+            match.team1.points += 2;
             _self.winner.push(match.team1);
         }
         if (score == 2) {
@@ -86,12 +88,19 @@ function KORound() {
                 team2: 2
             };
             match.team1.out = true;
+            match.team2.out = false;
+            match.team2.points += 2;
             _self.winner.push(match.team2);
         };
         _ranking.sort(function(a, b) {
-            var t1 = a.out ? 1 : 0;
-            var t2 = b.out ? 2 : 0;
-            return t1 - t2;
+            var t1 = a.out ? -1 : a.points;
+            var t2 = b.out ? -1 : b.points;
+            if (a.ghost) t1 = -2;
+            if (b.ghost) t2 = -2;
+            return t2 - t1;
+        });
+        _self.winner.sort(function(a, b) {
+            return b.points - a.points;
         });
         _self.playedMatches.push(match);
     };

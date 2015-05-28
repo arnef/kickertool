@@ -16,7 +16,7 @@ function SwissSystem() {
             teams.push({
                 name: 'Freilos',
                 ghost: true,
-                points: -100
+                points: -2
             });
         }
         _teams = teams;

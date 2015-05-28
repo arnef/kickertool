@@ -20,11 +20,10 @@
                 <div scrolltable>
                 <table class="table">
                         <tbody class="table-body">
-                            <tr ng-repeat="team in getRanking()" ng-hide="team.ghost && false" ng-class="team.out ? 'text-muted': ''">
-                                <td class="active">{{ $index+1 }}</td>
-
-                                <td>{{ team.name }}</td>
-                                <td>{{ team.points }}</td>
+                            <tr ng-repeat="team in getRanking()" ng-hide="team.ghost" ng-class="team.out ? 'text-muted': ''">
+                                <td width="5%" class="active text-center">{{ $index+1 }}</td>
+                                <td width="90%">{{ team.name }}</td>
+                                <td width="5%" class="text-center">{{ team.points }}</td>
 
                             </tr>
                         </tbody>
@@ -59,15 +58,15 @@
                         <table class="table">
                     <tbody class="text-center">
                         <tr ng-repeat="table in getCurrentMatches() track by $index" class="hover">
-                            <td class="active">{{ $index+1 }}</td>
-                            <td ng-click="insertScore($index)">{{ table.round }}</td>
-                            <td ng-click="insertScore($index)">{{ table.team1.name }}</td>
-                            <td ng-click="insertScore($index)">
+                            <td width="5%" class="active">{{ $index+1 }}</td>
+                            <td width="10%" ng-click="insertScore($index)">{{ table.round }}</td>
+                            <td width="38%" ng-click="insertScore($index)">{{ table.team1.name }}</td>
+                            <td width="5%" ng-click="insertScore($index)">
                                 <span ng-show="table.team1 != null">vs.</span>
                                 <span ng-show="table.team1 == null">Frei</span>
                             </td>
-                            <td ng-click="insertScore($index)">{{ table.team2.name }}</td>
-                            <td ng-click="deferMatch($index)">
+                            <td width="38%" ng-click="insertScore($index)">{{ table.team2.name }}</td>
+                            <td width="4%" ng-click="deferMatch($index)">
                                 <span class="glyphicon glyphicon-share-alt text-muted"
                                       ng-show="table.team1 != null"></span></td>
                         </tr>
@@ -101,11 +100,11 @@
             <table class="table">
                     <tbody class="text-center">
                         <tr ng-repeat="match in getPlayedMatches()">
-                            <td class="active"></td>
-                            <td>{{ match.round }}</td>
-                            <td>{{ match.team1.name }}</td>
-                            <td>{{ match.score.team1 + ':' + match.score.team2 }}</td>
-                            <td>{{ match.team2.name }}</td>
+                            <td width="5%" class="active"></td>
+                            <td width="10%">{{ match.round }}</td>
+                            <td width="40%">{{ match.team1.name }}</td>
+                            <td width="5%">{{ match.score.team1 + ':' + match.score.team2 }}</td>
+                            <td width="40%">{{ match.team2.name }}</td>
                         </tr>
                     </tbody>
                 </table>

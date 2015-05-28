@@ -34,7 +34,12 @@
                         <div class="padding">
                             <input class="form-control" type="number" ng-model="tables" autofocus placeholder="Anzahl Tische">
                         </div>
+                        
                     </div>
+                    
+                </div>
+                <div class="alert alert-warning padding" ng-show="tables > 0">
+                            Es sollten nicht mehr als {{ tables * 6 }} Teams teilnehmen!
                 </div>
             </div>
         </form>
