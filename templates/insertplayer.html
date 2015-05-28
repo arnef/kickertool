@@ -53,21 +53,24 @@
                 </ul>
                 
             </div>
-            <div class="tab-content table-border" scrolltable>
-                
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="p in getPlayer()" ng-click="removePlayer($index)" class="hover">
-                        <td>{{ p.name }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+            <div class="tab-content table-border">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                        </tr>
+                    </thead>
+                </table>
+                <div scrolltable>
+                <table class="table">    
+                    <tbody>
+                        <tr ng-repeat="p in getPlayer()" ng-click="removePlayer($index)" class="hover">
+                            <td>{{ p.name }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
         </div>
 
         <div class="col-sm-4" ng-show="showTeamsList()">
@@ -80,19 +83,23 @@
                     </li>
                 </ul>
             </div>
-            <div scrolltable class="tab-content table-border">
+            <div class="tab-content table-border">
                 <table class="table">
                     <thead>
                         <tr>
                             <th>Spieler 1 / Spieler 2</th>
                         </tr>
                     </thead>
+                </table>
+                <div scrolltable>
+                    <table class="table">
                     <tbody>
                         <tr ng-repeat="team in getTeams()" ng-hide="team.ghost">
                             <td ng-class="team.danger ? 'text-danger' : ''">{{ team.name }}</td>
                         </tr>
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
     </div>

@@ -127,7 +127,7 @@ function FairForAllDyp() {
     /**
     *
     **/
-    _self.requeueMatch  = function (tableIdx) {
+    _self.deferMatch  = function (tableIdx) {
         var match = _tables[tableIdx];
         if (match != null) {
             _tables[tableIdx] = null;

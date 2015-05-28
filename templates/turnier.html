@@ -7,17 +7,20 @@
                     <li class="active"><a>Tabelle</a></li>
                 </ul>
             </div>
-            <div class="tab-content table-border" scrolltable>
+            <div class="tab-content table-border">
                     <table class="table">
-                        <thead>
+                        <thead class="table-head">
                             <tr>
                                 <th width="5%" class="text-center">Nr.</th>
-                                <th width="90%" class="text-center">Team</th>
+                                <th width="90%">Team</th>
                                 <th width="5%" class="text-center">Punkte</th>
                             </tr>
                         </thead>
-                        <tbody class="text-center">
-                            <tr ng-repeat="team in getRanking()" ng-hide="team.ghost" ng-class="team.out ? 'text-muted': ''">
+                </table>
+                <div scrolltable>
+                <table class="table">
+                        <tbody class="table-body">
+                            <tr ng-repeat="team in getRanking()" ng-hide="team.ghost && false" ng-class="team.out ? 'text-muted': ''">
                                 <td class="active">{{ $index+1 }}</td>
 
                                 <td>{{ team.name }}</td>
@@ -26,6 +29,7 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
                 </div>
             </div>
         
@@ -37,7 +41,7 @@
                     <li ng-class="isTab(2) ? 'active' : ''" ng-click="setTab(2)"><a href>Gespielte Begegnungen</a></li>
                 </ul>
             </div>
-            <div class="tab-content table-border" scrolltable>
+            <div class="tab-content table-border">
                 <div class="tab-pane active" ng-show="isTab(0) || isTab(1)">
                 <table class="table">
                     <thead>
@@ -50,6 +54,9 @@
                             <th width="4%"></th>
                         </tr>
                     </thead>
+                    </table>
+                    <div scrolltable>
+                        <table class="table">
                     <tbody class="text-center">
                         <tr ng-repeat="table in getCurrentMatches() track by $index" class="hover">
                             <td class="active">{{ $index+1 }}</td>
@@ -60,7 +67,7 @@
                                 <span ng-show="table.team1 == null">Frei</span>
                             </td>
                             <td ng-click="insertScore($index)">{{ table.team2.name }}</td>
-                            <td ng-click="requeueMatch($index)">
+                            <td ng-click="deferMatch($index)">
                                 <span class="glyphicon glyphicon-share-alt text-muted"
                                       ng-show="table.team1 != null"></span></td>
                         </tr>
@@ -74,6 +81,7 @@
                         </tr>
                     </tbody>
                 </table>
+                    </div>
             </div>
         
 
@@ -88,6 +96,9 @@
                             <th width="40%" class="text-center">Team 2</th>
                         </tr>
                     </thead>
+            </table>
+            <div scrolltable>
+            <table class="table">
                     <tbody class="text-center">
                         <tr ng-repeat="match in getPlayedMatches()">
                             <td class="active"></td>
@@ -98,6 +109,7 @@
                         </tr>
                     </tbody>
                 </table>
+                </div>
             </div>
 
         </div>

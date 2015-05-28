@@ -37,8 +37,14 @@
             return Tourment.getPlayedMatches();
         };
         
-        $scope.requeueMatch = function (tableIdx) {
-            Tourment.requeueMatch(tableIdx);
+        $scope.deferMatch = function (tableIdx) {
+            var dlg = dialogs.confirm('Spiel zurückstellen',
+                                      'Soll das Spiel an Tisch ' + (tableIdx+1) + ' zurückgestellt werden?',
+                                      { size: 'sm' });
+            dlg.result.then(function (btn) {
+                Tourment.deferMatch(tableIdx);
+            });
+            
         };
         
         
@@ -63,7 +69,8 @@
             }
             var dlg = dialogs.confirm(
                 'K.O. Runde starten',
-                'Soll die K.O. Runde gestartet werden?<br>Danach kann nicht mehr zur Vorrunde zurück gewechselt werden!'
+                'Soll die K.O. Runde gestartet werden?<br>Danach kann nicht mehr zur Vorrunde zurück gewechselt werden!',
+                { size: 'md' }
             );
             dlg.result.then(function(btn) {
                 _currentTab = 1;
