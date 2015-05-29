@@ -44,6 +44,7 @@ function KORound() {
                         team1: 0,
                         team2: 0
                     },
+                    rount_points: type/2,
                     round: getRoundName(type/2)
                 };
             } else {
@@ -57,6 +58,7 @@ function KORound() {
                         team1: 2,
                         team2: 0
                     },
+                    rount_points: type/2,
                     round: getRoundName(type/2)
                 };
             }
@@ -82,8 +84,8 @@ function KORound() {
                 team1: 2,
                 team2: 0
             };
-            match.team2.out = true;
-            match.team1.out = false;
+            match.team2.out = -match.rount_points;
+            match.team1.out = 0;
             match.team1.points += 2;
             _self.winner.push(match.team1);
         }
@@ -92,16 +94,16 @@ function KORound() {
                 team1: 0,
                 team2: 2
             };
-            match.team1.out = true;
-            match.team2.out = false;
+            match.team1.out = -match.rount_points;
+            match.team2.out = 0;
             match.team2.points += 2;
             _self.winner.push(match.team2);
         };
         _ranking.sort(function(a, b) {
-            var t1 = a.out ? -1 : a.points;
-            var t2 = b.out ? -1 : b.points;
-            if (a.ghost) t1 = -2;
-            if (b.ghost) t2 = -2;
+            var t1 = (a.out != null && a.out != 0) ? a.out : a.points;
+            var t2 = (b.out != null && b.out != 0) ? b.out : b.points;
+            if (a.ghost) t1 = -99;
+            if (b.ghost) t2 = -99;
             return t2 - t1;
         });
         _self.winner.sort(function(a, b) {
