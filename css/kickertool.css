@@ -31,3 +31,19 @@ body {
 a:hover {
     text-decoration: none;
 }
+
+.divider {
+    height: 3px !important;
+    background-color: #dddddd;
+}
+
+.li-pull-right {
+    float: right !important;
+    margin-top: 5px;
+    cursor: pointer !important;
+}
+.li-pull-right a {
+    margin-right: 0 !important;
+    font-size: 12px;
+    cursor: pointer !important;
+}

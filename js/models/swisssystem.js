@@ -7,7 +7,13 @@ function SwissSystem() {
     _self.nextMatches = [];
     _self.playedMatches = [];
     _self.round = 0;
+    _self.lastRound = false;
+    
     var maxRounds = null;
+    
+    _self.toggleLastRound = function () {
+        _self.lastRound = !_self.lastRound;
+    };
 
 
     this.setTeams = function(teams) {
@@ -53,9 +59,10 @@ function SwissSystem() {
 
     
     _self.hasNextRound = function() {
-        return _self.round < maxRounds;
+        var result = _self.round < maxRounds && !_self.lastRound;
+        console.debug('has next round', result);
+        return result;
     };
-
 
     _self.setWinner = function(match, score) {
         _self.enterScore(match, score);

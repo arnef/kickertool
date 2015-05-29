@@ -89,7 +89,9 @@ function FairForAllDyp() {
     _self.nextRound = function() {
         _qualifyingRoundModus.newRound();
         for (var i = 0; i < _tables.length; i++) {
-            _self.setMatchOnTable(i);
+            if (_tables[i] == null) {
+                _self.setMatchOnTable(i);
+            }
         }
     };
     
@@ -147,13 +149,38 @@ function FairForAllDyp() {
     */
     _self.roundIsDone = function() {
         var done = _qualifyingRoundModus.nextMatches.length == 0;
-        for (var i = 0; i < _tables.length; i++) {
-            if (_tables[i] != null) {
-                done = false;
-                break;
+        var count_matches = 0;
+        console.debug();
+        if (_qualifyingRoundModus instanceof SwissSystem) {
+            console.debug('swiss');
+            for (var i = 0; i < _tables.length; i++) {
+                if (_tables[i] != null) {
+                    count_matches += 1;
+                }
+            }
+
+            done = done && (count_matches < 3);
+        }
+        else if  (_qualifyingRoundModus instanceof KORound) {
+            console.debug('ko round');
+            for (var i = 0; i < _tables.length; i++) {
+                if (_tables[i] != null) {
+                    done = false;
+                    break;
+                }
             }
         }
+        
+        console.debug('Round is done ', done);
         return done;
+    };
+    
+    _self.toggleLastRound = function () {
+        _qualifyingRoundModus.toggleLastRound();
+    };
+    
+    _self.isLastRound = function () {
+        return _qualifyingRoundModus.lastRound;
     };
     
     

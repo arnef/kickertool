@@ -7,6 +7,20 @@
         _self.selectedMatch = null;
         var _koRoundActive = false;
         
+       
+        $scope.toggleLastRound = function () {
+            Tourment.toggleLastRound();
+            $scope.isLastRound = Tourment.isLastRound();
+            if (!$scope.isLastRound && Tourment.getNextMatches().length == 0) {
+                Tourment.nextRound();
+            }
+        };
+            
+        
+        $scope.isKoRound = function () {
+            return _koRoundActive;
+        };
+        
         $scope.getRanking = function() {
             return Tourment.getRanking();
         };

@@ -6,12 +6,17 @@ function KORound() {
     _self.winner = null;
     _self.nextMatches = [];
     _self.playedMatches = [];
+    _self.lastRound = true;
 
     _self.setTeams = function(newRanking) {
         _ranking = newRanking;
         _self.winner = [].concat(newRanking);
     };
 
+    
+    _self.toggleLastRound = function () {
+        return;
+    };
 
     var getRoundName = function(count) {
         switch (count) {

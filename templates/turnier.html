@@ -20,7 +20,7 @@
                 <div scrolltable>
                 <table class="table">
                         <tbody class="table-body">
-                            <tr ng-repeat="team in getRanking()" ng-hide="team.ghost && false" ng-class="team.out ? 'text-muted': ''">
+                            <tr ng-repeat="team in getRanking()" ng-hide="team.ghost" ng-class="team.out ? 'text-muted': ''">
                                 <td width="5%" class="active text-center">{{ $index+1 }}</td>
                                 <td width="90%">{{ team.name }}</td>
                                 <td width="5%" class="text-center">{{ team.points }}</td>
@@ -38,6 +38,10 @@
                     <li ng-class="isTab(0) ? 'active' : ''" ng-click="setTab(0)"><a href>Vorrunde</a></li>
                     <li ng-class="isTab(1) ? 'active' : ''" ng-click="setTab(1)"><a href>K.O. Runde</a></li>
                     <li ng-class="isTab(2) ? 'active' : ''" ng-click="setTab(2)"><a href>Gespielte Begegnungen</a></li>
+                    <li ng-hide="isKoRound()" ng-click="toggleLastRound()" class="li-pull-right active"><a href>Letzte Vorrunde 
+                        <span ng-hide="isLastRound" class="glyphicon glyphicon-remove"></span>
+                        <span ng-show="isLastRound" class="glyphicon glyphicon-ok"></span></a>
+                    </li>
                 </ul>
             </div>
             <div class="tab-content table-border">
@@ -69,6 +73,11 @@
                             <td width="4%" ng-click="deferMatch($index)">
                                 <a href class="glyphicon glyphicon-share-alt text-muted"
                                       ng-show="table.team1 != null"></a></td>
+                        </tr>
+                        <tr ng-hide="getNextMatches().length == 0" >
+                            <th colspan="6" 
+                                ng-hide="getNextMatches().length == 0"
+                                class="divider"></th>
                         </tr>
                         <tr ng-repeat="match in getNextMatches()">
                             <td class="active"></td>
