@@ -72,6 +72,11 @@ function KORound() {
 
 
     _self.setWinner = function(match, score) {
+        _self.enterScore(match, score);
+        _self.playedMatches.push(match);
+    };
+
+    _self.enterScore = function (match, score) {
         if (score == 0) {
             match.score = {
                 team1: 2,
@@ -102,9 +107,8 @@ function KORound() {
         _self.winner.sort(function(a, b) {
             return b.points - a.points;
         });
-        _self.playedMatches.push(match);
     };
-
+    
     var getRound = function() {
         var teams = _self.winner.length;
         if (teams <= 2) {

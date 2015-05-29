@@ -16,7 +16,7 @@ function SwissSystem() {
             teams.push({
                 name: 'Freilos',
                 ghost: true,
-                points: -2
+                points: -100
             });
         }
         _teams = teams;
@@ -58,8 +58,14 @@ function SwissSystem() {
 
 
     _self.setWinner = function(match, score) {
+        _self.enterScore(match, score);
+        _self.playedMatches.push(match);
+    };
+    
+    _self.enterScore = function (match, score) {
         if (score == 0) {
             match.score.team1 = 2;
+            match.score.team2 = 0;
             match.team1.points += 2;
         }
         if (score == 1) {
@@ -69,13 +75,13 @@ function SwissSystem() {
             match.team2.points += 1;
         }
         if (score == 2) {
+            match.score.team1 = 0;
             match.score.team2 = 2;
             match.team2.points += 2;
         }
         _teams.sort(function(a, b) {
             return b.points - a.points;
         });
-        _self.playedMatches.push(match);
     };
 
     // 

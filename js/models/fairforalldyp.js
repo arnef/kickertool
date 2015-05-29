@@ -106,6 +106,10 @@ function FairForAllDyp() {
         _self.setMatchOnTable(tableIdx);
     };
     
+    _self.enterScore = function (match, score) {
+        _qualifyingRoundModus.enterScore(match, score);
+    };
+    
     
     /**
     *

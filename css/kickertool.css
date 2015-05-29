@@ -27,3 +27,7 @@ body {
 .padding {
 	padding: 10px;
 }
+
+a:hover {
+    text-decoration: none;
+}

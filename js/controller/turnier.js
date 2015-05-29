@@ -51,7 +51,9 @@
         $scope.insertScore = function(tableIdx) {
             if (Tourment.getCurrentMatches()[tableIdx] != null) {
                 var match = Tourment.getCurrentMatches()[tableIdx];
-                var dlg = dialogs.create('templates/result_dialog.html', 'InsertResultDialogController', {match: match, koRound: _koRoundActive}, {size: 'sm'});
+                var dlg = dialogs.create('templates/result_dialog.html', 'InsertResultDialogController', 
+                                         { match: match, koRound: _koRoundActive, head: 'Ergebnis eintragen' }, 
+                                         { size: 'sm' });
                 dlg.result.then(function(score) {
                     Tourment.setWinnerOnTable(tableIdx, score);
                 });
@@ -59,7 +61,29 @@
         };
         
         
+        $scope.reenterScore = function (tableIdx) {
+            var match = Tourment.getPlayedMatches()[tableIdx];
+            if (match != null) {
+                var dlg = dialogs.create('templates/result_dialog.html', 
+                                         'InsertResultDialogController', 
+                                         { match: match, 
+                                           koRound: !(parseInt(match.round) === match.round), 
+                                           head: 'Ergebnis korrigieren' },
+                                         { size: 'sm' });
+                dlg.result.then(function (score) {
+                    console.debug(score);
+                    // reset score                    
+                    match.team1.points -= match.score.team1;
+                    match.team2.points -= match.score.team2;
+                    
+                    Tourment.enterScore(match, score);
+                });
+            }
+        };
         
+        $scope.showReenterScore = function (match) {
+            return !(match.team1.ghost || match.team2.ghost);
+        }
         
         
         $scope.startKORound = function() {
@@ -84,6 +108,7 @@
     
     app.controller('InsertResultDialogController', function($scope, $modalInstance, data) {
         
+        $scope.head = data.head;
         $scope.match = data.match;
         var _koRoundActive = data.koRound;
         
