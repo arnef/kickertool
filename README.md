@@ -9,9 +9,6 @@ Akutelle Version ist v0.3
 * [Windows 32 / 64bit](http://arnef.ddns.net/kickertool/dl/kickertool_win.zip)
 * [Webapp](http://arnef.ddns.net/kickertool)
 
-Die Webapp benötigt nur beim ersten Laden eine Internetverbindung, dannach kann sie auch
-ohne Verbindung verwendet werden. Der Zurück-Knopf und Neuladen-Knopf dürfen niemals verwendet werden,
-egal ob mit oder ohne Internetverbindung.
 
 
 ## Changelog ##
