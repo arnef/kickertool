@@ -1,8 +1,12 @@
 # Kickertool #
 
 ## Download ##
-Die Builds für OS X, Windows und Linux befinden sich im `build` Ordner.      
-Akutelle Version ist v0.2
+Hier gibts die ausführbaren Programme für die verschiedene Systeme.     
+Akutelle Version ist v0.2   
+* [Linux 32bit](http://arnef.ddns.net/kickertool/kickertool_linux32.zip) / 
+ [Linux 64bit](http://arnef.ddns.net/kickertool/kickertool_linux64.zip)      
+* [Mac OSX 32 / 64bit](http://arnef.ddns.net/kickertool/kickertool_osx.zip)
+* [Windows 32 / 64bit](http://arnef.ddns.net/kickertool/kickertool_win.zip)
 
 ## Changelog ##
     
