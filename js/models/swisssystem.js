@@ -34,7 +34,7 @@ function SwissSystem() {
      */
     _self.newRound = function(tables) {
         if (_self.round < maxRounds) {
-            matches = _self.playedMatches;
+            matches = [].concat(_self.playedMatches);
             if (tables != null) {
                 for (var i = 0; i < tables.length; i++) {
                     var m = tables[i];

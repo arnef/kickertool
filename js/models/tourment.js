@@ -108,10 +108,12 @@ function Tourment() {
             qualifyingRoundModus.nextMatches.splice(0,1);
             if (nextMatch != null && (nextMatch.team2.ghost || nextMatch.team1.ghost)) {
                 self.setWinnerOnTable(tableIdx, (nextMatch.team1.ghost ? 2 : 0));
-            }            
+                return;
+            }
         }
         else if (qualifyingRoundModus.hasNextRound()) {
             self.nextRound();
+            return;
         }
     };
     

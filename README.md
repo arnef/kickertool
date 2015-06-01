@@ -14,6 +14,7 @@ Akutelle Version ist v0.2
     v0.3
     - Einzelturnier Modus
     - Festes Doppel Modus
+    - Keine Wiederholungen bei Begegnungen der Vorrunde
     
     
     v0.2
