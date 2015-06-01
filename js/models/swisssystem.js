@@ -6,6 +6,8 @@ function SwissSystem() {
     _teams = null;
     _self.nextMatches = [];
     _self.playedMatches = [];
+    
+    var matches = null;
     _self.round = 0;
     _self.lastRound = false;
     
@@ -30,8 +32,19 @@ function SwissSystem() {
     /**
      *
      */
-    _self.newRound = function() {
+    _self.newRound = function(tables) {
         if (_self.round < maxRounds) {
+            matches = _self.playedMatches;
+            if (tables != null) {
+                for (var i = 0; i < tables.length; i++) {
+                    var m = tables[i];
+                    if (m != null) {
+                        matches.push(m);
+                    }
+                }
+            }
+            
+            
             _self.round += 1;
             var teams = [].concat(_teams);
             var useNext = 0;
@@ -45,7 +58,7 @@ function SwissSystem() {
                         team2: 0
                     }
                 };
-                if (matchPlayed(match)) {
+                if (matchPlayed(match, tables)) {
                     useNext += 1;
                 } else {
                     _self.nextMatches.push(match);
@@ -93,11 +106,14 @@ function SwissSystem() {
 
     // 
     var matchPlayed = function(match) {
-        var played = false;
         if (match.team2.name == 'Freilos') return false;
+        if (match.team1.name == 'Freilos') return false;
         
-        for (var i = 0; i < _self.playedMatches.length; i++) {
-            var playedMatch = _self.playedMatches[i];
+        
+        var played = false;
+
+        for (var i = 0; i < matches.length; i++) {
+            var playedMatch = matches[i];
             if (((playedMatch.team1.name == match.team1.name 
                     && playedMatch.team2.name == match.team2.name) 
                 || (playedMatch.team1.name == match.team2.name 

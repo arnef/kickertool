@@ -8,7 +8,13 @@ Akutelle Version ist v0.2
 * [Mac OSX 32 / 64bit](http://arnef.ddns.net/kickertool/kickertool_osx.zip)
 * [Windows 32 / 64bit](http://arnef.ddns.net/kickertool/kickertool_win.zip)
 
+
 ## Changelog ##
+    
+    v0.3
+    - Einzelturnier Modus
+    - Festes Doppel Modus
+    
     
     v0.2
     - Doppelte Spielernamen sind nicht mehr möglich
@@ -20,3 +26,4 @@ Akutelle Version ist v0.2
     v0.1
     - Fair-For-All DYP Modus
     - Schweizer-Vorrunde
+    

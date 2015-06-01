@@ -6,7 +6,9 @@
                 
                 <div>
                     <ul class="nav nav-tabs">
-                        <li class="active"><a>Fair for All DYP</a></li>
+                        <li ng-class="isTab(0) ? 'active' : ''" ng-click="setTab(0)"><a href>Fair for All DYP</a></li>
+                        <li ng-class="isTab(1) ? 'active' : ''" ng-click="setTab(1)"><a href>Einzelturnier</a></li>
+                        <li ng-class="isTab(2) ? 'active' : ''" ng-click="setTab(2)"><a href>Festes Doppel</a></li>
                         <!--<li><a>Monster DYP</a></li>
                         <li><a>Festes Doppel</a></li>-->
                     
@@ -17,10 +19,31 @@
                 
                 </div>
                 <div class="tab-content table-border" scrolltable>
-                    <div class="tab-pane active">
+                    <div class="tab-pane active" ng-show="isTab(0)">
                         <div class="padding">
                             <p>
                                 Spieler werden nach Position und Stärke eingetragen. Zu Begin des Turniers werden ausgeglichene Teams zusammen gelost.
+                            </p>
+                            <p>
+                                Die Vorrunde wird nach Schweizer System gespielt, sie kann jederzeit beendet werden und die K.O. Runde gestartet.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="tab-pane active" ng-show="isTab(1)">
+                        <div class="padding">
+                            <p>
+                                Einzelturnier.
+                            </p>
+                            <p>
+                                Die Vorrunde wird nach Schweizer System gespielt, sie kann jederzeit beendet werden und die K.O. Runde gestartet.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-pane active" ng-show="isTab(2)">
+                        <div class="padding">
+                            <p>
+                                Festes Doppel.
                             </p>
                             <p>
                                 Die Vorrunde wird nach Schweizer System gespielt, sie kann jederzeit beendet werden und die K.O. Runde gestartet.
@@ -39,7 +62,7 @@
                     
                 </div>
                 <div class="alert alert-warning padding" ng-show="tables > 0">
-                            Es sollten nicht mehr als {{ tables * 6 }} Teams teilnehmen!
+                            Es sollten nicht mehr als {{ tables * 6 }} {{ isTab(1) ? "Spieler" : "Teams" }} teilnehmen!
                 </div>
             </div>
         </form>

@@ -1,0 +1,61 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-4">
+            <form ng-submit="addPlayer()">
+                <div>
+                    
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a>Spieler hinzufügen</a></li>
+                        <li class="pull-right">
+                            <button type="submit" class="btn btn-success btn-sm btn-nav" ng-disabled="newPlayer.name == null">
+                                Hinzufügen
+                            </button>
+                        </li>
+                    </ul>
+                    
+                </div>
+
+
+                <div class="tab-content table-border text-right" style="padding:10px">
+
+                    <div class="form-group">
+                        <label class="sr-only">Name</label>
+                        <input type="text" class="form-control input-sm" ng-model="newPlayer.name" required placeholder="Name" autofocus>
+
+                    </div>
+                    
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-8" ng-show="showPlayerList()" colscroll>
+            <div>
+                
+                <ul class="nav nav-tabs">
+                    <li class="active"><a>Angemeldete Spieler</a></li>
+                    <li class="pull-right">
+                        <button class="btn btn-success btn-sm btn-nav" ng-click="startTourment()">Vorrunde starten</button>
+                    </li>
+                </ul>
+                
+            </div>
+            <div class="tab-content table-border">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                        </tr>
+                    </thead>
+                </table>
+                <div scrolltable>
+                <table class="table">    
+                    <tbody>
+                        <tr ng-repeat="p in getPlayer()" ng-click="removePlayer($index)" class="hover">
+                            <td>{{ p.name }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

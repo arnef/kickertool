@@ -1,38 +1,13 @@
 (function() {
-    var app = angular.module('kteaminput', []);
+    var app = angular.module('controller-1on1', []);
 
-    app.controller('InsertPlayerController', function($scope, $location, $window, dialogs, Tourment) {
+    app.controller('1on1Controller', function($scope, $location, $window, dialogs, Tourment) {
         var _self = this;
 
-        const GOALIE = 1;
-        const STRIKER = 2;
-        const BOTH = 4;
-        const PRO = 8;
-        const AMATEUR = 16;
     
 
-        $scope.TYPES = [{
-            name: 'Gesetzt',
-            value: PRO
-        }, {
-            name: 'Gelost',
-            value: AMATEUR
-        }];
-
-        $scope.POSITIONS = [{
-            name: 'Torwart/Stürmer',
-            value: BOTH
-        }, {
-            name: 'Torwart',
-            value: GOALIE
-        }, {
-            name: 'Stürmer',
-            value: STRIKER
-        }];
-
         $scope.newPlayer = {
-            type: PRO,
-            position: BOTH
+            points: 0
         };
 
         var _player = [];
@@ -52,8 +27,7 @@
             if ($scope.newPlayer.name != '' && !player_in_list($scope.newPlayer)) {
                 _player.push($scope.newPlayer);
                 $scope.newPlayer  = {
-                    type: $scope.newPlayer.type,
-                    position: $scope.newPlayer.position
+                    points: 0
                 };
             }
             else {
@@ -74,34 +48,20 @@
             return _player;
         };
 
-        $scope.showTeamsList = function() {
-            return Tourment.getRanking() != null; //drawteams.teams.length > 0;
-        };
-        
-        $scope.getTeams = function() {
-            return Tourment.getRanking() || [];//drawteams.teams;
-        };
-
         // create randmon players
         (function() {
-            for (var i = 0; i < 26; i++) {
+            for (var i = 0; i < 13; i++) {
                 var type = Math.floor(Math.random() * 2);
                 var position = Math.floor(Math.random() * 3);
                 _player.push({
                     name: 'player ' + (i + 1),
-                    position: $scope.POSITIONS[position].value,
-                    type: $scope.TYPES[type].value,
+                    points: 0
                 });
             }
         })();
 
-        var teamdrawer = new TeamDrawer();
-        /**
-         * Lose Teams aus
-         **/
-        $scope.createTeams = function() {
-            Tourment.setTeams(teamdrawer.draw([].concat(_player)));
-        };
+
+    
 
         $scope.removePlayer = function(index) {
             var dlg = dialogs.confirm(
@@ -114,12 +74,9 @@
             });
 
         };
-        
-        $scope.disabledDraw = function() {
-            return _player.length % 2 == 1; //drawteams.player.length % 2 == 1;
-        }
 
         $scope.startTourment = function() {
+            Tourment.setTeams(_player);
             Tourment.nextRound();
             $location.path('turnier');
         };
