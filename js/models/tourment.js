@@ -104,11 +104,39 @@ function Tourment() {
     self.setMatchOnTable = function(tableIdx) {
         if (!self.roundIsDone()) {
             var nextMatch = qualifyingRoundModus.nextMatches[0];
+            if (nextMatch == null) return;
             tables[tableIdx] = nextMatch;
             qualifyingRoundModus.nextMatches.splice(0,1);
+            
+            // freilos automatisch weitersetzen
             if (nextMatch != null && (nextMatch.team2.ghost || nextMatch.team1.ghost)) {
                 self.setWinnerOnTable(tableIdx, (nextMatch.team1.ghost ? 2 : 0));
                 return;
+            }
+            
+            // prüfen ob teams noch spielen
+            var team1 = nextMatch.team1.name;
+            var team2 = nextMatch.team2.name;
+            for (var i = 0; i < tables.length; i++) {
+                if (i != tableIdx) {
+                    var match_on_table = tables[i];
+                    console.debug(match_on_table);
+                    if (match_on_table != null) {
+                        var team_playing = match_on_table.team1.name == team1 || 
+                                match_on_table.team2.name == team1 || 
+                                match_on_table.team1.name == team2 ||
+                                match_on_table.team2.name == team2;
+                        console.debug(team_playing);
+                        if (team_playing) {
+                            self.deferMatch(tableIdx);
+                            return;
+                        }
+                    }
+                    else {
+                        self.setMatchOnTable(i);
+                        return;
+                    }
+                }
             }
         }
         else if (qualifyingRoundModus.hasNextRound()) {
@@ -124,9 +152,12 @@ function Tourment() {
     self.deferMatch  = function (tableIdx) {
         var match = tables[tableIdx];
         if (match != null) {
+            console.debug('defer match ' + tableIdx + ': ' + match.team1.name + ' vs. ' + match.team2.name);
             tables[tableIdx] = null;
             qualifyingRoundModus.nextMatches.push(match);
-            self.setMatchOnTable(tableIdx);
+            if (qualifyingRoundModus.nextMatches.length > tables.length) {
+                self.setMatchOnTable(tableIdx);
+            }
         }
     };
     

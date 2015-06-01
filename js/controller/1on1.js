@@ -29,6 +29,7 @@
                 $scope.newPlayer  = {
                     points: 0
                 };
+                $('input')[0].focus();
             }
             else {
                 var dlg = dialogs.error(
@@ -50,7 +51,7 @@
 
         // create randmon players
         (function() {
-            for (var i = 0; i < 5; i++) {
+            for (var i = 0; i < 13; i++) {
                 var type = Math.floor(Math.random() * 2);
                 var position = Math.floor(Math.random() * 3);
                 _player.push({
@@ -58,7 +59,7 @@
                     points: 0
                 });
             }
-        })();
+        });
 
 
     

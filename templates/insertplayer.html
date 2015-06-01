@@ -57,6 +57,7 @@
                 <table class="table">
                     <thead>
                         <tr>
+                            <th width="5%">Nr.</th>
                             <th>Name</th>
                         </tr>
                     </thead>
@@ -65,6 +66,7 @@
                 <table class="table">    
                     <tbody>
                         <tr ng-repeat="p in getPlayer()" ng-click="removePlayer($index)" class="hover">
+                            <td width="5%" class="active text-center">{{ $index + 1}}</td>
                             <td>{{ p.name }}</td>
                         </tr>
                     </tbody>
@@ -87,6 +89,7 @@
                 <table class="table">
                     <thead>
                         <tr>
+                            <th width="5%">Nr.</th>
                             <th>Spieler 1 / Spieler 2</th>
                         </tr>
                     </thead>
@@ -95,6 +98,7 @@
                     <table class="table">
                     <tbody>
                         <tr ng-repeat="team in getTeams()" ng-hide="team.ghost">
+                            <td width="5%" class="active text-center">{{ $index +1 }}</td>
                             <td ng-class="team.danger ? 'text-danger' : ''">{{ team.name }}</td>
                         </tr>
                     </tbody>

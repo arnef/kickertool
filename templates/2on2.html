@@ -46,6 +46,7 @@
                 <table class="table">
                     <thead>
                         <tr>
+                            <th width="5%">Nr.</th>
                             <th>Name</th>
                         </tr>
                     </thead>
@@ -54,6 +55,7 @@
                 <table class="table">    
                     <tbody>
                         <tr ng-repeat="p in getPlayer()" ng-click="removePlayer($index)" class="hover">
+                            <td width="5%" class="active text-center">{{ $index +1 }}</td>
                             <td>{{ p.name }}</td>
                         </tr>
                     </tbody>

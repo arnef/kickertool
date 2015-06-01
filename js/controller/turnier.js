@@ -72,6 +72,9 @@
                     Tourment.setWinnerOnTable(tableIdx, score);
                 });
             }
+            else if (Tourment.getCurrentMatches()[tableIdx] == null) {
+                Tourment.setMatchOnTable(tableIdx);
+            }
         };
         
         

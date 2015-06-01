@@ -55,6 +55,7 @@
                     type: $scope.newPlayer.type,
                     position: $scope.newPlayer.position
                 };
+                $('input')[0].focus();
             }
             else {
                 var dlg = dialogs.error(
@@ -93,7 +94,7 @@
                     type: $scope.TYPES[type].value,
                 });
             }
-        })();
+        });
 
         var teamdrawer = new TeamDrawer();
         /**

@@ -35,6 +35,7 @@
                 _player.push(team);
                 $scope.newPlayer1 = {};
                 $scope.newPlayer2 = {};
+                $('input')[0].focus();
             }
             else {
                 var dlg = dialogs.error(
