@@ -1,7 +1,7 @@
 (function() {
-    var app = angular.module('kteaminput', []);
+    var app = angular.module('controller-dyp', []);
 
-    app.controller('InsertPlayerController', function($scope, $location, $window, dialogs, Tourment) {
+    app.controller('DypController', function($scope, $location, $window, dialogs, Tourment) {
         var _self = this;
 
         const GOALIE = 1;
@@ -35,7 +35,8 @@
             position: BOTH
         };
 
-        var _player = [];
+        var _player = [],
+            teams = [];
         
         var player_in_list = function (player) {
             player = player.name.split(' ').join('').toLowerCase();
@@ -48,6 +49,10 @@
             return false;
         };
         
+        var focusInputField = function () {
+            $('input')[0].focus();
+        };
+        
         $scope.addPlayer = function() {
             if ($scope.newPlayer.name != '' && !player_in_list($scope.newPlayer)) {
                 _player.push($scope.newPlayer);
@@ -55,13 +60,19 @@
                     type: $scope.newPlayer.type,
                     position: $scope.newPlayer.position
                 };
-                $('input')[0].focus();
+                focusInputField();
+                setTimeout(function () {
+                    $('#scrolltable').scrollTop(99*99);
+                }, 20);
             }
             else {
                 var dlg = dialogs.error(
                     'Spieler schon eingetragen!',
                     'Der Name ' + $scope.newPlayer.name 
                     + ' ist schon vergeben.', { size: 'sm'});
+                dlg.result.then(function () {
+                    focusInputField();
+                });
             }
         };
         
@@ -80,31 +91,21 @@
         };
         
         $scope.getTeams = function() {
-            return Tourment.getRanking() || [];//drawteams.teams;
+            return teams;
         };
 
-        // create randmon players
-        (function() {
-            for (var i = 0; i < 26; i++) {
-                var type = Math.floor(Math.random() * 2);
-                var position = Math.floor(Math.random() * 3);
-                _player.push({
-                    name: 'player ' + (i + 1),
-                    position: $scope.POSITIONS[position].value,
-                    type: $scope.TYPES[type].value,
-                });
-            }
-        });
+       
 
         var teamdrawer = new TeamDrawer();
+        
         /**
          * Lose Teams aus
          **/
         $scope.createTeams = function() {
-            Tourment.setTeams(teamdrawer.draw([].concat(_player)));
+            teams = teamdrawer.draw([].concat(_player));
         };
 
-        $scope.removePlayer = function(index) {
+        $scope.removePlayer = function (index) {
             var dlg = dialogs.confirm(
                 'Spieler löschen',
                 'Spieler "' + _player[index].name + '" entfernen?', {
@@ -112,15 +113,17 @@
                 });
             dlg.result.then(function(btn) {
                 _player.splice(index, 1);
+                focusInputField();
             });
 
         };
         
         $scope.disabledDraw = function() {
-            return _player.length % 2 == 1; //drawteams.player.length % 2 == 1;
+            return _player.length % 2 == 1 || _player.length == 0; //drawteams.player.length % 2 == 1;
         }
 
         $scope.startTourment = function() {
+            Tourment.setTeams(teams);
             Tourment.nextRound();
             $location.path('turnier');
         };

@@ -1,12 +1,14 @@
 function Tourment() {
-    var self = this;
+    'use strict';
     
-    var tables = new Array(2);
+    var FAIR_FOR_ALL = 0,
+        ONE_ON_ONE = 1,
+        TWO_ON_TWO = 2;
     
-    var ranking = null;
-        
-    var qualifyingRoundModus = new SwissSystem();
-   
+    var self = this,
+        tables = new Array(2),
+        ranking = null,
+        qualifyingRoundModus = new SwissSystem();
     
     /**
     *

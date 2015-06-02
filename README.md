@@ -13,6 +13,11 @@ Akutelle Version ist v0.3
 
 ## Changelog ##
     
+    v0.3.1
+    - App Icon
+    - UI verbessert
+    - Dialoge übersetzt
+    
     v0.3
     - Einzelturnier Modus
     - Festes Doppel Modus

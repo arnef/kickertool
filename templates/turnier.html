@@ -17,7 +17,7 @@
                             </tr>
                         </thead>
                 </table>
-                <div scrolltable>
+                <div scrolltable-full>
                 <table class="table">
                         <tbody class="table-body">
                             <tr ng-repeat="team in getRanking()" ng-hide="team.ghost" ng-class="team.out ? 'text-muted': ''">
@@ -38,10 +38,6 @@
                     <li ng-class="isTab(0) ? 'active' : ''" ng-click="setTab(0)"><a href>Vorrunde</a></li>
                     <li ng-class="isTab(1) ? 'active' : ''" ng-click="setTab(1)"><a href>K.O. Runde</a></li>
                     <li ng-class="isTab(2) ? 'active' : ''" ng-click="setTab(2)"><a href>Gespielte Begegnungen</a></li>
-                    <li ng-hide="isKoRound()" ng-click="toggleLastRound()" class="li-pull-right active"><a href>Letzte Vorrunde 
-                        <span ng-hide="isLastRound" class="glyphicon glyphicon-remove"></span>
-                        <span ng-show="isLastRound" class="glyphicon glyphicon-ok"></span></a>
-                    </li>
                 </ul>
             </div>
             <div class="tab-content table-border">
@@ -59,7 +55,7 @@
                     </thead>
                     </table>
                     <div scrolltable>
-                        <table class="table">
+                    <table class="table">
                     <tbody class="text-center">
                         <tr ng-repeat="table in getCurrentMatches() track by $index" class="hover">
                             <td width="5%" class="active">{{ $index+1 }}</td>
@@ -127,6 +123,12 @@
             </div>
 
         </div>
+            <button ng-disabled="isKoRound()" ng-click="toggleLastRound()" class="btn btn-sm btn-next-step"
+                    ng-class="isLastRound ? 'btn-success' : 'btn-default'">
+                Letzte Vorrunde 
+                        <span ng-hide="isLastRound" class="glyphicon glyphicon-remove"></span>
+                        <span ng-show="isLastRound" class="glyphicon glyphicon-ok"></span>
+            </button>
     </div>
 
 </div>

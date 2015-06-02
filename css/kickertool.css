@@ -1,7 +1,13 @@
 body {
 	padding-top: 10px;
+    cursor: default;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
-
 .hover:hover {
     background-color:#f5f5f5;
     cursor: pointer;
@@ -15,35 +21,22 @@ body {
 .table {
     margin-bottom: 0;
 }
-
 .navbar-fixed-bottom {
     padding-bottom: 10px;
     background-color: #fcfcfc !important;
 }
-.btn-nav {
-	margin-top: 7px;
+.btn-next-step {
+	margin-top: 10px;
 	float:right;
+    text-transform: uppercase;
 }
 .padding {
-	padding: 10px;
+	padding: 10px !important;
 }
-
 a:hover {
     text-decoration: none;
 }
-
 .divider {
     height: 3px !important;
     background-color: #dddddd;
-}
-
-.li-pull-right {
-    float: right !important;
-    margin-top: 5px;
-    cursor: pointer !important;
-}
-.li-pull-right a {
-    margin-right: 0 !important;
-    font-size: 12px;
-    cursor: pointer !important;
 }

@@ -5,12 +5,7 @@
                 <div>
                     
                     <ul class="nav nav-tabs">
-                        <li class="active"><a>Team hinzufügen</a></li>
-                        <li class="pull-right">
-                            <button type="submit" class="btn btn-success btn-sm btn-nav" ng-disabled="newPlayer1.name == null || newPlayer2.name == null">
-                                Hinzufügen
-                            </button>
-                        </li>
+                        <li class="active"><a>Team hinzufügen</a></li>                        
                     </ul>
                     
                 </div>
@@ -29,16 +24,16 @@
                     </div>
                     
                 </div>
+                <button type="submit" class="btn btn-success btn-sm btn-next-step" ng-disabled="newPlayer1.name == null || newPlayer2.name == null">
+                    Hinzufügen
+                </button>
             </form>
         </div>
-        <div class="col-sm-8" ng-show="showPlayerList()" colscroll>
+        <div class="col-sm-8">
             <div>
                 
                 <ul class="nav nav-tabs">
-                    <li class="active"><a>Angemeldete Teams</a></li>
-                    <li class="pull-right">
-                        <button class="btn btn-success btn-sm btn-nav" ng-click="startTourment()">Vorrunde starten</button>
-                    </li>
+                    <li class="active"><a>Angemeldete Teams</a></li>                    
                 </ul>
                 
             </div>
@@ -51,7 +46,7 @@
                         </tr>
                     </thead>
                 </table>
-                <div scrolltable>
+                <div scrolltable id="scrolltable">
                 <table class="table">    
                     <tbody>
                         <tr ng-repeat="p in getPlayer()" ng-click="removePlayer($index)" class="hover">
@@ -62,6 +57,9 @@
                 </table>
                 </div>
             </div>
+            <button class="btn btn-success btn-sm btn-next-step" ng-click="startTourment()" ng-disabled="getPlayer().length < 2">
+                Vorrunde starten <span class="glyphicon glyphicon-menu-right"></span>
+            </button>
         </div>
     </div>
 </div>

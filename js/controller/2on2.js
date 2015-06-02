@@ -5,7 +5,7 @@
         var _self = this;
 
     
-
+        
         $scope.newPlayer1 = {};
         $scope.newPlayer2 = {};
 
@@ -26,6 +26,11 @@
             return false;
         };
         
+        var focusInputField = function () {
+            $('input')[0].focus();
+        };
+        focusInputField();
+        
         $scope.addPlayer = function() {
             if ($scope.newPlayer1.name != '' && $scope.newPlayer2.name != '' && !player_in_list($scope.newPlayer1, $scope.newPlayer2)) {
                 var team = {
@@ -35,13 +40,19 @@
                 _player.push(team);
                 $scope.newPlayer1 = {};
                 $scope.newPlayer2 = {};
-                $('input')[0].focus();
+                focusInputField();
+                setTimeout(function () {
+                    $('#scrolltable').scrollTop(99*99);
+                }, 20);
             }
             else {
                 var dlg = dialogs.error(
                     'Team schon eingetragen!',
                     'Das Team ' + $scope.newPlayer1.name + ' / ' + $scope.newPlayer2.name 
                     + ' ist schon eingetragen.', { size: 'sm'});
+                dlg.result.then(function () {
+                    $('input')[0].focus();
+                });
             }
         };
         
@@ -78,6 +89,7 @@
                 });
             dlg.result.then(function(btn) {
                 _player.splice(index, 1);
+                $('input')[0].focus();
             });
 
         };

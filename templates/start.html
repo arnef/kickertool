@@ -3,7 +3,6 @@
     <div class="row">
         <form ng-submit="startTourment()">
             <div class="col-md-8 col-md-offset-2">
-                
                 <div>
                     <ul class="nav nav-tabs">
                         <li ng-class="isTab(0) ? 'active' : ''" ng-click="setTab(0)"><a href>Fair for All DYP</a></li>
@@ -11,14 +10,9 @@
                         <li ng-class="isTab(2) ? 'active' : ''" ng-click="setTab(2)"><a href>Festes Doppel</a></li>
                         <!--<li><a>Monster DYP</a></li>
                         <li><a>Festes Doppel</a></li>-->
-                    
-                    <li  class="pull-right">
-                        <button type="submit" ng-disabled="tables <= 0" class="btn btn-success btn-sm btn-nav" >Turnier starten</button>
-                    </li>
-                </ul>
-                
+                    </ul>
                 </div>
-                <div class="tab-content table-border" scrolltable>
+                <div class="tab-content table-border">
                     <div class="tab-pane active" ng-show="isTab(0)">
                         <div class="padding">
                             <p>
@@ -44,19 +38,26 @@
                             </p>
                         </div>
                     </div>
-                    <!-- <div class="tab-pane">
-                        Jede Runder neuer Partner
-                    </div> -->
+                    
+                    
                     <div class="tab-pane active">
                         <div class="padding">
-                            <input class="form-control" type="number" ng-model="tables" autofocus placeholder="Anzahl Tische">
-                        </div>
-                        
-                    </div>
-                    
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                <label class="col-sm-3 col-sm-offset-7 control-label">Anzahl Tische</label>
+                                <div class="col-sm-2">
+                                    <input class="form-control" type="number" ng-model="tables" autofocus placeholder="Anzahl Tische">
+                                </div>
+                                </div>
+                            </div>
+                        </div>    
+                    </div>                    
                 </div>
-                <div class="alert alert-warning padding" ng-show="tables > 0">
-                            Es sollten nicht mehr als {{ tables * 6 }} {{ isTab(1) ? "Spieler" : "Teams" }} teilnehmen!
+                
+                <button type="submit" ng-disabled="tables <= 0" class="btn btn-success btn-sm btn-next-step">
+                    Turnier starten
+                    <span class="glyphicon glyphicon-menu-right"></span>
+                </button>
                 </div>
             </div>
         </form>

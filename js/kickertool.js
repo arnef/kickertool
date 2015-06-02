@@ -1,24 +1,36 @@
-(function() {
-    "use strict";
+(function () {
+    'use strict';
+    
     var app = angular.module('kickertool', [
         'ngRoute', 'ngSanitize', 'ui.bootstrap', 'dialogs.main',
-        'kteaminput', 'controller-1on1', 'controller-2on2',
-        'kturnier', 'kstart'
+        'controller-dyp',
+        'controller-1on1',
+        'controller-2on2',
+        'controller-turnier',
+        'controller-start'
     ]);
     
-    app.factory('Tourment', function() {
+    
+    /**
+    * shared model tourment
+    **/
+    app.factory('Tourment', function () {
         return new Tourment();
     });
+    
 
-    app.config(function($routeProvider) {
+    /**
+    * app routes
+    **/
+    app.config(function ($routeProvider) {
         $routeProvider
             .when('/', {
                 templateUrl: 'templates/start.html',
                 controller: 'StartController'
             })
             .when('/player', {
-                templateUrl: 'templates/insertplayer.html',
-                controller: 'InsertPlayerController'
+                templateUrl: 'templates/dyp.html',
+                controller: 'DypController'
             })
             .when('/1on1', {
                 templateUrl: 'templates/1on1.html',
@@ -35,21 +47,41 @@
             });
     });
 
-    app.directive('scrolltable', function($window) {
-        var resize = function(element) {
-            var winHeight = $window.innerHeight;
-            var diff = 90;
-                element.css("max-height", (winHeight - diff) + "px");
-                element.css("overflow-x", "hidden");
-                element.css("overflow-y", "auto");
-                
+    
+    /**
+    * full height scroll container
+    **/
+    app.directive('scrolltable', function ($window) {
+        var resize = function (element) {
+            var winHeight = $window.innerHeight,
+                diff = 80 + 10 + 52;
+            element.css("height", (winHeight - diff) + "px");
+            element.css("overflow-x", "hidden");
+            element.css("overflow-y", "auto");
         };
         
-        return function(scope, element, attrs) {
+        return function (scope, element, attrs) {
             resize(element);
-            angular.element($window).bind('resize', function(e) {
+            angular.element($window).bind('resize', function (e) {
                 resize(element);
-             });
-        }
+            });
+        };
     });
+    app.directive('scrolltableFull', function ($window) {
+        var resize = function (element) {
+            var winHeight = $window.innerHeight,
+                diff = 80 + 20;
+            element.css("height", (winHeight - diff) + "px");
+            element.css("overflow-x", "hidden");
+            element.css("overflow-y", "auto");
+        };
+        
+        return function (scope, element, attrs) {
+            resize(element);
+            angular.element($window).bind('resize', function (e) {
+                resize(element);
+            });
+        };
+    });
+    
 })();

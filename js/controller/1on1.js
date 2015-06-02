@@ -1,11 +1,12 @@
 (function() {
+    'use strict';
+    
     var app = angular.module('controller-1on1', []);
 
     app.controller('1on1Controller', function($scope, $location, $window, dialogs, Tourment) {
         var _self = this;
 
     
-
         $scope.newPlayer = {
             points: 0
         };
@@ -23,19 +24,30 @@
             return false;
         };
         
+        var focusInputField = function () {
+            $('input')[0].focus();
+        };
+        focusInputField();
+        
         $scope.addPlayer = function() {
             if ($scope.newPlayer.name != '' && !player_in_list($scope.newPlayer)) {
                 _player.push($scope.newPlayer);
                 $scope.newPlayer  = {
                     points: 0
                 };
-                $('input')[0].focus();
+                focusInputField();
+                setTimeout(function () {
+                    $('#scrolltable').scrollTop(99*99);
+                }, 20);
             }
             else {
                 var dlg = dialogs.error(
                     'Spieler schon eingetragen!',
                     'Der Name ' + $scope.newPlayer.name 
                     + ' ist schon vergeben.', { size: 'sm'});
+                dlg.result.then(function () {
+                    focusInputField();
+                });
             }
         };
         
@@ -51,7 +63,7 @@
 
         // create randmon players
         (function() {
-            for (var i = 0; i < 13; i++) {
+            for (var i = 0; i < 26; i++) {
                 var type = Math.floor(Math.random() * 2);
                 var position = Math.floor(Math.random() * 3);
                 _player.push({
@@ -61,9 +73,6 @@
             }
         });
 
-
-    
-
         $scope.removePlayer = function(index) {
             var dlg = dialogs.confirm(
                 'Spieler löschen',
@@ -72,6 +81,7 @@
                 });
             dlg.result.then(function(btn) {
                 _player.splice(index, 1);
+                focusInputField();
             });
 
         };
