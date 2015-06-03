@@ -2,7 +2,7 @@
     'use strict';
     
     var app = angular.module('kickertool', [
-        'ngRoute', 'ngSanitize', 'ui.bootstrap', 'dialogs.main',
+        'ngRoute', 'ngSanitize', 'ui.bootstrap', 'dialogs.main', 'angular-loading-bar',
         'controller-dyp',
         'controller-1on1',
         'controller-2on2',
@@ -18,6 +18,49 @@
         return new Tourment();
     });
     
+    
+    /**
+    * update service
+    **/
+    app.service('UpdateService', function ($http) {
+        var self = this;
+        self.checkForUpdates = function (callback) {
+            $http.get('https://raw.githubusercontent.com/arnef/kickertool/master/VERSION',
+                      { cache: false })
+            .success(function (current_version) {
+                $http.get('VERSION', { ignoreLoadingBar: true })
+                .success(function (local_version) {
+                    
+                    var new_available = parseInt(current_version.split('.').join(''), 10) > parseInt(local_version.split('.').join(''), 10);
+                    if (new_available) {
+                        var link = 'http://arnef.ddns.net/kickertool/dl/kickertool_';
+                        var system = window.navigator.platform.toLowerCase().split(' ');
+                        system[0] = system[0].substring(0, 3);
+                                                
+                        if (system[0] === 'lin') {
+                            if (system[1] === 'i686') {
+                                link += 'linux32.zip';
+                                callback(link, current_version, local_version);
+                            }
+                            if (system[1] === 'x86_64') {
+                                link += 'linux64.zip';
+                                callback(link, current_version, local_version);
+                            }
+                        }
+                        if (system[0] === 'win') {
+                            link += 'win.zip';
+                            callback(link, current_version, local_version);
+                        }
+                        if (system[0] === 'mac') {
+                            link += 'osx.zip';
+                            callback(link, current_version, local_version);
+                        }
+                    }
+                });
+            });            
+        };
+        
+    });
 
     /**
     * app routes

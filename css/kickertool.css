@@ -40,3 +40,22 @@ a:hover {
     height: 3px !important;
     background-color: #dddddd;
 }
+.downloading {
+    position: fixed;
+    padding-top: -10px;
+    height: 100%;
+    width: 100%;
+    background-color: #ffffff;
+    z-index: 1000;
+    opacity: .8;
+}
+.downloading p {
+    position: fixed;
+    width: 200px;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    margin-left: -100px;
+    font-size: 16px;
+    color: #666666;
+}

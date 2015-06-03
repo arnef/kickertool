@@ -1,0 +1,44 @@
+progress-modal .backdrop {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 100;
+  background-color: rgba(0,0,0,.4);
+}
+
+progress-modal .loader-box {
+  position: fixed;
+  width: 400px;
+  height: 100px;
+  border-radius: 2px;
+  top: calc(50% - 50px);
+  left: calc(50% - 200px);
+  z-index: 110;
+  background-color: white;
+  font-size: 18px;
+  box-shadow: 3px 3px 9px rgba(0,0,0,.5);
+  overflow: hidden;
+  padding: 15px;
+}
+
+progress-modal .loader-box .phrase {
+  text-align: center;
+}
+
+progress-modal .loader-box .progress-bar {
+  margin-top: 25px;
+  height: 25px;
+  border: 1px solid #DDD;
+  overflow: hidden;
+}
+
+progress-modal .loader-box .progress-bar .progress {
+  background-color: #EEE;
+  width: 0%;
+  border: none;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  transition: width 0.2s;
+}
