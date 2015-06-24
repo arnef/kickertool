@@ -3,13 +3,12 @@
     
     var app = angular.module('controller-turnier', []);
     
-    app.controller('TurnierController', function ($scope, $filter, $location, dialogs, Tourment) {
+    app.controller('TurnierController', function ($window, $scope, $filter, $location, dialogs, Tourment) {
         var self = this,
             currentTab = 0,
             koRoundActive = false;
         
         self.selectedMatch = null;
-        
         
         $scope.toggleLastRound = function () {
             Tourment.toggleLastRound();
@@ -104,6 +103,7 @@
         
         
         $scope.startKORound = function () {
+          console.debug($window.onresize);
             if (koRoundActive) {
                 currentTab = 1;
                 return;

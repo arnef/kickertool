@@ -63,7 +63,7 @@
 
         // create randmon players
         (function() {
-            for (var i = 0; i < 26; i++) {
+            for (var i = 0; i < 13; i++) {
                 var type = Math.floor(Math.random() * 2);
                 var position = Math.floor(Math.random() * 3);
                 _player.push({
@@ -71,7 +71,7 @@
                     points: 0
                 });
             }
-        });
+        })();
 
         $scope.removePlayer = function(index) {
             var dlg = dialogs.confirm(
@@ -87,6 +87,7 @@
         };
 
         $scope.startTourment = function() {
+          _player = TeamDrawer.shuffleArray(_player);
             Tourment.setTeams(_player);
             Tourment.nextRound();
             $location.path('turnier');

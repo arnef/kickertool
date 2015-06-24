@@ -31,7 +31,7 @@ function TeamDrawer() {
     };
     
     var compairePlayer = function(players, matchMethod, danger) {
-        var players2 = shuffleArray(players);
+        var players2 = TeamDrawer.shuffleArray(players);
         var noMatches = [];
         while (players2.length > 0) {
             var teamplayer1 = players2.pop();
@@ -57,7 +57,22 @@ function TeamDrawer() {
         return noMatches;
     };
     
-    var shuffleArray = function(array) {
+    
+    
+    _self.draw = function(player) {
+        _teams = [];
+        player = compairePlayer(player, niceMatch, false);
+        if (player.length > 0) {
+            player = compairePlayer(player, fairMatch, false);
+        }
+        if (player.length > 0) {
+            player = compairePlayer(player, badMatch, true);
+        }
+        return _teams;
+    };
+
+}
+TeamDrawer.shuffleArray = function(array) {
         var m = array.length,
             t, i;
 
@@ -73,18 +88,4 @@ function TeamDrawer() {
         }
 
         return array;
-    };
-    
-    _self.draw = function(player) {
-        _teams = [];
-        player = compairePlayer(player, niceMatch, false);
-        if (player.length > 0) {
-            player = compairePlayer(player, fairMatch, false);
-        }
-        if (player.length > 0) {
-            player = compairePlayer(player, badMatch, true);
-        }
-        return _teams;
-    };
-
-}
+};

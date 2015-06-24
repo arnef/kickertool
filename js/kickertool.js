@@ -95,22 +95,31 @@
     * full height scroll container
     **/
     app.directive('scrolltable', function ($window) {
-        var resize = function (element) {
-            var winHeight = $window.innerHeight,
-                diff = 80 + 10 + 52;
+        var resize = function (element, attrs) {
+          var diff = 80+10+52;
+          
+          if (attrs.fullheight == "true") {
+            console.log("Full");
+            diff = 80+20;
+          }
+          
+            var winHeight = $window.innerHeight;
+          
             element.css("height", (winHeight - diff) + "px");
             element.css("overflow-x", "hidden");
             element.css("overflow-y", "auto");
         };
         
         return function (scope, element, attrs) {
-            resize(element);
-            angular.element($window).bind('resize', function (e) {
-                resize(element);
+          
+          
+          resize(element, attrs);
+          angular.element($window).bind('resize', function (e) {
+                resize(element, attrs);
             });
         };
     });
-    app.directive('scrolltableFull', function ($window) {
+    /*app.directive('scrolltableFull', function ($window) {
         var resize = function (element) {
             var winHeight = $window.innerHeight,
                 diff = 80 + 20;
@@ -120,11 +129,12 @@
         };
         
         return function (scope, element, attrs) {
+          
             resize(element);
             angular.element($window).bind('resize', function (e) {
                 resize(element);
             });
         };
-    });
+    });*/
     
 })();
