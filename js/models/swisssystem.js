@@ -11,7 +11,9 @@ function SwissSystem() {
     _self.round = 0;
     _self.lastRound = false;
     
-    var maxRounds = null;
+    var maxRounds = function () {
+      return _teams.length - 1;
+    };
     
     _self.toggleLastRound = function () {
         _self.lastRound = !_self.lastRound;
@@ -19,7 +21,7 @@ function SwissSystem() {
 
 
     this.setTeams = function(teams) {
-        maxRounds = teams.length-1;
+        //maxRounds = teams.length-1;
         if (teams.length % 2 == 1) {
             teams.push({
                 name: 'Freilos',
@@ -33,7 +35,7 @@ function SwissSystem() {
      *
      */
     _self.newRound = function(tables) {
-        if (_self.round < maxRounds) {
+        if (_self.round < maxRounds()) {
             matches = [].concat(_self.playedMatches);
             if (tables != null) {
                 for (var i = 0; i < tables.length; i++) {
@@ -72,7 +74,7 @@ function SwissSystem() {
 
     
     _self.hasNextRound = function() {
-        var result = _self.round < maxRounds && !_self.lastRound;
+        var result = _self.round < maxRounds() && !_self.lastRound;
         console.debug('has next round', result);
         return result;
     };

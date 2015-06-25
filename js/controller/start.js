@@ -18,23 +18,29 @@
                 }
             };
         
-        UpdateService.checkForUpdates(function (link, current_version, local_version) {
-            var msg = 'Ein Update von Version ' + local_version + ' auf Version ' + current_version
-                + ' ist Verfügbar!<br />'
-                + 'Soll es jetzt heruntergeladen werden?';
+        UpdateService.checkForUpdates(function (update) {
+          console.debug(update);
+            var msg = '<p>Ein Update von Version ' + update.local_version + ' auf Version ' + update.version
+                + ' ist Verfügbar!</p>'
+                + '<p>Soll es jetzt heruntergeladen werden?</p>';
+          msg += '<p>Was ist neu?</p><p><ul>';
+          for (var i = 0; i < update.changelog.length; i++) {
+            msg += '<li>' + update.changelog[i] + '</li>';
+          }
+          msg += '</li></p>';
             var dlg = dialogs.confirm('Neue Version verfügbar', msg, { size: 'md' });
             dlg.result.then(function () {
                 $scope.downloading = true;
                 $scope.load_update = false;
                 $http({
-                    url: link,
+                    url: update.link,
                     method: 'GET',
                     responseType: 'arraybuffer',
                     cache: false
                 })
                 .success(function (data) { 
                     $scope.downloading = false;
-                    var filename = 'kickertool_v' + current_version.substring(0,5) + '.zip';
+                    var filename = 'kickertool_v' + update.version.substring(0,5) + '.zip';
                     var fileAsBlob = new Blob([data], {type:'application/zip'});
                     var downloadLink = document.createElement("a");
                     downloadLink.download = filename;
@@ -49,6 +55,9 @@
                     function destroyClickedElement(event) {
                         document.body.removeChild(event.target);
                     };
+                })
+                .error(function () {
+                  $scope.downloading = false;
                 });
             });
         });

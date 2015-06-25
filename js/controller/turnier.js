@@ -114,14 +114,8 @@
         return true;
       };
       
-      $scope.add = function () {
-        if ($scope.modus == 1) {
-          var dlg = dialogs.create('/dialog/insert-player.html',
-                                   'AddResultDialogController',
-                                  { modus : 1},
-                                  { size: 'sm' });
-          dlg.result.then(function (newplayer) {
-            var lastIdx = Tourment.getRanking().length - 1;
+      var addnew = function (newplayer) {
+        var lastIdx = Tourment.getRanking().length - 1;
             if (Tourment.getRanking()[lastIdx].ghost) {
               Tourment.getRanking()[lastIdx] = newplayer;
             }
@@ -129,10 +123,28 @@
               Tourment.getRanking().push(newplayer);
               Tourment.getRanking().push({name: 'Freilos', points: -100, ghost: true});
             }
+      }
+      
+      $scope.add = function () {
+        if ($scope.modus == 1) {
+          var dlg = dialogs.create('/dialog/insert-player.html',
+                                   'AddResultDialogController',
+                                  { modus : 1,
+                                    teams: Tourment.getRanking() },
+                                  { size: 'sm' });
+          dlg.result.then(function (newplayer) {
+            addnew(newplayer);
           });
         }
         if ($scope.modus == 2) {
-          
+          var dlg = dialogs.create('/dialog/insert-team.html',
+                                   'AddResultDialogController',
+                                   { modus: 2,
+                                     teams: Tourment.getRanking()},
+                                   { size: 'sm'});
+          dlg.result.then(function (newteam) {
+            addnew(newteam);
+          });
         }
       };
         $scope.startKORound = function () {
@@ -161,10 +173,57 @@
     $scope.cancel = function () {
       $modalInstance.dismiss('Canceled');
     };
+    $scope.err = null;
+    var player_in_list = function (player) {
+            player = player.name.split(' ').join('').toLowerCase();
+            for (var i = 0; i < data.teams.length; i++) {
+                var current_player = data.teams[i].name.split(' ').join('').toLowerCase();
+                if (current_player == player) {
+                    return true;
+                }
+            }
+            return false;
+    };
     
+    var team_in_list = function (player1, player2) {
+            var team1 = player1.name + '/' + player2.name;
+            team1 = team1.split(' ').join('').toLowerCase();
+            var team2 = player2.name + '/' + player1.name;
+            team2 = team2.split(' ').join('').toLowerCase();
+
+            for (var i = 0; i < data.teams.length; i++) {
+                var current_player = data.teams[i].name.split(' ').join('').toLowerCase();
+                if (current_player == team1 || current_player == team2) {
+                    return true;
+                }
+            }
+            return false;
+    };
+    
+    var addplayer = function () {
+      if (!player_in_list($scope.newPlayer)) {
+        
+        $modalInstance.close({name: $scope.newPlayer.name, points: 0})
+        $scope.newPlayer.name = '';
+      }
+      else {
+        $scope.err = 'Spielername schon eingetragen';
+      }
+    };
+    
+    var addteam = function () {
+      if (!team_in_list($scope.newPlayer1, $scope.newPlayer2)) {
+        $modalInstance.close({ name: $scope.newPlayer1.name + ' / ' + $scope.newPlayer2.name,
+          points: 0});
+      } else {
+        $scope.err = 'Team schon eingetragen';
+      }
+      
+    };
     $scope.add = function () {
-      $modalInstance.close({name: $scope.newPlayer.name, points: 0})
-      $scope.newPlayer.name = '';
+      if (data.modus == 1) addplayer();
+      if (data.modus == 2) addteam();
+      
     };
   });
   

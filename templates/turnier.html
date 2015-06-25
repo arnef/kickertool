@@ -20,7 +20,7 @@
                 <div  scrolltable fullheight="{{ modus == 0}}">
                 <table class="table">
                         <tbody class="table-body">
-                            <tr ng-repeat="team in getRanking()" ng-hide="false && team.ghost" ng-class="team.out ? 'text-muted': ''">
+                            <tr ng-repeat="team in getRanking()" ng-hide="team.ghost" ng-class="team.out ? 'text-muted': ''">
                                 <td width="5%" class="active text-center">{{ $index+1 }}</td>
                                 <td width="90%">{{ team.name }}</td>
                                 <td width="5%" class="text-center">{{ team.points }}</td>
@@ -135,7 +135,7 @@
                         <span ng-hide="isLastRound" class="glyphicon glyphicon-remove"></span>
                         <span ng-show="isLastRound" class="glyphicon glyphicon-ok"></span>
             </button>
-          <button class="btn btn-sm btn-next-step btn-default">
+          <button class="btn btn-sm btn-next-step btn-default" ng-hide="true">
             Tisch hinzufügen / entfernen
           </button>
       

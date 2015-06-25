@@ -25,36 +25,39 @@
     app.service('UpdateService', function ($http) {
         var self = this;
         self.checkForUpdates = function (callback) {
-            $http.get('https://raw.githubusercontent.com/arnef/kickertool/master/VERSION',
+            $http.get('https://raw.githubusercontent.com/arnef/kickertool/master/package.json',
                       { cache: false })
-            .success(function (current_version) {
-                $http.get('VERSION', { ignoreLoadingBar: true })
-                .success(function (local_version) {
-                    
-                    var new_available = parseInt(current_version.split('.').join(''), 10) > parseInt(local_version.split('.').join(''), 10);
+            .success(function (current) {              
+                $http.get('package.json', { ignoreLoadingBar: true })
+                .success(function (local) {
+                  
+                    var new_available = parseInt(current.version.split('.').join(''), 10) > parseInt(local.version.split('.').join(''), 10);
                     if (new_available) {
-                        var link = 'http://arnef.ddns.net/kickertool/dl/kickertool_';
+                        //var link = 'http://arnef.ddns.net/kickertool/dl/kickertool_';
                         var system = window.navigator.platform.toLowerCase().split(' ');
                         system[0] = system[0].substring(0, 3);
-                                                
+                      current.local_version = local.version;
+                        //data.local_version = local_version;               
                         if (system[0] === 'lin') {
                             if (system[1] === 'i686') {
-                                link += 'linux32.zip';
-                                callback(link, current_version, local_version);
+                                
+                                current.link = current.downloads.linux32;
                             }
                             if (system[1] === 'x86_64') {
-                                link += 'linux64.zip';
-                                callback(link, current_version, local_version);
+                                
+                                current.link = current.downloads.linux64;
                             }
                         }
                         if (system[0] === 'win') {
-                            link += 'win.zip';
-                            callback(link, current_version, local_version);
+                            
+                            current.link = current.downloads.win;
                         }
                         if (system[0] === 'mac') {
-                            link += 'osx.zip';
-                            callback(link, current_version, local_version);
+                            
+                            current.link = current.downloads.osx;
                         }
+                      delete current.downloads;
+                      callback(current);
                     }
                 });
             });            
@@ -136,14 +139,16 @@
   
   app.run(['$templateCache', function ($templateCache) {
     var modalTmpl = function (head, directive) {
-      return '<div class="modal-header">' +
+      return '<form ng-submit="add()"><div class="modal-header">' +
         '<h4 class="modal-title">' + head + '</h4>' +
         '</div><div class="modal-body">' +
-        '<' + directive + '></' + directive + '></div>' +
+        '<' + directive + '></' + directive + '>' +
+        '<p class="alert alert-danger" ng-show="err">{{ err }}</p>' +
+        '</div>' +
         '<div class="modal-footer">' +
-        '<button type="button" class="btn btn-default" ng-click="add()">Hinzufügen</button>' +
+        '<button type="submit" class="btn btn-default">Hinzufügen</button>' +
         '<button type="button" class="btn btn-primary" ng-click="cancel()">Abbrechen</button>' +
-        '</div>';
+        '</div></form>';
     };
     $templateCache.put('/dialog/insert-player.html', modalTmpl('Spieler eintragen', 'insert-player'));
     $templateCache.put('/dialog/insert-team.html', modalTmpl('Team eintragen', 'insert-team'));

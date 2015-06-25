@@ -3,15 +3,20 @@
 ## Download ##
 Hier gibts die ausführbaren Programme für die verschiedene Systeme.     
 Akutelle Version ist v0.4.0   
-* [Linux 32bit](http://arnef.ddns.net/kickertool/dl/kickertool_linux32.zip) / 
- [Linux 64bit](http://arnef.ddns.net/kickertool/dl/kickertool_linux64.zip)      
-* [Mac OSX 32 / 64bit](http://arnef.ddns.net/kickertool/dl/kickertool_osx.zip)
-* [Windows 32 / 64bit](http://arnef.ddns.net/kickertool/dl/kickertool_win.zip)
+* [Linux 32bit](https://github.com/arnef/kickertool/raw/master/build/linux32.zip) / 
+ [Linux 64bit](https://github.com/arnef/kickertool/raw/master/build/linux64.zip)      
+* [Mac OSX 32 / 64bit](https://github.com/arnef/kickertool/raw/master/build/osx.zip)
+* [Windows 32 / 64bit](https://github.com/arnef/kickertool/raw/master/build/win.zip)
 
 
 
 ## Changelog ##
     
+    v0.4.1
+    - Begegnungen der 1. Vorrunde sind jetzt zufällig
+    - Update verbessert
+    - Während der 1. Vorrunde können Spieler hinzugefügt
+      werden (nicht im DYP-Modus)
     v0.4.0
     - Updatesuche beim Start
     

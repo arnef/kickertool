@@ -72,7 +72,7 @@
                     points: 0
                 });
             }
-        })();
+        });
 
         $scope.removePlayer = function(index) {
             var dlg = dialogs.confirm(
