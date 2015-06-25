@@ -2,7 +2,7 @@
 
 ## Download ##
 Hier gibts die ausführbaren Programme für die verschiedene Systeme.     
-Akutelle Version ist v0.4.0   
+Akutelle Version ist v0.4.2   
 * [Linux 32bit](https://github.com/arnef/kickertool/raw/master/build/linux32.zip) / 
  [Linux 64bit](https://github.com/arnef/kickertool/raw/master/build/linux64.zip)      
 * [Mac OSX 32 / 64bit](https://github.com/arnef/kickertool/raw/master/build/osx.zip)
@@ -11,6 +11,9 @@ Akutelle Version ist v0.4.0
 
 
 ## Changelog ##
+
+    v0.4.2
+    - Menubar deaktiviert
     
     v0.4.1
     - Begegnungen der 1. Vorrunde sind jetzt zufällig

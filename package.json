@@ -1,10 +1,10 @@
 {
   "name": "Kickerturnier Software",
   "main": "index.html",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "window": {
       "title": "Kickerturnier Software",
-      "toolbar": true,
+      "toolbar": false,
       "icon": "icon.png",
       "width": 1100,
       "height": 600
@@ -16,8 +16,6 @@
     "win": "https://github.com/arnef/kickertool/raw/master/build/win.zip"
   },
   "changelog": [
-    "Begegnungen der 1. Vorrunde sind jetzt zufällig",
-    "Updater verbessert",
-    "Während der 1. Vorrunde können Spieler hinzugefügt werden (nicht im DYP-Modus"
+    "Menubar deaktiviert"
   ]
 }
