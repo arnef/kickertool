@@ -27,7 +27,7 @@
         };
         
         var focusInputField = function () {
-            $('input')[0].focus();
+            //$('input')[0].focus();
         };
         focusInputField();
         
@@ -95,6 +95,7 @@
         };
 
         $scope.startTourment = function() {
+          _player = TeamDrawer.shuffleArray(_player);
             Tourment.setTeams(_player);
             Tourment.nextRound();
             $location.path('turnier');

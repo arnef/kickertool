@@ -100,8 +100,41 @@
         $scope.showReenterScore = function (match) {
             return !(match.team1.ghost || match.team2.ghost);
         };
+      
+      $scope.modus = localStorage.getItem('modus');
         
-        
+      $scope.addDisabled = function () {
+        if (Tourment.getRound() == 1) return false;
+        if (Tourment.getRound() == 2) {
+          for (var i = 0; i < Tourment.getCurrentMatches().length; i++) {
+            if (Tourment.getCurrentMatches()[i].round == 1) return false;
+          }
+          return true;
+        }
+        return true;
+      };
+      
+      $scope.add = function () {
+        if ($scope.modus == 1) {
+          var dlg = dialogs.create('/dialog/insert-player.html',
+                                   'AddResultDialogController',
+                                  { modus : 1},
+                                  { size: 'sm' });
+          dlg.result.then(function (newplayer) {
+            var lastIdx = Tourment.getRanking().length - 1;
+            if (Tourment.getRanking()[lastIdx].ghost) {
+              Tourment.getRanking()[lastIdx] = newplayer;
+            }
+            else {
+              Tourment.getRanking().push(newplayer);
+              Tourment.getRanking().push({name: 'Freilos', points: -100, ghost: true});
+            }
+          });
+        }
+        if ($scope.modus == 2) {
+          
+        }
+      };
         $scope.startKORound = function () {
           console.debug($window.onresize);
             if (koRoundActive) {
@@ -124,6 +157,17 @@
     });
     
     
+  app.controller('AddResultDialogController', function ($scope, $modalInstance, data) {
+    $scope.cancel = function () {
+      $modalInstance.dismiss('Canceled');
+    };
+    
+    $scope.add = function () {
+      $modalInstance.close({name: $scope.newPlayer.name, points: 0})
+      $scope.newPlayer.name = '';
+    };
+  });
+  
     app.controller('InsertResultDialogController', function ($scope, $modalInstance, data) {
         var koRoundActive = data.koRound;
         

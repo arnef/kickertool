@@ -17,7 +17,7 @@
                             </tr>
                         </thead>
                 </table>
-                <div  scrolltable fullheight="{{ isKoRound() }}">
+                <div  scrolltable fullheight="{{ modus == 0}}">
                 <table class="table">
                         <tbody class="table-body">
                             <tr ng-repeat="team in getRanking()" ng-hide="false && team.ghost" ng-class="team.out ? 'text-muted': ''">
@@ -31,10 +31,8 @@
                 </div>
               </div>
               
-              <button ng-hide="isKoRound()" ng-click="" class="btn btn-sm btn-next-step btn-default">
-                Letzte Vorrunde 
-                        <span ng-hide="isLastRound" class="glyphicon glyphicon-remove"></span>
-                        <span ng-show="isLastRound" class="glyphicon glyphicon-ok"></span>
+              <button ng-disabled="addDisabled()" ng-hide="modus == 0" ng-click="add()" class="btn btn-sm btn-next-step btn-default">
+                {{ modus == 2 ? 'Team':'Spieler' }} nachmelden
             </button>
                 
             </div>
@@ -130,12 +128,17 @@
             </div>
 
         </div>
+
             <button ng-disabled="isKoRound()" ng-click="toggleLastRound()" class="btn btn-sm btn-next-step"
                     ng-class="isLastRound ? 'btn-success' : 'btn-default'">
                 Letzte Vorrunde 
                         <span ng-hide="isLastRound" class="glyphicon glyphicon-remove"></span>
                         <span ng-show="isLastRound" class="glyphicon glyphicon-ok"></span>
             </button>
-    </div>
+          <button class="btn btn-sm btn-next-step btn-default">
+            Tisch hinzufügen / entfernen
+          </button>
+      
+      </div>
 
 </div>

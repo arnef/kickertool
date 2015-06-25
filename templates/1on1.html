@@ -13,11 +13,7 @@
 
                 <div class="tab-content table-border text-right" style="padding:10px">
 
-                    <div class="form-group">
-                        <label class="sr-only">Name</label>
-                        <input type="text" class="form-control input-sm" ng-model="newPlayer.name" required placeholder="Name" autofocus>
-
-                    </div>
+                    <insert-player></insert-player>
                     
                 </div>                
                 <button type="submit" class="btn btn-success btn-sm btn-next-step" ng-disabled="newPlayer.name == null">

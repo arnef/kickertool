@@ -119,22 +119,33 @@
             });
         };
     });
-    /*app.directive('scrolltableFull', function ($window) {
-        var resize = function (element) {
-            var winHeight = $window.innerHeight,
-                diff = 80 + 20;
-            element.css("height", (winHeight - diff) + "px");
-            element.css("overflow-x", "hidden");
-            element.css("overflow-y", "auto");
-        };
-        
-        return function (scope, element, attrs) {
-          
-            resize(element);
-            angular.element($window).bind('resize', function (e) {
-                resize(element);
-            });
-        };
-    });*/
-    
+  
+  app.directive('insertPlayer', function () {
+    return {
+      restrict: 'E',
+      templateUrl: 'templates/insert_player.html'
+    };
+  });
+  
+  app.directive('insertTeam', function () {
+    return {
+      restrict: 'E',
+      templateUrl: 'templates/insert_team.html'
+    };
+  });
+  
+  app.run(['$templateCache', function ($templateCache) {
+    var modalTmpl = function (head, directive) {
+      return '<div class="modal-header">' +
+        '<h4 class="modal-title">' + head + '</h4>' +
+        '</div><div class="modal-body">' +
+        '<' + directive + '></' + directive + '></div>' +
+        '<div class="modal-footer">' +
+        '<button type="button" class="btn btn-default" ng-click="add()">Hinzufügen</button>' +
+        '<button type="button" class="btn btn-primary" ng-click="cancel()">Abbrechen</button>' +
+        '</div>';
+    };
+    $templateCache.put('/dialog/insert-player.html', modalTmpl('Spieler eintragen', 'insert-player'));
+    $templateCache.put('/dialog/insert-team.html', modalTmpl('Team eintragen', 'insert-team'));
+  }]);
 })();

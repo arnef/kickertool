@@ -12,16 +12,7 @@
 
 
                 <div class="tab-content table-border text-right" style="padding:10px">
-
-                    <div class="form-group">
-                        <label class="sr-only">Name Spieler 1</label>
-                        <input type="text" class="form-control input-sm" ng-model="newPlayer1.name" required placeholder="Spieler 1" autofocus>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="sr-only">Name Spieler 2</label>
-                        <input type="text" class="form-control input-sm" ng-model="newPlayer2.name" required placeholder="Spieler 2">
-                    </div>
+                  <insert-team></insert-team>
                     
                 </div>
                 <button type="submit" class="btn btn-success btn-sm btn-next-step" ng-disabled="newPlayer1.name == null || newPlayer2.name == null">

@@ -28,7 +28,8 @@ body {
 .btn-next-step {
 	margin-top: 10px;
 	float:right;
-    text-transform: uppercase;
+  text-transform: uppercase;
+  margin-left: 10px;
 }
 .padding {
 	padding: 10px !important;

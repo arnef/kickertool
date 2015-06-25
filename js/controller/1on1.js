@@ -25,7 +25,8 @@
         };
         
         var focusInputField = function () {
-            $('input')[0].focus();
+          
+          //  $('input')[0].focus();
         };
         focusInputField();
         

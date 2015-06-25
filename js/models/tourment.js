@@ -77,6 +77,15 @@ function Tourment() {
         }
     };
     
+  self.getRound = function () {
+    if (qualifyingRoundModus instanceof SwissSystem) {
+      return qualifyingRoundModus.round;
+    }
+    else {
+      return 0;
+    }
+  };
+  
     
     self.setTeams = function (teams) {
         ranking = teams;
