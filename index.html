@@ -2,40 +2,42 @@
 <html ng-app="kickertool">
 
 <head>
-    <meta charset="utf-8">
-    <title>Kickertool</title>
+  <meta charset="utf-8">
+  <title>Kickertool</title>
 
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/loading-bar.css">
-    <link rel="stylesheet" href="css/kickertool.css">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.min.css">
+  <link rel="stylesheet" href="app.css">
 
-    <script src="js/libs/jquery-2.1.4.min.js"></script>
-    <script src="js/libs/angular.min.js"></script>
-    <script src="js/libs/angular-route.min.js"></script>
-    <script src="js/libs/angular-sanitize.min.js"></script>
-    <script src="js/libs/ui-bootstrap.min.js"></script>
-    <script src="js/libs/dialogs.min.js"></script>
-    <script src="js/libs/loading-bar.min.js"></script>
+    <!--<script src="js/libs/jquery-2.1.4.min.js"></script>-->
+  <script src="bower_components/angular/angular.min.js"></script>
+  <script src="bower_components/angular-route/angular-route.min.js"></script>
+  <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+  <script src="bower_components/angular-dialog-service/dist/dialogs-default-translations.min.js"></script>
+  <script src="bower_components/angular-dialog-service/dist/dialogs.min.js"></script>
+  <script src="bower_components/angular-loading-bar/build/loading-bar.min.js"></script>
 
-    <script src="js/models/drawteams.js"></script>
-    <script src="js/models/swisssystem.js"></script>
-    <script src="js/models/koround.js"></script>
-    <script src="js/models/tourment.js"></script>
+  <script src="js/models/drawteams.js"></script>
+  <script src="js/models/swisssystem.js"></script>
+  <script src="js/models/koround.js"></script>
+  <script src="js/models/tourment.js"></script>
 
 
-    <script src="js/kickertool.js"></script>
+  <script src="js/app.js"></script>
     
-    <script src="js/controller/dyp.js"></script>
-    <script src="js/controller/1on1.js"></script>
-    <script src="js/controller/2on2.js"></script>
-    <script src="js/controller/turnier.js"></script>
-    <script src="js/controller/start.js"></script>
+  <script src="js/controller/dyp.js"></script>
+  <script src="js/controller/1on1.js"></script>
+  <script src="js/controller/2on2.js"></script>
+  <script src="js/controller/turnier.js"></script>
+  <script src="js/controller/start.js"></script>
 
 </head>
 
 <body>
     
-    <div ng-view></div>
+  <div ng-view></div>
 
 </body>
 

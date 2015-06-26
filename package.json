@@ -1,10 +1,10 @@
 {
   "name": "Kickerturnier Software",
   "main": "index.html",
-  "version": "0.4.2",
+  "version": "0.4.1",
   "window": {
       "title": "Kickerturnier Software",
-      "toolbar": false,
+      "toolbar": true,
       "icon": "icon.png",
       "width": 1100,
       "height": 600

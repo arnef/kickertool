@@ -1,7 +1,7 @@
 # Kickertool #
 
 ## Download ##
-Hier gibts die ausführbaren Programme für die verschiedene Systeme.     
+Hier gibts die ausführbaren Programme für verschiedene Systeme.     
 Akutelle Version ist v0.4.2   
 * [Linux 32bit](https://github.com/arnef/kickertool/raw/master/build/linux32.zip) / 
  [Linux 64bit](https://github.com/arnef/kickertool/raw/master/build/linux64.zip)      

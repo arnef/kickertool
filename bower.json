@@ -1,0 +1,25 @@
+{
+  "name": "Kickertool",
+  "version": "0.4.2",
+  "homepage": "https://github.com/arnef/kickertool",
+  "authors": [
+    "Arne Feil"
+  ],
+  "main": "index.html",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.4.1",
+    "angular-ui-bootstrap": "~0.13.0",
+    "angular-dialog-service": "~5.2.8",
+    "angular-route": "~1.4.1",
+    "angular-loading-bar": "~0.8.0",
+    "angular-scroll-glue": "~2.0.6"
+  }
+}
