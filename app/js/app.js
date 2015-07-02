@@ -1,8 +1,19 @@
+/**
+* Consts
+**/
+var WINNER_HOME = 0,
+  DRAW = 1,
+  WINNER_AWAY = 2,
+  FAIR_FOR_ALL = 0,
+  ONE_ON_ONE = 1,
+  TWO_ON_TWO = 2;
+
 (function () {
     'use strict';
     
     var app = angular.module('kickertool', [
         'ngRoute', 'ngSanitize', 'ui.bootstrap', 'dialogs.main', 'angular-loading-bar',
+      'kUpdateService',
         'controller-dyp',
         'controller-1on1',
         'controller-2on2',
@@ -19,52 +30,7 @@
     });
     
     
-    /**
-    * update service
-    **/
-    app.service('UpdateService', function ($http) {
-        var self = this;
-        self.checkForUpdates = function (callback) {
-            $http.get('https://raw.githubusercontent.com/arnef/kickertool/master/package.json',
-                      { cache: false })
-            .success(function (current) {              
-                $http.get('package.json', { ignoreLoadingBar: true })
-                .success(function (local) {
-                  
-                    var new_available = parseInt(current.version.split('.').join(''), 10) > parseInt(local.version.split('.').join(''), 10);
-                    if (new_available) {
-                        //var link = 'http://arnef.ddns.net/kickertool/dl/kickertool_';
-                        var system = window.navigator.platform.toLowerCase().split(' ');
-                        system[0] = system[0].substring(0, 3);
-                      current.local_version = local.version;
-                        //data.local_version = local_version;               
-                        if (system[0] === 'lin') {
-                            if (system[1] === 'i686') {
-                                
-                                current.link = current.downloads.linux32;
-                            }
-                            if (system[1] === 'x86_64') {
-                                
-                                current.link = current.downloads.linux64;
-                            }
-                        }
-                        if (system[0] === 'win') {
-                            
-                            current.link = current.downloads.win;
-                        }
-                        if (system[0] === 'mac') {
-                            
-                            current.link = current.downloads.osx;
-                        }
-                      delete current.downloads;
-                      callback(current);
-                    }
-                });
-            });            
-        };
-        
-    });
-
+   
     /**
     * app routes
     **/

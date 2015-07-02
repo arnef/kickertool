@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <script src="../models/player.js"></script>
+    <script src="../models/team.js"></script>
+  </head>
+  
+  <body>
+    <script>
+      var p1 = new Player('Arne');
+      var p2 = new Player('Anne');
+      var p3 = new Player('An3');
+      var p4 = new Player('arne');
+      
+      var t1 = new Team(p1, p2);
+      var t2 = new Team(p2, p1);
+      var t3 = new Team(p1, p3);
+      
+      console.log(p1.equals(p3), false);
+      console.log(p1.equals(p4), true);
+      console.log(t1.equals(t2), true);
+      console.log(t1.equals(t3), false);
+    
+    </script>
+  
+  </body>
+</html>

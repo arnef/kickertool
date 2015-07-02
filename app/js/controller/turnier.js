@@ -67,8 +67,12 @@
             if (Tourment.getCurrentMatches()[tableIdx] !== null) {
                 var match = Tourment.getCurrentMatches()[tableIdx],
                     dlg = dialogs.create('templates/result_dialog.html', 'InsertResultDialogController',
-                                         { match: match, koRound: koRoundActive, head: 'Ergebnis eintragen' },
-                                         { size: 'sm' });
+                                         { 
+                                            match: match, 
+                                            koRound: koRoundActive, 
+                                            head: koRoundActive ? 'Gewinner wählen' : 'Ergebnis eintragen' 
+                                         },
+                                         { size: 'md' });
                 dlg.result.then(function (score) {
                     Tourment.setWinnerOnTable(tableIdx, score);
                 });

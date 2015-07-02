@@ -1,6 +1,6 @@
 {
   "name": "Kickerturnier Software",
-  "main": "index.html",
+  "main": "app/index.html",
   "version": "0.4.2",
   "window": {
       "title": "Kickerturnier Software",
