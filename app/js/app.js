@@ -1,12 +1,18 @@
 /**
 * Consts
 **/
-var WINNER_HOME = 0,
-  DRAW = 1,
-  WINNER_AWAY = 2,
-  FAIR_FOR_ALL = 0,
-  ONE_ON_ONE = 1,
-  TWO_ON_TWO = 2;
+var WINNER_HOME = 100,
+  DRAW = 101,
+  WINNER_AWAY = 102,
+  FAIR_FOR_ALL = 201,
+  ONE_ON_ONE = 202,
+  TWO_ON_TWO = 203,
+  KO_ROUND = 204,
+  GOALIE = 1,
+  STRIKER = 2,
+  BOTH = 4,
+  PRO = 8,
+  AMATEUR = 16;
 
 (function () {
     'use strict';

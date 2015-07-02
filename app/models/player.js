@@ -43,6 +43,32 @@ function Player(newName) {
   };
   
   
+  self.getInfo = function () {
+    var playerType = '';
+    switch (type) {
+      case PRO:
+        playerType = 'gesetzt';
+        break;
+      case AMATEUR:
+        playerType = 'gelost';
+        break;
+    }
+    var playerPosition = '';
+    switch (position) {
+      case STRIKER:
+        playerPosition = 'Stürmer';
+        break;
+      case GOALIE:
+        playerPosition = 'Torwart';
+        break;
+      case BOTH:
+        playerPosition = 'Tortwart/Stürmer';
+        break;
+    }
+    return playerPosition + ' ' + playerType;
+  };
+  
+  
   self.getPoints = function () {
     return points;
   };
