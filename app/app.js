@@ -14,6 +14,21 @@ var WINNER_HOME = 100,
   PRO = 8,
   AMATEUR = 16;
 
+
+Array.prototype.shuffle = function () {
+  var m = this.length,
+    t, i;
+  
+  while (m) {
+    i = Math.floor(Math.random() * m--);
+    t = this[m];
+    this[m] = this[i];
+    this[i] = t;
+  }
+  
+  return this;
+};
+
 (function () {
   'use strict';
   
@@ -22,11 +37,13 @@ var WINNER_HOME = 100,
     'ngSanitize',
     'ui.bootstrap',
     'dialogs.main',
+    'luegg.directives',
     'angular-loading-bar',
     'kDirectives',
     'kUpdateService',
     'kStartController',
-    'kInsertController'
+    'kInsertController',
+    'kTourmentController'
     ])
   
   .factory('Tourment', function () {
@@ -43,6 +60,10 @@ var WINNER_HOME = 100,
     .when('/insert', {
       templateUrl: 'templates/insert.html',
       controller: 'InsertController'
+    })
+    .when('/tourment', {
+      templateUrl: 'templates/tourment.html',
+      controller: 'TourmentController'
     });
   });
   

@@ -1,10 +1,10 @@
-function Player(newName) {
+function Player(newName, newPosition, newType) {
   'use strict';
   
   var self = this,
     name = newName,
-    position = null,
-    type = null,
+    position = newPosition,
+    type = newType,
     points = 0;
   
   
@@ -80,12 +80,3 @@ function Player(newName) {
   };
   
 }
-Player.dyp = function (name, position, type) {
-  'use strict';
-  
-  var p = new Player(name);
-  p.setPosition(position);
-  p.setType(type);
-  
-  return p;
-};

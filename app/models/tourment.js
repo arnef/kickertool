@@ -4,8 +4,7 @@ function Tourment() {
   var self = this,
     tables = new Array(2),
     player = [],
-    teams = null,
-    ranking = null,
+    teams = [],
     playedMatches = [],
     modus = null,
     modusModel = null;
@@ -25,7 +24,7 @@ function Tourment() {
         break;
     }
   };
-  self.setModus(FAIR_FOR_ALL);
+  self.setModus(ONE_ON_ONE);
   self.getModus = function () {
     return modus;
   };
@@ -36,38 +35,70 @@ function Tourment() {
   };
   
     
-  self.addPlayer = function (newPlayer) {
+  self.addParticipant = function (p) {
+    var list = player;
+    if (modus == TWO_ON_TWO) {
+      list = teams;
+    }
     var playerInList = false;
-    for (var i = 0; i < player.length; i++) {
-      if (player[i].equals(newPlayer)) {
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].equals(p)) {
         playerInList = true;
         break;
       }
     }
     if (!playerInList) {
-      player.push(newPlayer);
+      list.push(p);
     }
     return !playerInList;
   };
   
-    
-  self.addTeam = function (newTeam) {
-    var teamInList = false;
-    for (var i = 0; i < teams.length; i++) {
-      if (teams[i].equals(newTeam)) {
-        teamInList = true;
-        break;
-      }
+  
+  self.removeParticipant = function (idx) {
+    var list = player;
+    if (modus == TWO_ON_TWO) {
+      list = teams;
     }
-    if (!teamInList) {
-      teams.push(newTeam);
-    }
-    return !teamInList;
+    list.splice(idx, 1);
   };
   
   
-  self.getPlayer = function () {
-    return player;
+  self.drawTeams = function () {
+    if (modus == FAIR_FOR_ALL) {
+      teams = new FairForAllDrawer(player).draw();
+    }
+  };
+  
+  
+  self.getParticipants = function () {
+    var list = player;
+    if (modus == TWO_ON_TWO) {
+      list = teams;
+    }
+    return list;
+  };
+  
+  self.getParticipant = function (idx) {
+    var list = player;
+    if (modus == TWO_ON_TWO) {
+      list = teams;
+    }
+    return list[idx];
+  }
+  
+  
+  self.getRanking = function () {
+    switch (modus) {
+      case FAIR_FOR_ALL:
+      case TWO_ON_TWO:
+        return teams.sort(function (a, b) {
+          return a.points - b.points;
+        });
+      case ONE_ON_ONE:
+        return player.sort(function (a, b) {
+          return a.points - b.points;
+        });
+    }
   };
   
   

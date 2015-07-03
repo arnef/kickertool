@@ -8,8 +8,6 @@ Akutelle Version ist v0.4.2
 * [Mac OSX 32 / 64bit](https://github.com/arnef/kickertool/raw/master/build/osx.zip)
 * [Windows 32 / 64bit](https://github.com/arnef/kickertool/raw/master/build/win.zip)
 
-
-
 ## Changelog ##
 
     v0.4.2

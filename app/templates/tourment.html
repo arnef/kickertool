@@ -22,8 +22,8 @@
                         <tbody class="table-body">
                             <tr ng-repeat="team in getRanking()" ng-hide="team.ghost" ng-class="team.out ? 'text-muted': ''">
                                 <td width="5%" class="active text-center">{{ $index+1 }}</td>
-                                <td width="90%">{{ team.name }}</td>
-                                <td width="5%" class="text-center">{{ team.points }}</td>
+                                <td width="90%">{{ team.getName() }}</td>
+                                <td width="5%" class="text-center">{{ team.getPoints() }}</td>
 
                             </tr>
                         </tbody>

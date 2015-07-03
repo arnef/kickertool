@@ -5,7 +5,6 @@
   
   .controller('StartController', function ($scope, $http, $location, Tourment, UpdateService, dialogs) {
     
-    
     /**
     * resore last configuration
     **/
@@ -17,7 +16,7 @@
     // if data is from old app version
     if ($scope.modus < FAIR_FOR_ALL) 
       $scope.modus += FAIR_FOR_ALL;
-    
+        
     /**
     * check for updates
     **/
@@ -64,11 +63,10 @@
             });
     });
     
-    
     $scope.setTab = function (newTab) {
       $scope.modus = FAIR_FOR_ALL + newTab;
     };
-    
+        
     $scope.isTab = function (tab) {
       return $scope.modus - FAIR_FOR_ALL == tab;
     };
