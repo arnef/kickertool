@@ -5,9 +5,8 @@ function Match(newHome, newAway, newRound) {
   var self = this,
     home = newHome,
     away = newAway,
-    rount = newRound,
+    round = newRound,
     score = null;
-  
   
   self.setScore = function (newScore) {
     score = newScore;
@@ -67,5 +66,20 @@ function Match(newHome, newAway, newRound) {
   
   self.getAway = function () {
     return away;
+  };
+  
+  self.getRound = function () {
+    return round;
+  };
+  
+  
+  self.equals = function (match) {
+    return (
+      (self.getHome().equals(match.getHome()) 
+       && self.getAway().equals(match.getAway()))
+      ||
+      (self.getHome().equals(match.getAway())
+       && self.getAway().equals(match.getHome()))
+    );
   };
 }

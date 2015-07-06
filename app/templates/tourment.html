@@ -20,7 +20,7 @@
                 <div  scrolltable fullheight="{{ modus == 0}}">
                 <table class="table">
                         <tbody class="table-body">
-                            <tr ng-repeat="team in getRanking()" ng-hide="team.ghost" ng-class="team.out ? 'text-muted': ''">
+                            <tr ng-repeat="team in getRanking() track by $index" ng-hide="team.ghost" ng-class="team.out ? 'text-muted': ''">
                                 <td width="5%" class="active text-center">{{ $index+1 }}</td>
                                 <td width="90%">{{ team.getName() }}</td>
                                 <td width="5%" class="text-center">{{ team.getPoints() }}</td>
@@ -62,18 +62,18 @@
                     <div scrolltable>
                     <table class="table">
                     <tbody class="text-center">
-                        <tr ng-repeat="table in getCurrentMatches() track by $index" class="hover">
+                        <tr ng-repeat="table in getTables() track by $index" class="hover">
                             <td width="5%" class="active">{{ $index+1 }}</td>
-                            <td width="10%" ng-click="insertScore($index)">{{ table.round }}</td>
-                            <td width="38%" ng-click="insertScore($index)">{{ table.team1.name }}</td>
+                            <td width="10%" ng-click="insertScore($index)">{{ table.getRound() }}</td>
+                            <td width="38%" ng-click="insertScore($index)">{{ table.getHome().getName() }}</td>
                             <td width="5%" ng-click="insertScore($index)">
-                                <span ng-show="table.team1 != null">vs.</span>
-                                <span ng-show="table.team1 == null">Frei</span>
+                                <span ng-show="table.getHome() != null">vs.</span>
+                                <span ng-show="table.getHome() == null">Frei</span>
                             </td>
-                            <td width="38%" ng-click="insertScore($index)">{{ table.team2.name }}</td>
+                            <td width="38%" ng-click="insertScore($index)">{{ table.getAway().getName() }}</td>
                             <td width="4%" ng-click="deferMatch($index)">
                                 <a href class="glyphicon glyphicon-share-alt text-muted"
-                                      ng-show="table.team1 != null"></a></td>
+                                      ng-show="table.getHome() != null"></a></td>
                         </tr>
                         <tr ng-hide="getNextMatches().length == 0" >
                             <th colspan="6" 
@@ -82,10 +82,10 @@
                         </tr>
                         <tr ng-repeat="match in getNextMatches()">
                             <td class="active"></td>
-                            <td>{{ match.round }}</td>
-                            <td>{{ match.team1.name }}</td>
+                            <td>{{ match.getRound() }}</td>
+                            <td>{{ match.getHome().getName() }}</td>
                             <td>vs. </td>
-                            <td>{{ match.team2.name }}</td>
+                            <td>{{ match.getAway().getName() }}</td>
                             <td></td>
                         </tr>
                     </tbody>
@@ -112,10 +112,10 @@
                     <tbody class="text-center">
                         <tr ng-repeat="match in getPlayedMatches()">
                             <td width="5%" class="active"></td>
-                            <td width="10%">{{ match.round }}</td>
-                            <td width="38%">{{ match.team1.name }}</td>
-                            <td width="5%">{{ match.score.team1 + ':' + match.score.team2 }}</td>
-                            <td width="38%">{{ match.team2.name }}</td>
+                            <td width="10%">{{ match.getRound() }}</td>
+                            <td width="38%">{{ match.getHome().getName() }}</td>
+                            <td width="5%">{{ match.getScore() }}</td>
+                            <td width="38%">{{ match.getAway().getName() }}</td>
                             <td width="4%">
                                 <a href class="glyphicon glyphicon-share-alt text-muted"
                                    ng-show="showReenterScore(match)"

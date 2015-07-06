@@ -17,14 +17,15 @@ function Tourment() {
       case FAIR_FOR_ALL:
       case ONE_ON_ONE:
       case TWO_ON_TWO:
-        modusModel = new SwissSystem();
+        modusModel = new SwissSystem(self.getRanking());
         break;
       case KO_ROUND:
         modusModel = new KoRound();
         break;
     }
   };
-  self.setModus(ONE_ON_ONE);
+  
+  
   self.getModus = function () {
     return modus;
   };
@@ -34,6 +35,15 @@ function Tourment() {
     tables = new Array(countTables);
   };
   
+  
+  self.getTables = function () {
+    return tables;
+  };
+  
+  
+  self.getTable = function (idx) {
+    return tables[idx];
+  };
     
   self.addParticipant = function (p) {
     var list = player;
@@ -91,13 +101,9 @@ function Tourment() {
     switch (modus) {
       case FAIR_FOR_ALL:
       case TWO_ON_TWO:
-        return teams.sort(function (a, b) {
-          return a.points - b.points;
-        });
+        return teams;
       case ONE_ON_ONE:
-        return player.sort(function (a, b) {
-          return a.points - b.points;
-        });
+        return player;
     }
   };
   
@@ -107,7 +113,53 @@ function Tourment() {
     if (match != null) {
       match.setScore(score);
       playedMatches.push(match);
-      tables[tableIdx] = null;
+      tables[tableIdx] = self.getNextMatch();
+      self.getRanking().sort(function (a, b) {
+        return b.getPoints() - a.getPoints();
+      });
+      
     }
   };
+  
+  self.getNextMatches = function () {
+    return modusModel.getNextMatches();
+  };
+  
+  self.getNextMatch = function () {
+    var m = self.getNextMatches()[0];
+    self.getNextMatches().splice(0, 1);
+    
+    if (m != null 
+        && (m.getHome().isGhost() || m.getAway().isGhost())) {
+      var score = m.getHome().isGhost() ? 102 : 100;
+      m.setScore(score);
+      playedMatches.push(m);
+      return self.getNextMatch();
+    };
+    
+    return m;
+  };
+  
+  self.getPlayedMatches = function () {
+    return playedMatches;
+  };
+  
+  self.nextRound = function () {
+    modusModel.nextRound();
+    for (var i = 0; i < tables.length; i++) {
+      if (tables[i] == null) {
+        tables[i] = self.getNextMatch();
+      }
+    }
+  };
+    
+  
+  // dummy data for testing
+  (function () {
+    self.setModus(ONE_ON_ONE);  
+    for (var i = 0; i < 7; i++) {
+      self.addParticipant(new Player('Player ' + (i+1)));
+    }
+  })();
+  
 }

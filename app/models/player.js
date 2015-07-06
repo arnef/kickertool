@@ -5,7 +5,9 @@ function Player(newName, newPosition, newType) {
     name = newName,
     position = newPosition,
     type = newType,
+    ghost = false,
     points = 0;
+  
   
   
   self.setPosition = function (newPosition) {
@@ -17,6 +19,15 @@ function Player(newName, newPosition, newType) {
     type = newType;
   };
   
+  
+  self.setGhost = function (newGhost) {
+    ghost = newGhost;
+  };
+  
+  
+  self.isGhost = function () {
+    return ghost;
+  };
   
   self.addPoints = function (addPoints) {
     points += addPoints;
@@ -80,3 +91,8 @@ function Player(newName, newPosition, newType) {
   };
   
 }
+Player.ghost = function () {
+  var p = new Player('Freilos');
+  p.setGhost(true);
+  return p;
+};

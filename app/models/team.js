@@ -29,6 +29,10 @@ function Team(newPlayer1, newPlayer2) {
     return player2;
   };
   
+  self.isGhost = function () {
+    return false;
+  };
+  
   self.equals = function (team) {
     return (self.getPlayer1().equals(team.getPlayer1()) && self.getPlayer2().equals(team.getPlayer2()))
       || (self.getPlayer1().equals(team.getPlayer2()) && self.getPlayer2().equals(team.getPlayer1()));
