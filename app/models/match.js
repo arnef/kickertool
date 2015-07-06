@@ -9,6 +9,7 @@ function Match(newHome, newAway, newRound) {
     score = null;
   
   self.setScore = function (newScore) {
+    self.stopPlaying();
     score = newScore;
     switch (score) {
       case WINNER_HOME:
@@ -24,6 +25,15 @@ function Match(newHome, newAway, newRound) {
     }
   };
   
+  self.startPlaying = function () {
+    home.setPlaying(true);
+    away.setPlaying(true);
+  };
+  
+  self.stopPlaying = function () {
+    home.setPlaying(false);
+    away.setPlaying(false);
+  };
   
   self.resetScore = function (newScore) {
     switch (score) {
@@ -74,6 +84,9 @@ function Match(newHome, newAway, newRound) {
   
   
   self.equals = function (match) {
+    if (match.getHome().isGhost() || match.getAway().isGhost()) {
+      return false;
+    }
     return (
       (self.getHome().equals(match.getHome()) 
        && self.getAway().equals(match.getAway()))

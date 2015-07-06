@@ -75,3 +75,6 @@ a:hover {
 #loading-bar .peg {
   height: 4px;
 }
+.blocked {
+  color: rgb(200, 0, 0);
+}

@@ -24,7 +24,8 @@
       return Tourment.getRanking();
     };
     
-    Tourment.nextRound();
+    //Tourment.nextRound();
+    Tourment.start();
     
     $scope.getNextMatches = function () {
       return Tourment.getNextMatches();
@@ -49,6 +50,21 @@
       }
     };
     
+    $scope.deferMatch = function (tableIdx) {
+      if ($scope.canDeferMatch(tableIdx)) {
+      dialogs.confirm('Spiel zurückstellen',
+                      'Soll das Spielan Tisch ' + (tableIdx + 1) 
+                      + ' zurückgestellt werden?',
+                      { size: 'sm' })
+      .result.then(function () {
+        Tourment.deferMatch(tableIdx);
+      });
+    }
+    };
+    
+    $scope.canDeferMatch = function (tableIdx) {
+      return Tourment.canDeferMatch(tableIdx);
+    };
     
   })
   

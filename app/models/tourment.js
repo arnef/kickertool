@@ -6,7 +6,9 @@ function Tourment() {
     player = [],
     teams = [],
     playedMatches = [],
+    nextMatches = [],
     modus = null,
+    preCalcNextRound = null,
     modusModel = null;
   
   
@@ -108,56 +110,135 @@ function Tourment() {
   };
   
   
+  
+  self.getNextMatches = function () {
+    return nextMatches;
+  };
+  
+  var newRound = function () {
+    var runningMatches = 0;
+    for (var i = 0; i <tables.length; i++) {
+      if (tables[i] != null) {
+        runningMatches += 1;
+      }
+    }
+    runningMatches += nextMatches.length;
+    console.debug(preCalcNextRound);
+    return runningMatches < preCalcNextRound;
+  };
+  
+  var teamIsPlaying = function (match) {
+    var playing = false;
+    for (var i = 0; i < tables.length; i++) {
+      var matchOnTable = tables[i];
+      if (matchOnTable != null) {
+        if (match.getHome().equals(matchOnTable.getHome())
+            || match.getAway().equals(matchOnTable.getAway())
+            || match.getHome().equals(matchOnTable.getAway())
+            || match.getAway().equals(matchOnTable.getHome())
+            ) {
+          playing = true;
+          break;
+        }
+      }
+    }
+    return playing;
+  };
+  
+  self.nextRound = function () {
+    var nm = modusModel.nextRound();
+    if (nm.length > 0) {
+      console.debug('next round');
+      nextMatches = nextMatches.concat(nm);
+      for (var i = 0; i < tables.length; i++) {
+        if (tables[i] == null) {
+          console.debug('free table', i);
+          tables[i] = self.getNextMatch();
+        }
+      }
+    }
+  };
+  
+  self.getNextMatch = function () {
+    var m = nextMatches[0];
+    nextMatches.splice(0, 1);
+    if (m != null) {
+      if (m.getHome().isPlaying() || m.getAway().isPlaying()) {
+        nextMatches.push(m);
+        return self.getNextMatch();
+      }
+      
+      m.startPlaying();
+      if (m.getHome().isGhost() || m.getAway().isGhost()) {
+        var score = m.getHome().isGhost() ? 102 : 100;
+        m.setScore(score);
+        playedMatches.push(m);
+        return self.getNextMatch();
+      }
+      
+    }
+
+    return m;
+    
+  };
+  
+  self.deferMatch = function (tableIdx) {
+    var match = tables[tableIdx];
+    if (match != null) {
+      match.stopPlaying();
+      nextMatches.push(match);
+      tables[tableIdx] = self.getNextMatch();
+    }
+  };
+  
+  
+  self.canDeferMatch = function (tableIdx) {
+    var match = tables[tableIdx];
+    if (match != null) {
+      return modusModel.canDeferMatch(match.getRound());
+    }
+    else {
+      return false;
+    }
+  };
+  
+  
   self.setScoreOnTable = function (tableIdx, score) {
     var match = tables[tableIdx];
     if (match != null) {
       match.setScore(score);
       playedMatches.push(match);
-      tables[tableIdx] = self.getNextMatch();
+      tables[tableIdx] = null;
+      if (newRound()) {
+        console.debug('new round');
+        self.nextRound();
+      } else {
+        tables[tableIdx] = self.getNextMatch();
+      }
       self.getRanking().sort(function (a, b) {
         return b.getPoints() - a.getPoints();
-      });
-      
+      }); 
     }
   };
   
-  self.getNextMatches = function () {
-    return modusModel.getNextMatches();
-  };
-  
-  self.getNextMatch = function () {
-    var m = self.getNextMatches()[0];
-    self.getNextMatches().splice(0, 1);
-    
-    if (m != null 
-        && (m.getHome().isGhost() || m.getAway().isGhost())) {
-      var score = m.getHome().isGhost() ? 102 : 100;
-      m.setScore(score);
-      playedMatches.push(m);
-      return self.getNextMatch();
-    };
-    
-    return m;
-  };
   
   self.getPlayedMatches = function () {
     return playedMatches;
   };
   
-  self.nextRound = function () {
-    modusModel.nextRound();
-    for (var i = 0; i < tables.length; i++) {
-      if (tables[i] == null) {
-        tables[i] = self.getNextMatch();
-      }
-    }
+  
+  self.start = function () {
+    preCalcNextRound = Math.ceil(self.getRanking().length * 0.2);
+    if (preCalcNextRound > tables.length)
+      preCalcNextRound = tables.length + (self.getRanking().length % 2);
+    self.nextRound();
   };
-    
+  
   
   // dummy data for testing
   (function () {
     self.setModus(ONE_ON_ONE);  
-    for (var i = 0; i < 7; i++) {
+    for (var i = 0; i < 13; i++) {
       self.addParticipant(new Player('Player ' + (i+1)));
     }
   })();

@@ -6,6 +6,7 @@ function Player(newName, newPosition, newType) {
     position = newPosition,
     type = newType,
     ghost = false,
+    playing = false,
     points = 0;
   
   
@@ -14,6 +15,13 @@ function Player(newName, newPosition, newType) {
     position = newPosition;
   };
   
+  self.setPlaying = function (newPlaying) {
+    playing = newPlaying;
+  };
+  
+  self.isPlaying = function () {
+    return playing;
+  };
   
   self.setType = function (newType) {
     type = newType;

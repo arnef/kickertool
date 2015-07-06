@@ -73,14 +73,15 @@
                             <td width="38%" ng-click="insertScore($index)">{{ table.getAway().getName() }}</td>
                             <td width="4%" ng-click="deferMatch($index)">
                                 <a href class="glyphicon glyphicon-share-alt text-muted"
-                                      ng-show="table.getHome() != null"></a></td>
+                                      ng-show="canDeferMatch($index)"></a></td>
                         </tr>
                         <tr ng-hide="getNextMatches().length == 0" >
                             <th colspan="6" 
                                 ng-hide="getNextMatches().length == 0"
                                 class="divider"></th>
                         </tr>
-                        <tr ng-repeat="match in getNextMatches()">
+                        <tr ng-repeat="match in getNextMatches()"
+                            ng-class="match.getHome().isPlaying() || match.getAway().isPlaying() ? 'blocked' : ''">
                             <td class="active"></td>
                             <td>{{ match.getRound() }}</td>
                             <td>{{ match.getHome().getName() }}</td>

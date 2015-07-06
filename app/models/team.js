@@ -4,6 +4,7 @@ function Team(newPlayer1, newPlayer2) {
   var self = this,
     player1 = newPlayer1,
     player2 = newPlayer2,
+    playing = false;
     points = 0;
   
   
@@ -27,6 +28,14 @@ function Team(newPlayer1, newPlayer2) {
   
   self.getPlayer2 = function () {
     return player2;
+  };
+  
+  self.setPlaying = function (newPlaying) {
+    playing = newPlaying;
+  };
+  
+  self.isPlaying = function () {
+    return playing;
   };
   
   self.isGhost = function () {
