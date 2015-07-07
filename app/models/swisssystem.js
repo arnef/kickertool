@@ -29,7 +29,6 @@ function SwissSystem() {
       var teams = [].concat(ranking);
 
       if (teams.length % 2 == 1) {
-        console.debug('add ghost team');
         teams.push(Player.ghost());
       }
       var useNext = 0;
@@ -38,7 +37,6 @@ function SwissSystem() {
         var t1 = teams[0];
         var t2 = teams[(useNext + 1)];
 
-        //console.debug('Match', t1.getName(), 'vs.', t2.getName());
         var match = new Match(t1,
                               t2,
                               round);
@@ -53,7 +51,6 @@ function SwissSystem() {
         if (matchPlayed) {
           useNext += 1;
           if (useNext > teams.length) {
-            console.debug('kein match');
             return;
           }
         } else {
@@ -67,9 +64,5 @@ function SwissSystem() {
     }
     return nextMatches;
   };
-
-  /**self.getNextMatches = function () {
-    return nextMatches;
-  };*/
 
 }

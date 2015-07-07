@@ -119,7 +119,6 @@
   })
 
   .controller('InsertResultDialogController', function ($scope, $modalInstance, data) {
-    $scope.head = data.head;
     $scope.home = data.home;
     $scope.away = data.away;
     $scope.isKoRound = data.isKoRound;

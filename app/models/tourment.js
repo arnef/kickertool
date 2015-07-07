@@ -72,7 +72,6 @@ function Tourment() {
       case FAIR_FOR_ALL:
       case ONE_ON_ONE:
       case TWO_ON_TWO:
-        console.debug('set modus');
         modusModel = new SwissSystem();
         break;
     }
@@ -241,15 +240,12 @@ function Tourment() {
    * [[Description]]
    */
   self.nextRound = function () {
-    console.debug('start next round');
     var nm = modusModel.nextRound(self.getRanking());
     console.debug(nm);
     if (nm.length > 0) {
-      console.debug('next round');
       nextMatches = nextMatches.concat(nm);
       for (var i = 0; i < tables.length; i++) {
         if (tables[i] == null) {
-          console.debug('free table', i);
           tables[i] = self.getNextMatch();
         }
       }
@@ -357,7 +353,6 @@ function Tourment() {
       playedMatches.push(match);
       tables[tableIdx] = null;
       if (newRound()) {
-        console.debug('new round');
         self.nextRound();
       } else {
         tables[tableIdx] = self.getNextMatch();
@@ -381,12 +376,9 @@ function Tourment() {
    */
   self.start = function () {
     if (runningMatches() == 0) {
-      console.debug('Start Tourment');
       preCalcNextRound = Math.ceil(self.getRanking().length * 0.2);
-      console.debug(preCalcNextRound);
       if (preCalcNextRound > tables.length) {
         preCalcNextRound = tables.length + (self.getRanking().length % 2);
-        console.debug(preCalcNextRound);
       }
       self.nextRound();
     }
