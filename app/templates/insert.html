@@ -12,10 +12,10 @@
 
         <div class="tab-content table-border text-right"
              style="padding:10px">
-          <insert-form></insert-form>          
+          <insert-form></insert-form>
         </div>
-        <button type="submit" 
-                class="btn btn-success btn-sm btn-next-step" 
+        <button type="submit"
+                class="btn btn-success btn-sm btn-next-step"
                 ng-disabled="validateInput()">
           Hinzufügen
         </button>
@@ -25,7 +25,7 @@
       <div>
         <ul class="nav nav-tabs">
           <li class="active"><a>Angemeldete {{ header }}</a></li>
-        </ul>            
+        </ul>
       </div>
       <div class="tab-content table-border">
         <table class="table">
@@ -37,12 +37,12 @@
           </thead>
         </table>
         <div scrolltable scroll-glue>
-          <table class="table">    
+          <table class="table">
             <tbody>
-              <tr ng-repeat="p in getPlayer()" 
+              <tr ng-repeat="p in getPlayer()"
                   ng-click="remove($index)"
                   class="hover">
-                <td width="5%" 
+                <td width="5%"
                     class="active text-center">
                   {{ $index + 1}}
                 </td>
@@ -54,20 +54,20 @@
           </table>
         </div>
       </div>
-      
-      <button class="btn btn-success btn-sm btn-next-step" 
+
+      <button class="btn btn-success btn-sm btn-next-step"
               ng-click="start()"
               ng-hide="isFairForAll"
               ng-disabled="getTeams().length < 2">
-        Vorrunde starten
+        {{ btnText }}
         <span class="glyphicon glyphicon-menu-right"></span>
       </button>
-      
-      <button class="btn btn-success btn-sm btn-next-step" 
-              ng-click="createTeams()" 
+
+      <button class="btn btn-success btn-sm btn-next-step"
+              ng-click="createTeams()"
               ng-show="isFairForAll"
               ng-disabled="disabledDraw()">
-        Lose Teams 
+        Lose Teams
         <span class="glyphicon glyphicon-menu-right"></span>
       </button>
     </div>
@@ -91,7 +91,7 @@
           <table class="table">
             <tbody>
               <tr ng-repeat="team in getTeams()">
-                <td width="5%" 
+                <td width="5%"
                     class="active text-center">
                   {{ $index +1 }}
                 </td>
@@ -103,11 +103,11 @@
           </table>
         </div>
       </div>
-      
-      <button class="btn btn-success btn-sm btn-next-step" 
-              ng-click="start()" 
+
+      <button class="btn btn-success btn-sm btn-next-step"
+              ng-click="start()"
               ng-disabled="getTeams().length < 2">
-        Vorrunde starten
+        {{ btnText }}
         <span class="glyphicon glyphicon-menu-right"></span>
       </button>
     </div>

@@ -41,7 +41,7 @@
     $scope.header = Tourment.getModus() == ONE_ON_ONE ?
             'Spieler' : 'Teams';
 
-
+    $scope.btnText = Tourment.running() ? 'zurück zum Turnier': 'Turnier starten';
     $scope.add = function () {
       var p = null;
       if (Tourment.getModus() == TWO_ON_TWO) {
@@ -65,6 +65,8 @@
           { size: 'sm' })
         .result.then(function () {
           $scope.focusInput = true;
+        }, function () {
+          $scope.focusInput = true
         });
       }
 
@@ -72,13 +74,21 @@
 
 
     $scope.remove = function (idx) {
-      dialogs.confirm(
-        s1 + ' löschen?',
-        s1 + ' "' + Tourment.getParticipant(idx).getName() + '" löschen?',
-        { size: 'sm' })
-      .result.then(function () {
-        Tourment.removeParticipant(idx);
-      });
+      var p = Tourment.getParticipant(idx);
+      if (p.isPlaying()) {
+        dialogs.error(
+          s1 + ' kann nicht gelöscht werden!',
+          s1 + ' befindet sich einem Spiel<br/>Stell das Spiel zurück und lösche ihn, dann ist er für die nächste Runde raus',
+          { size: 'sm' });
+      } else {
+        dialogs.confirm(
+          s1 + ' löschen?',
+          s1 + ' "' + Tourment.getParticipant(idx).getName() + '" löschen?',
+          { size: 'sm' })
+        .result.then(function () {
+          Tourment.removeParticipant(idx);
+        });
+      }
     };
 
     $scope.getPlayer = function () {

@@ -15,6 +15,7 @@ function Tourment() {
       koRound = false,
       lastPreRound = false,
       modusModel = null,
+      withDraw = true,
       runningMatches = function () {
         var runningMatches = 0;
         for (var i = 0; i <tables.length; i++) {
@@ -87,6 +88,14 @@ function Tourment() {
   };
 
 
+  self.setWithDraw = function (draw) {
+    withDraw = draw;
+  };
+
+  self.isWithDraw = function () {
+    return withDraw;
+  };
+
   /**
    * Can add a Player/team during the tourment
    * @returns {Boolean}
@@ -96,7 +105,7 @@ function Tourment() {
       return false;
     } else {
       var rankingLength = self.getRanking().length;
-      return playedMatches.length  >= (rankingLength + (rankingLength % 2)) / 2;
+      return playedMatches.length  >= (rankingLength + (rankingLength % 2)) / 2 || koRound;
     }
   };
 
@@ -385,6 +394,11 @@ function Tourment() {
   };
 
 
+  self.running = function () {
+    return runningMatches() > 0;
+  };
+
+
   /**
    * [[Description]]
    * @returns {[[Type]]} [[Description]]
@@ -409,4 +423,14 @@ function Tourment() {
       tables[i] = self.getNextMatch();
     }
   };
+
+
+  (function () {
+    self.setModus(ONE_ON_ONE);
+
+    for (var i = 1; i <= 5; i++) {
+      self.addParticipant(new Player('Player ' + i));
+    }
+    self.start();
+  });
 }

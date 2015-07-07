@@ -5,6 +5,7 @@ function Match(newHome, newAway, newRound) {
     home = newHome,
     away = newAway,
     round = newRound,
+      _time = 0,
     score = null;
 
 

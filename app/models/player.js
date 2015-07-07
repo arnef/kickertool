@@ -2,8 +2,8 @@ function Player(name, position, type) {
   'use strict';
   var self = this,
       _name = name,
-      _position = null,
-      _type = null;
+      _position = position,
+      _type = type;
 
   Participant.apply(self, null);
 
@@ -50,6 +50,10 @@ function Player(name, position, type) {
    */
   self.getType = function () {
     return _type;
+  };
+
+  self.getInfo = function () {
+    return _type + ' ' + _position;
   };
 };
 Player.prototype = new Participant();

@@ -39,6 +39,7 @@ Array.prototype.shuffle = function () {
     'dialogs.main',
     'luegg.directives',
     'angular-loading-bar',
+    'timer',
     'kDirectives',
     'kUpdateService',
     'kStartController',

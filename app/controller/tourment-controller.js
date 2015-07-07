@@ -19,6 +19,8 @@
       $location.path('insert');
     };
 
+
+
     $scope.addDisabled = function () {
       return Tourment.canAddParticipant();
     };
@@ -65,11 +67,12 @@
     $scope.insertScore = function (tableIdx) {
       var m = Tourment.getTable(tableIdx);
       if (m != null) {
+        var hideDraw = $scope.isKoRound() || !Tourment.isWithDraw();
         dialogs.create('templates/result_dialog.html',
                        'InsertResultDialogController',
                        { home: m.getHome().getName(),
                          away: m.getAway().getName(),
-                         isKoRound: $scope.isKoRound()
+                         hideDraw: hideDraw
                        },
                        { size: 'md' })
         .result.then(function (score) {
@@ -104,11 +107,13 @@
     $scope.reenterScore = function (idx) {
       var match = Tourment.getPlayedMatches()[idx];
       if (match != null) {
+        var hideDraw = match.getRound() < 0 || !Tourment.isWithDraw();
         dialogs.create('templates/result_dialog.html',
                        'InsertResultDialogController',
                        { home: match.getHome().getName(),
                          away: match.getAway().getName(),
-                         isKoRound: match.getRound() < 0},
+                         hideDraw: hideDraw
+                       },
                        { size: 'md' })
         .result.then(function (score) {
           Tourment.reenterScore(match, score);
@@ -121,7 +126,7 @@
   .controller('InsertResultDialogController', function ($scope, $modalInstance, data) {
     $scope.home = data.home;
     $scope.away = data.away;
-    $scope.isKoRound = data.isKoRound;
+    $scope.hideDraw = data.hideDraw;
 
     $scope.saveResult = function (idx) {
       $modalInstance.close((WINNER_HOME + idx));

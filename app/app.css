@@ -31,6 +31,15 @@ body {
   text-transform: uppercase;
   margin-left: 10px;
 }
+.label-bottom-right {
+  float: right;
+  display: inline-block;
+  padding: 6px 12px;
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-right: -10px;
+  font-weight: bold;
+}
 .padding {
   padding: 10px !important;
 }

@@ -78,6 +78,7 @@
                   <td width="4%" ng-click="deferMatch($index)">
                     <a href class="glyphicon glyphicon-share-alt text-muted" ng-show="canDeferMatch($index)"></a>
                   </td>
+
                 </tr>
                 <tr ng-hide="getNextMatches().length == 0">
                   <th colspan="6" ng-hide="getNextMatches().length == 0" class="divider"></th>
@@ -129,11 +130,14 @@
 
       </div>
 
-      <button ng-disabled="isKoRound()" ng-click="toggleLastRound()" class="btn btn-sm btn-next-step" ng-class="isLastRound ? 'btn-success' : 'btn-default'">
-        Letzte Vorrunde
+      <button ng-disabled="isKoRound()"  ng-click="toggleLastRound()" class="btn btn-sm btn-default btn-next-step" ng-class="isLastRound ? 'active' : ''">
+
         <span ng-hide="isLastRound" class="glyphicon glyphicon-remove"></span>
-        <span ng-show="isLastRound" class="glyphicon glyphicon-ok"></span>
+            <span ng-show="isLastRound" class="glyphicon glyphicon-ok"></span>
       </button>
+      <label class="label-bottom-right" ng-class="isKoRound() ? 'text-muted':''">
+        Letzte Vorrunde?
+      </label>
       <button class="btn btn-sm btn-next-step btn-default" ng-hide="true">
         Tisch hinzufügen / entfernen
       </button>

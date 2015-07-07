@@ -13,7 +13,7 @@
     $scope.modus = localStorage.getItem('modus') ?
       parseInt(localStorage.getItem('modus'), 10): FAIR_FOR_ALL;
 
-    $scope.drawPossible = localStorage.getItem('withDraw') == 'false' ? false : true;
+    $scope.withDraw = localStorage.getItem('withDraw') == 'false' ? false : true;
 
     // if data is from old app version
     if ($scope.modus < FAIR_FOR_ALL)
@@ -78,9 +78,10 @@
     $scope.startTourment = function () {
       localStorage.setItem('tables', $scope.tables);
       localStorage.setItem('modus', $scope.modus);
-      localStorage.setItem('withDraw', $scope.drawPossible);
+      localStorage.setItem('withDraw', $scope.withDraw);
       Tourment.setTables($scope.tables);
       Tourment.setModus($scope.modus);
+      Tourment.setWithDraw($scope.withDraw);
       $location.path('insert');
     };
   });
