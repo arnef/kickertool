@@ -1,10 +1,10 @@
 {
   "name": "Kickerturnier Software",
   "main": "app/index.html",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "window": {
       "title": "Kickerturnier Software",
-      "toolbar": true,
+      "toolbar": false,
       "icon": "icon.png",
       "width": 1100,
       "height": 600
@@ -16,6 +16,10 @@
     "win": "https://github.com/arnef/kickertool/raw/master/build/win.zip"
   },
   "changelog": [
-    "Menubar deaktiviert"
+    "Autofocus bei Eingabe von Spielern",
+    "Spieler können während der 1. Runde hinzugefügt/gelöscht werden (nicht beim DYP)",
+    "Nur Spiele der aktuellen Runde können korrigiert werden",
+    "Unentschienden kann deaktiviert werden",
+    "Letzte Einstellungen werden gespeichert
   ]
 }
