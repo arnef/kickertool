@@ -1,145 +1,143 @@
 <div class="container-fluid">
 
-    <div class="row">
-        <div class="col-md-4">
-            <div>
-                <ul class="nav nav-tabs">
-                    <li class="active"><a>Tabelle</a></li>
-                </ul>
-            </div>
-            <div class="tab-content table-border">
-                    <table class="table">
-                        <thead class="table-head">
-                            <tr>
-                                <th width="5%" class="text-center">Pl.</th>
-                                <th width="90%">Team</th>
-                                <th width="5%" class="text-center">Punkte</th>
-                            </tr>
-                        </thead>
-                </table>
-                <div  scrolltable fullheight="{{ modus == 0}}">
-                <table class="table">
-                        <tbody class="table-body">
-                            <tr ng-repeat="team in getRanking() track by $index" ng-hide="team.ghost" ng-class="team.out ? 'text-muted': ''">
-                                <td width="5%" class="active text-center">{{ $index+1 }}</td>
-                                <td width="90%">{{ team.getName() }}</td>
-                                <td width="5%" class="text-center">{{ team.getPoints() }}</td>
+  <div class="row">
+    <div class="col-md-4">
+      <div>
+        <ul class="nav nav-tabs">
+          <li class="active"><a>Tabelle</a>
+          </li>
+        </ul>
+      </div>
+      <div class="tab-content table-border">
+        <table class="table">
+          <thead class="table-head">
+            <tr>
+              <th width="5%" class="text-center">Pl.</th>
+              <th width="90%">Team</th>
+              <th width="5%" class="text-center">Punkte</th>
+            </tr>
+          </thead>
+        </table>
+        <div scrolltable fullheight="{{ modus == 200}}">
+          <table class="table">
+            <tbody class="table-body">
+              <tr ng-repeat="team in getRanking() track by $index" ng-hide="team.ghost" ng-class="team.isOut() ? 'text-muted': ''">
+                <td width="5%" class="active text-center">{{ $index+1 }}</td>
+                <td width="90%">{{ team.getName() }}</td>
+                <td width="5%" class="text-center">{{ team.getPoints() }}</td>
 
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-              </div>
-              
-              <button ng-disabled="addDisabled()" ng-hide="modus == 0" ng-click="add()" class="btn btn-sm btn-next-step btn-default">
-                {{ modus == 2 ? 'Team':'Spieler' }} nachmelden
-            </button>
-                
-            </div>
-        
-        <div class="col-md-8">
-            <div>
-                <ul class="nav nav-tabs">
-                    <li ng-class="isTab(0) ? 'active' : ''" ng-click="setTab(0)"><a href>Vorrunde</a></li>
-                    <li ng-class="isTab(1) ? 'active' : ''" ng-click="setTab(1)"><a href>K.O. Runde</a></li>
-                    <li ng-class="isTab(2) ? 'active' : ''" ng-click="setTab(2)"><a href>Gespielte Begegnungen</a></li>
-                </ul>
-            </div>
-            <div class="tab-content table-border">
-                <div class="tab-pane active" ng-show="isTab(0) || isTab(1)">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th width="5%" class="text-center">Tisch</th>
-                            <th width="10%" class="text-center">Runde</th>
-                            <th width="38%" class="text-center">Team 1</th>
-                            <th width="5%" class="text-center"></th>
-                            <th width="38%" class="text-center">Team 2</th>
-                            <th width="4%"></th>
-                        </tr>
-                    </thead>
-                    </table>
-                    <div scrolltable>
-                    <table class="table">
-                    <tbody class="text-center">
-                        <tr ng-repeat="table in getTables() track by $index" class="hover">
-                            <td width="5%" class="active">{{ $index+1 }}</td>
-                            <td width="10%" ng-click="insertScore($index)">{{ table.getRound() }}</td>
-                            <td width="38%" ng-click="insertScore($index)">{{ table.getHome().getName() }}</td>
-                            <td width="5%" ng-click="insertScore($index)">
-                                <span ng-show="table.getHome() != null">vs.</span>
-                                <span ng-show="table.getHome() == null">Frei</span>
-                            </td>
-                            <td width="38%" ng-click="insertScore($index)">{{ table.getAway().getName() }}</td>
-                            <td width="4%" ng-click="deferMatch($index)">
-                                <a href class="glyphicon glyphicon-share-alt text-muted"
-                                      ng-show="canDeferMatch($index)"></a></td>
-                        </tr>
-                        <tr ng-hide="getNextMatches().length == 0" >
-                            <th colspan="6" 
-                                ng-hide="getNextMatches().length == 0"
-                                class="divider"></th>
-                        </tr>
-                        <tr ng-repeat="match in getNextMatches()"
-                            ng-class="match.getHome().isPlaying() || match.getAway().isPlaying() ? 'blocked' : ''">
-                            <td class="active"></td>
-                            <td>{{ match.getRound() }}</td>
-                            <td>{{ match.getHome().getName() }}</td>
-                            <td>vs. </td>
-                            <td>{{ match.getAway().getName() }}</td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
-                    </div>
-            </div>
-        
-        <!-- gespielte begegnungen -->
-        <div class="tab-pane active" ng-show="isTab(2)">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th width="5%" class="text-center">Tisch</th>
-                            <th width="10%" class="text-center">Runde</th>
-                            <th width="38%" class="text-center">Team 1</th>
-                            <th width="5%" class="text-center"></th>
-                            <th width="38%" class="text-center">Team 2</th>
-                            <th width="4%"></th>
-                        </tr>
-                    </thead>
-            </table>
-            <div scrolltable>
-            <table class="table">
-                    <tbody class="text-center">
-                        <tr ng-repeat="match in getPlayedMatches()">
-                            <td width="5%" class="active"></td>
-                            <td width="10%">{{ match.getRound() }}</td>
-                            <td width="38%">{{ match.getHome().getName() }}</td>
-                            <td width="5%">{{ match.getScore() }}</td>
-                            <td width="38%">{{ match.getAway().getName() }}</td>
-                            <td width="4%">
-                                <a href class="glyphicon glyphicon-share-alt text-muted"
-                                   ng-show="showReenterScore(match)"
-                                   ng-click="reenterScore($index)"></a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                </div>
-            </div>
-
+              </tr>
+            </tbody>
+          </table>
         </div>
-
-            <button ng-disabled="isKoRound()" ng-click="toggleLastRound()" class="btn btn-sm btn-next-step"
-                    ng-class="isLastRound ? 'btn-success' : 'btn-default'">
-                Letzte Vorrunde 
-                        <span ng-hide="isLastRound" class="glyphicon glyphicon-remove"></span>
-                        <span ng-show="isLastRound" class="glyphicon glyphicon-ok"></span>
-            </button>
-          <button class="btn btn-sm btn-next-step btn-default" ng-hide="true">
-            Tisch hinzufügen / entfernen
-          </button>
-      
       </div>
 
-</div>
+      <button ng-disabled="addDisabled()" ng-hide="modus == 200" ng-click="add()" class="btn btn-sm btn-next-step btn-default">
+        {{ modus == 202 ? 'Team':'Spieler' }} nachmelden
+      </button>
+
+    </div>
+
+    <div class="col-md-8">
+      <div>
+        <ul class="nav nav-tabs">
+          <li ng-class="isTab(0) ? 'active' : ''" class="{{ isKoRound() ? 'disabled' : '' }} "ng-click="setTab(0)"><a href>Vorrunde</a>
+          </li>
+          <li ng-class="isTab(1) ? 'active' : ''" ng-click="setTab(1)"><a href>K.O. Runde</a>
+          </li>
+          <li ng-class="isTab(2) ? 'active' : ''" ng-click="setTab(2)"><a href>Gespielte Begegnungen</a>
+          </li>
+        </ul>
+      </div>
+      <div class="tab-content table-border">
+        <div class="tab-pane active" ng-show="isTab(0) || isTab(1)">
+          <table class="table">
+            <thead>
+              <tr>
+                <th width="5%" class="text-center">Tisch</th>
+                <th width="10%" class="text-center">Runde</th>
+                <th width="38%" class="text-center">Team 1</th>
+                <th width="5%" class="text-center"></th>
+                <th width="38%" class="text-center">Team 2</th>
+                <th width="4%"></th>
+              </tr>
+            </thead>
+          </table>
+          <div scrolltable>
+            <table class="table">
+              <tbody class="text-center">
+                <tr ng-repeat="table in getTables() track by $index" class="hover">
+                  <td width="5%" class="active">{{ $index+1 }}</td>
+                  <td width="10%" ng-click="insertScore($index)">{{ table.getRoundString() }}</td>
+                  <td width="38%" ng-click="insertScore($index)">{{ table.getHome().getName() }}</td>
+                  <td width="5%" ng-click="insertScore($index)">
+                    <span ng-show="table.getHome() != null">vs.</span>
+                    <span ng-show="table.getHome() == null">Frei</span>
+                  </td>
+                  <td width="38%" ng-click="insertScore($index)">{{ table.getAway().getName() }}</td>
+                  <td width="4%" ng-click="deferMatch($index)">
+                    <a href class="glyphicon glyphicon-share-alt text-muted" ng-show="canDeferMatch($index)"></a>
+                  </td>
+                </tr>
+                <tr ng-hide="getNextMatches().length == 0">
+                  <th colspan="6" ng-hide="getNextMatches().length == 0" class="divider"></th>
+                </tr>
+                <tr ng-repeat="match in getNextMatches()" ng-class="match.getHome().isPlaying() || match.getAway().isPlaying() ? 'blocked' : ''">
+                  <td class="active"></td>
+                  <td>{{ match.getRoundString() }}</td>
+                  <td>{{ match.getHome().getName() }}</td>
+                  <td>vs. </td>
+                  <td>{{ match.getAway().getName() }}</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- gespielte begegnungen -->
+        <div class="tab-pane active" ng-show="isTab(2)">
+          <table class="table">
+            <thead>
+              <tr>
+                <th width="5%" class="text-center">Tisch</th>
+                <th width="10%" class="text-center">Runde</th>
+                <th width="38%" class="text-center">Team 1</th>
+                <th width="5%" class="text-center"></th>
+                <th width="38%" class="text-center">Team 2</th>
+                <th width="4%"></th>
+              </tr>
+            </thead>
+          </table>
+          <div scrolltable>
+            <table class="table">
+              <tbody class="text-center">
+                <tr ng-repeat="match in getPlayedMatches()">
+                  <td width="5%" class="active"></td>
+                  <td width="10%">{{ match.getRoundString() }}</td>
+                  <td width="38%">{{ match.getHome().getName() }}</td>
+                  <td width="5%">{{ match.getScore() }}</td>
+                  <td width="38%">{{ match.getAway().getName() }}</td>
+                  <td width="4%">
+                    <a href class="glyphicon glyphicon-share-alt text-muted" ng-show="showReenterScore($index)" ng-click="reenterScore($index)"></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <button ng-disabled="isKoRound()" ng-click="toggleLastRound()" class="btn btn-sm btn-next-step" ng-class="isLastRound ? 'btn-success' : 'btn-default'">
+        Letzte Vorrunde
+        <span ng-hide="isLastRound" class="glyphicon glyphicon-remove"></span>
+        <span ng-show="isLastRound" class="glyphicon glyphicon-ok"></span>
+      </button>
+      <button class="btn btn-sm btn-next-step btn-default" ng-hide="true">
+        Tisch hinzufügen / entfernen
+      </button>
+
+    </div>
+
+  </div>

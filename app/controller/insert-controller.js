@@ -1,47 +1,47 @@
 (function () {
   'use strict';
-  
+
   angular.module('kInsertController', [])
-  
+
   .controller('InsertController', function ($scope, $location, dialogs,  Tourment) {
-    
+
     $scope.TYPES = [
       { name: 'Gesetzt', value: PRO },
       { name: 'Gelost', value: AMATEUR }
     ];
-    
+
     $scope.POSITIONS = [
       { name: 'Torwart/Stürmer', value: BOTH },
       { name: 'Torwart', value: GOALIE },
       { name: 'Stürmer', value: STRIKER }
     ];
-    
+
     $scope.newPlayer = {
       type: PRO,
       position: BOTH
     };
-    
+
     $scope.isFairForAll = Tourment.getModus() == FAIR_FOR_ALL;
-    
+
     var validatePlayer = function (p) {
       return p != null && p.name != null && p.name.split(' ').join('') != '';
     };
-    
+
     $scope.validateInput = function () {
       if (Tourment.getModus() == TWO_ON_TWO) {
-        return !(validatePlayer($scope.newPlayer1) 
+        return !(validatePlayer($scope.newPlayer1)
                  && validatePlayer($scope.newPlayer2));
       } else {
         return !validatePlayer($scope.newPlayer);
       }
     };
-    
+
     var s1 = Tourment.getModus() == TWO_ON_TWO ?
             'Team' : 'Spieler';
     $scope.header = Tourment.getModus() == ONE_ON_ONE ?
             'Spieler' : 'Teams';
-    
-    
+
+
     $scope.add = function () {
       var p = null;
       if (Tourment.getModus() == TWO_ON_TWO) {
@@ -64,39 +64,40 @@
           { size: 'sm' });
       }
     };
-    
-    
+
+
     $scope.remove = function (idx) {
       dialogs.confirm(
         s1 + ' löschen?',
         s1 + ' "' + Tourment.getParticipant(idx).getName() + '" löschen?',
         { size: 'sm' })
       .result.then(function () {
-        Tourment.removeParticipant(idx);      
+        Tourment.removeParticipant(idx);
       });
     };
-    
+
     $scope.getPlayer = function () {
       return Tourment.getParticipants();
     };
-    
-    
+
+
     $scope.disabledDraw = function () {
-      return !(Tourment.getParticipants().length > 0 
+      return !(Tourment.getParticipants().length > 0
               && Tourment.getParticipants().length % 2 == 0);
     };
-    
+
     $scope.getTeams = function () {
       return Tourment.getRanking();
     }
-    
+
     $scope.createTeams = function () {
       Tourment.drawTeams();
     };
-    
+
     $scope.start = function () {
-      $location.path('tourment');    
+      Tourment.start();
+      $location.path('tourment');
     };
   });
-  
+
 })();

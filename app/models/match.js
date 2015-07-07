@@ -1,19 +1,21 @@
 function Match(newHome, newAway, newRound) {
   'use strict';
-  
-  
+
+
   var self = this,
     home = newHome,
     away = newAway,
     round = newRound,
     score = null;
-  
-  self.setScore = function (newScore) {
+
+  self.setScore = function (newScore, koRound) {
     self.stopPlaying();
     score = newScore;
     switch (score) {
       case WINNER_HOME:
         home.addPoints(2);
+        if (koRound)
+          away.setOut(round);
         break;
       case DRAW:
         home.addPoints(1);
@@ -21,20 +23,22 @@ function Match(newHome, newAway, newRound) {
         break;
       case WINNER_AWAY:
         away.addPoints(2);
+        if (koRound)
+          home.setOut(round);
         break;
     }
   };
-  
+
   self.startPlaying = function () {
     home.setPlaying(true);
     away.setPlaying(true);
   };
-  
+
   self.stopPlaying = function () {
     home.setPlaying(false);
     away.setPlaying(false);
   };
-  
+
   self.resetScore = function (newScore) {
     switch (score) {
       case WINNER_HOME:
@@ -50,8 +54,8 @@ function Match(newHome, newAway, newRound) {
     }
     self.setScore(newScore);
   };
-  
-  
+
+
   self.getScore = function () {
     switch (score) {
       case WINNER_HOME:
@@ -67,28 +71,48 @@ function Match(newHome, newAway, newRound) {
         return 'vs.';
     }
   };
-  
-  
+
+
   self.getHome = function () {
     return home;
   };
-  
-  
+
+
   self.getAway = function () {
     return away;
   };
-  
+
   self.getRound = function () {
     return round;
   };
-  
-  
-  self.equals = function (match) {
-    if (match.getHome().isGhost() || match.getAway().isGhost()) {
-      return false;
+
+  self.getRoundString = function () {
+    if (round < 0) {
+      switch (round) {
+        case -1:
+          return 'Finale';
+        case -2:
+          return 'Halbfinale';
+        case -4:
+          return 'Viertelfinale';
+        case -8:
+          return 'Achtelfinale';
+        default:
+          return -round + '. Finale';
+      }
     }
+    else {
+      return '' + round;
+    }
+  };
+
+
+  self.equals = function (match) {
+  if (match.getHome().isGhost() || match.getAway().isGhost()) {
+      return false;
+  }
     return (
-      (self.getHome().equals(match.getHome()) 
+      (self.getHome().equals(match.getHome())
        && self.getAway().equals(match.getAway()))
       ||
       (self.getHome().equals(match.getAway())
