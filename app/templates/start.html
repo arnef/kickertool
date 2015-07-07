@@ -1,69 +1,82 @@
 <div class="downloading" ng-show="downloading">
-    <p>Update wird geladen...</p>
+  <p>Update wird geladen...</p>
 </div>
 <div class="container-fluid">
 
-    <div class="row">
-        <form ng-submit="startTourment()">
-            <div class="col-md-8 col-md-offset-2">
-                <div>
-                    <ul class="nav nav-tabs">
-                        <li ng-class="isTab(0) ? 'active' : ''" ng-click="setTab(0)"><a href>Fair for All DYP</a></li>
-                        <li ng-class="isTab(1) ? 'active' : ''" ng-click="setTab(1)"><a href>Einzelturnier</a></li>
-                        <li ng-class="isTab(2) ? 'active' : ''" ng-click="setTab(2)"><a href>Festes Doppel</a></li>
-                        <!--<li><a>Monster DYP</a></li>
+  <div class="row">
+    <form ng-submit="startTourment()">
+      <div class="col-md-8 col-md-offset-2">
+        <div>
+          <ul class="nav nav-tabs">
+            <li ng-class="isTab(0) ? 'active' : ''" ng-click="setTab(0)"><a href>Fair for All DYP</a>
+            </li>
+            <li ng-class="isTab(1) ? 'active' : ''" ng-click="setTab(1)"><a href>Einzelturnier</a>
+            </li>
+            <li ng-class="isTab(2) ? 'active' : ''" ng-click="setTab(2)"><a href>Festes Doppel</a>
+            </li>
+            <!--<li><a>Monster DYP</a></li>
                         <li><a>Festes Doppel</a></li>-->
-                    </ul>
-                </div>
-                <div class="tab-content table-border">
-                    <div class="tab-pane active" ng-show="isTab(0)">
-                        <div class="padding">
-                            <p>
-                                Spieler werden nach Position und Stärke eingetragen. Zu Begin des Turniers werden ausgeglichene Teams zusammen gelost.
-                            </p>
-                            <p>
-                                Die Vorrunde wird nach Schweizer System gespielt, sie kann jederzeit beendet werden und die K.O. Runde gestartet.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="tab-pane active" ng-show="isTab(1)">
-                        <div class="padding">
-                            <p>
-                                Die Vorrunde wird nach Schweizer System gespielt, sie kann jederzeit beendet werden und die K.O. Runde gestartet.
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <div class="tab-pane active" ng-show="isTab(2)">
-                        <div class="padding">
-                            <p>
-                                Die Vorrunde wird nach Schweizer System gespielt, sie kann jederzeit beendet werden und die K.O. Runde gestartet.
-                            </p>
-                        </div>
-                    </div>
-                    
-                    
-                    <div class="tab-pane active">
-                        <div class="padding">
-                            <div class="form-horizontal">
-                                <div class="form-group">
-                                <label class="col-sm-3 col-sm-offset-7 control-label">Anzahl Tische</label>
-                                <div class="col-sm-2">
-                                    <input class="form-control" type="number" ng-model="tables" autofocus placeholder="Anzahl Tische">
-                                </div>
-                                </div>
-                            </div>
-                        </div>    
-                    </div>                    
-                </div>
-                
-                <button type="submit" ng-disabled="tables <= 0" class="btn btn-success btn-sm btn-next-step">
-                    Turnier starten
-                    <span class="glyphicon glyphicon-menu-right"></span>
-                </button>
-                </div>
+          </ul>
+        </div>
+        <div class="tab-content table-border">
+          <div class="tab-pane active" ng-show="isTab(0)">
+            <div class="padding">
+              <p>
+                Spieler werden nach Position und Stärke eingetragen. Zu Begin des Turniers werden ausgeglichene Teams zusammen gelost.
+              </p>
+              <p>
+                Die Vorrunde wird nach Schweizer System gespielt, sie kann jederzeit beendet werden und die K.O. Runde gestartet.
+              </p>
             </div>
-        </form>
-    </div>
+          </div>
+          <div class="tab-pane active" ng-show="isTab(1)">
+            <div class="padding">
+              <p>
+                Die Vorrunde wird nach Schweizer System gespielt, sie kann jederzeit beendet werden und die K.O. Runde gestartet.
+              </p>
+            </div>
+          </div>
+
+          <div class="tab-pane active" ng-show="isTab(2)">
+            <div class="padding">
+              <p>
+                Die Vorrunde wird nach Schweizer System gespielt, sie kann jederzeit beendet werden und die K.O. Runde gestartet.
+              </p>
+            </div>
+          </div>
+
+
+          <div class="tab-pane active">
+            <div class="padding">
+              <div class="form-horizontal">
+                <div class="form-group">
+                  <label class="col-sm-4 col-sm-offset-6 control-label">Anzahl Tische</label>
+                  <div class="col-sm-2">
+                    <input class="form-control form-center" type="number" ng-model="tables" autofocus placeholder="Anzahl Tische">
+
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-4 col-sm-offset-6 control-label">Unentschieden während der Vorrunde?</label>
+                  <div class="col-sm-2">
+                    <label class="btn btn-default btn-block" ng-model="drawPossible" btn-checkbox>
+                      <span class="glyphicon glyphicon-ok" ng-show="drawPossible"></span>
+                      <span class="glyphicon glyphicon-remove" ng-hide="drawPossible"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" ng-disabled="tables <= 0" class="btn btn-success btn-sm btn-next-step">
+          Turnier starten
+          <span class="glyphicon glyphicon-menu-right"></span>
+        </button>
+      </div>
+  </div>
+  </form>
+</div>
 
 </div>

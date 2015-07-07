@@ -57,12 +57,17 @@
         $scope.newPlayer.name = null;
         $scope.newPlayer1 = null;
         $scope.newPlayer2 = null;
+        $scope.focusInput = true;
       } else {
         dialogs.error(
           s1 +  ' schon vorhanden',
           s1 + ' "' + p.getName() + '" ist schon angemeldet.',
-          { size: 'sm' });
+          { size: 'sm' })
+        .result.then(function () {
+          $scope.focusInput = true;
+        });
       }
+
     };
 
 
@@ -98,6 +103,8 @@
       Tourment.start();
       $location.path('tourment');
     };
+
+    $scope.focusInput = true;
   });
 
 })();

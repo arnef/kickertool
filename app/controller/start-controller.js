@@ -1,10 +1,10 @@
 (function () {
   'use strict';
-  
+
   angular.module('kStartController', [])
-  
+
   .controller('StartController', function ($scope, $http, $location, Tourment, UpdateService, dialogs) {
-    
+
     /**
     * resore last configuration
     **/
@@ -12,11 +12,13 @@
       parseInt(localStorage.getItem('tables'), 10) : 0;
     $scope.modus = localStorage.getItem('modus') ?
       parseInt(localStorage.getItem('modus'), 10): FAIR_FOR_ALL;
-    
+
+    $scope.drawPossible = localStorage.getItem('withDraw') == 'false' ? false : true;
+
     // if data is from old app version
-    if ($scope.modus < FAIR_FOR_ALL) 
+    if ($scope.modus < FAIR_FOR_ALL)
       $scope.modus += FAIR_FOR_ALL;
-        
+
     /**
     * check for updates
     **/
@@ -39,7 +41,7 @@
                     responseType: 'arraybuffer',
                     cache: false
                 })
-                .success(function (data) { 
+                .success(function (data) {
                     $scope.downloading = false;
                     var filename = 'kickertool_v' + update.version.substring(0,5) + '.zip';
                     var fileAsBlob = new Blob([data], {type:'application/zip'});
@@ -52,7 +54,7 @@
                     downloadLink.style.display = "none";
                     document.body.appendChild(downloadLink);
                     downloadLink.click();
-                    
+
                     function destroyClickedElement(event) {
                         document.body.removeChild(event.target);
                     };
@@ -62,22 +64,25 @@
                 });
             });
     });
-    
+
     $scope.setTab = function (newTab) {
       $scope.modus = FAIR_FOR_ALL + newTab;
     };
-        
+
     $scope.isTab = function (tab) {
       return $scope.modus - FAIR_FOR_ALL == tab;
     };
-    
+
+
+
     $scope.startTourment = function () {
       localStorage.setItem('tables', $scope.tables);
       localStorage.setItem('modus', $scope.modus);
+      localStorage.setItem('withDraw', $scope.drawPossible);
       Tourment.setTables($scope.tables);
       Tourment.setModus($scope.modus);
       $location.path('insert');
     };
   });
-  
+
 })();

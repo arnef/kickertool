@@ -18,20 +18,20 @@ var WINNER_HOME = 100,
 Array.prototype.shuffle = function () {
   var m = this.length,
     t, i;
-  
+
   while (m) {
     i = Math.floor(Math.random() * m--);
     t = this[m];
     this[m] = this[i];
     this[i] = t;
   }
-  
+
   return this;
 };
 
 (function () {
   'use strict';
-  
+
   angular.module('kickertool', [
     'ngRoute',
     'ngSanitize',
@@ -45,12 +45,13 @@ Array.prototype.shuffle = function () {
     'kInsertController',
     'kTourmentController'
     ])
-  
+
+
   .factory('Tourment', function () {
     return new Tourment();
   })
-  
-  
+
+
   .config(function ($routeProvider) {
     $routeProvider
     .when('/', {
@@ -66,5 +67,5 @@ Array.prototype.shuffle = function () {
       controller: 'TourmentController'
     });
   });
-  
+
 })();

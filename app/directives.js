@@ -1,22 +1,22 @@
 (function () {
   'use strict';
-  
+
   angular.module('kDirectives', [])
-  
+
   .directive('scrolltable', function ($window) {
     var resize = function (element, attrs) {
       var diff = 142;
-      
+
       if (attrs.fullheight == 'true')
         diff = 100;
-      
+
       var winHeight = $window.innerHeight;
-      
+
       element.css('height', (winHeight - diff)  + 'px');
       element.css('overflow-x', 'hidden');
       element.css('overflow-y', 'auto');
     };
-    
+
     return function (scope, element, attrs) {
       resize(element, attrs);
       angular.element($window).bind('resize', function (e) {
@@ -24,7 +24,7 @@
       });
     };
   })
-  
+
   .directive('insertForm', function (Tourment) {
     console.debug(Tourment.getModus());
     switch (Tourment.getModus()) {
@@ -44,5 +44,19 @@
           templateUrl: 'templates/insert_player.html'
         };
     }
-  });
+  })
+
+.directive('focusMe', function($timeout) {
+  return {
+    link: function(scope, element, attrs) {
+      scope.$watch(attrs.focusMe, function(value) {
+        if(value === true) {
+            element[0].focus();
+            scope[attrs.focusMe] = false;
+        }
+      });
+    }
+  };
+});
+
 })();
