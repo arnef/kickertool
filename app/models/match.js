@@ -1,12 +1,12 @@
 function Match(newHome, newAway, newRound) {
   'use strict';
 
-
   var self = this,
     home = newHome,
     away = newAway,
     round = newRound,
     score = null;
+
 
   self.setScore = function (newScore, koRound) {
     self.stopPlaying();
@@ -29,15 +29,18 @@ function Match(newHome, newAway, newRound) {
     }
   };
 
+
   self.startPlaying = function () {
     home.setPlaying(true);
     away.setPlaying(true);
   };
 
+
   self.stopPlaying = function () {
     home.setPlaying(false);
     away.setPlaying(false);
   };
+
 
   self.resetScore = function (newScore) {
     switch (score) {

@@ -417,5 +417,4 @@ function Tourment() {
       tables[i] = self.getNextMatch();
     }
   };
-
 }

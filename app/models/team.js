@@ -1,67 +1,49 @@
-function Team(newPlayer1, newPlayer2) {
+function Team(player1, player2) {
   'use strict';
 
   var self = this,
-    player1 = newPlayer1,
-    player2 = newPlayer2,
-    playing = false,
-    out = null,
-    points = 0;
+      _player1 = player1,
+      _player2 = player2;
+
+  Participant.apply(self, null);
 
 
-  self.addPoints = function (addPoints) {
-    points += addPoints;
-  };
-
-
-  self.removePoints = function (removePoints) {
-    points -= removePoints;
-  };
-
-
+  /**
+   * [[Description]]
+   * @returns {String} [[Description]]
+   */
   self.getName = function () {
-    return player1.getName() + ' / ' + player2.getName();
+    return _player1.getName() + ' / ' + _player2.getName();
   };
 
+
+  /**
+   * [[Description]]
+   * @returns {Player}
+   */
   self.getPlayer1 = function () {
-    return player1;
+    return _player1;
   };
 
+
+  /**
+   * [[Description]]
+   * @returns {Player} [[Description]]
+   */
   self.getPlayer2 = function () {
-    return player2;
-  };
-
-  self.setPlaying = function (newPlaying) {
-    playing = newPlaying;
-  };
-
-  self.isPlaying = function () {
-    return playing;
-  };
-
-  self.isGhost = function () {
-    return false;
+    return _player2;
   };
 
 
-  self.setOut = function (newOut) {
-    out = newOut;
-  };
-
-  self.isOut = function () {
-    return out != null;
-  };
-
-  self.getOut = function () {
-    return out;
-  };
-
-  self.getPoints = function () {
-    return points;
-  };
-
+  /**
+   * [[Description]]
+   * @param   {Object}  team [[Description]]
+   * @returns {Boolean}
+   */
   self.equals = function (team) {
     return (self.getPlayer1().equals(team.getPlayer1()) && self.getPlayer2().equals(team.getPlayer2()))
       || (self.getPlayer1().equals(team.getPlayer2()) && self.getPlayer2().equals(team.getPlayer1()));
   };
 }
+Team.prototype.getName = this.getName;
+Team.prototype.equals = this.equals;

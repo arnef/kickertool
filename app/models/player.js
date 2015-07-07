@@ -1,117 +1,59 @@
-function Player(newName, newPosition, newType) {
+function Player(name, position, type) {
   'use strict';
-
   var self = this,
-    name = newName,
-    position = newPosition,
-    type = newType,
-    ghost = false,
-    playing = false,
-    out = null,
-    points = 0;
+      _name = name,
+      _position = null,
+      _type = null;
+
+  Participant.apply(self, null);
 
 
-
-  self.setPosition = function (newPosition) {
-    position = newPosition;
-  };
-
-  self.setPlaying = function (newPlaying) {
-    playing = newPlaying;
-  };
-
-  self.isPlaying = function () {
-    return playing;
-  };
-
-  self.setType = function (newType) {
-    type = newType;
-  };
-
-
-  self.setGhost = function (newGhost) {
-    ghost = newGhost;
-  };
-
-
-  self.isGhost = function () {
-    return ghost;
-  };
-
-  self.addPoints = function (addPoints) {
-    points += addPoints;
-  };
-
-
-  self.removePoints = function (removePoints) {
-    points -= removePoints;
-  };
-
-
+  /**
+   * [[Description]]
+   * @returns {String}
+   */
   self.getName = function () {
-    return name;
+    return _name;
   };
 
 
+  /**
+   * [[Description]]
+   * @param {Number} position [[Description]]
+   */
+  self.setPosition = function (position) {
+    _position = position;
+  };
+
+
+  /**
+   * [[Description]]
+   * @returns {Number} [[Description]]
+   */
   self.getPosition = function () {
-    return position;
+    return _position;
   };
 
 
+  /**
+   * [[Description]]
+   * @param   {Number}   type
+   */
+  self.setType = function (type) {
+    _type = type;
+  };
+
+
+  /**
+   * [[Description]]
+   * @returns {Number} [[Description]]
+   */
   self.getType = function () {
-    return type;
+    return _type;
   };
-
-
-  self.getInfo = function () {
-    var playerType = '';
-    switch (type) {
-      case PRO:
-        playerType = 'gesetzt';
-        break;
-      case AMATEUR:
-        playerType = 'gelost';
-        break;
-    }
-    var playerPosition = '';
-    switch (position) {
-      case STRIKER:
-        playerPosition = 'Stürmer';
-        break;
-      case GOALIE:
-        playerPosition = 'Torwart';
-        break;
-      case BOTH:
-        playerPosition = 'Tortwart/Stürmer';
-        break;
-    }
-    return playerPosition + ' ' + playerType;
-  };
-
-
-  self.getPoints = function () {
-    return points;
-  };
-
-  self.setOut = function (newOut) {
-    out = newOut;
-  };
-
-  self.getOut = function () {
-    return out;
-  };
-
-  self.isOut = function () {
-    return out != null;
-  };
-
-
-  self.equals = function (player) {
-    return self.getName().split(' ').join('').toLowerCase()
-      === player.getName().split(' ').join('').toLowerCase();
-  };
-
-}
+};
+Player.prototype = new Participant();
+Player.prototype.getName  = this.getName;
 Player.ghost = function () {
   var p = new Player('Freilos');
   p.setGhost(true);
