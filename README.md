@@ -2,7 +2,7 @@
 
 ## Download ##
 Hier gibts die ausführbaren Programme für verschiedene Systeme.
-Akutelle Version ist v0.4.2
+Akutelle Version ist v0.4.3
 * [Linux 32bit](https://github.com/arnef/kickertool/raw/master/build/linux32.zip) /
  [Linux 64bit](https://github.com/arnef/kickertool/raw/master/build/linux64.zip)
 * [Mac OSX 32 / 64bit](https://github.com/arnef/kickertool/raw/master/build/osx.zip)
@@ -18,6 +18,7 @@ Akutelle Version ist v0.4.2
     - Nur Spiele der aktuellen Runde können korrigiert werden
     - Unentschienden kann deaktiviert werden
     - Letzte Einstellungen werden gespeichert
+    - Mac Icon
 
     v0.4.2
     - Menubar deaktiviert
@@ -52,4 +53,3 @@ Akutelle Version ist v0.4.2
     v0.1.0
     - Fair-For-All DYP Modus
     - Schweizer-Vorrunde
-
