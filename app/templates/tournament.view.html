@@ -12,10 +12,10 @@
         <table class="table">
           <thead class="table-head">
             <tr>
-              <th width="5%" class="text-center">Pl.</th>
-              <th width="85%">Team</th>
-              <th width="5%">Spiele</th>
-              <th width="5%" class="text-center">Punkte</th>
+              <th class="text-center td-50">Pl.</th>
+              <th>Team</th>
+              <th class="text-center td-50">Spiele</th>
+              <th class="text-center td-50">Punkte</th>
             </tr>
           </thead>
         </table>
@@ -23,10 +23,10 @@
           <table class="table">
             <tbody class="table-body">
               <tr ng-repeat="team in globals.teamList | orderBy: '-points' track by $index" ng-class="team.out ? 'text-muted': ''">
-                <td width="5%" class="active text-center">{{ $index+1 }}</td>
-                <td width="85%">{{ team.name }}</td>
-                <td width="5%">{{ team.matches }}</td>
-                <td width="5%" class="text-center">{{ team.points }}</td>
+                <td class="active text-center td-50">{{ $index+1 }}</td>
+                <td>{{ team.name }}</td>
+                <td class="text-center td-50">{{ team.matches }}</td>
+                <td class="text-center td-50">{{ team.points }}</td>
 
               </tr>
             </tbody>
@@ -77,8 +77,16 @@
                     <span ng-show="table.team1 == null">Frei</span>
                   </td>
                   <td width="38%" ng-click="insertScore($index)">{{ table.team2.name }}</td>
-                  <td width="4%" ng-click="deferMatch($index)">
-                    <a href class="glyphicon glyphicon-share-alt text-muted" ng-show="canDeferMatch($index)"></a>
+                  <td width="4%" uib-dropdown uib-dropdown-toggle>
+                    <i class="glyphicon glyphicon-option-vertical text-muted"></i>
+                    <ul class="uib-dropdown-menu dropdown-menu-right">
+                      <li ng-class="disableInsertScore($index) ? 'disabled':''">
+                        <a href ng-click="insertScore($index)">Ergebnis eintragen</a>
+                      </li>
+                      <li ng-class="canDeferMatch($index) ? '':'disabled'">
+                        <a href ng-click="deferMatch($index)">Spiel zurückstellen</a>
+                      </li>
+                    </ul>
                   </td>
 
                 </tr>
@@ -121,8 +129,13 @@
                   <td width="38%">{{ match.team1.name }}</td>
                   <td width="5%">{{ match.score }}</td>
                   <td width="38%">{{ match.team2.name }}</td>
-                  <td width="4%">
-                    <a href class="glyphicon glyphicon-share-alt text-muted" ng-show="showReenterScore($index)" ng-click="reenterScore($index)"></a>
+                  <td width="4%" uib-dropdown uib-dropdown-toggle class="hover">
+                    <i class="glyphicon glyphicon-option-vertical text-muted"></i>
+                    <ul class="uib-dropdown-menu dropdown-menu-right">
+                      <li ng-class="showReenterScore($index) ? '':'disabled'">
+                        <a href ng-click="reenterScore($index)">Ergebnis bearbeiten</a>
+                      </li>
+                    </ul>
                   </td>
                 </tr>
               </tbody>

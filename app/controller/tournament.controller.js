@@ -14,13 +14,13 @@
     } else {
       _modus = SwissSystem;
     }
-
+    $scope.isLastRound = T.lastRound === T.round;
 
     function fillTables(idx) {
       if (T.nextMatches.length === 0) {
         return;
       }
-      if (idx) {
+      if (idx !== undefined) {
         T.currentMatches[idx] = T.nextMatches[0];
         T.nextMatches.splice(0, 1);
         if (T.currentMatches[idx].team2.ghost) {
@@ -44,7 +44,7 @@
     }
     fillTables();
 
-    $scope.isLastRound = false;
+
 
     $scope.toggleLastRound = function () {
       $scope.isLastRound = !$scope.isLastRound;
@@ -140,7 +140,9 @@
           });
       }
     };
-
+    $scope.disableInsertScore = function (idx) {
+      return T.currentMatches[idx] == null;
+    };
 
     $scope.canDeferMatch = function (tableIdx) {
       var match = T.currentMatches[tableIdx];
@@ -149,15 +151,16 @@
 
 
     $scope.reenterScore = function (idx) {
-
-      var match = T.playedMatches[idx];
-      if (match != null) {
-        Dialog.score(
-          match.team1.name,
-          match.team2.name
-        ).result.then(function (score) {
-          ScoreService.reenterScore(match, score);
-        });
+      if ($scope.showReenterScore(idx)) {
+        var match = T.playedMatches[idx];
+        if (match != null) {
+          Dialog.score(
+            match.team1.name,
+            match.team2.name
+          ).result.then(function (score) {
+            ScoreService.reenterScore(match, score);
+          });
+        }
       }
     };
 

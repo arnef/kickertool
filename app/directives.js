@@ -14,7 +14,7 @@
 
       element.css('height', (winHeight - diff) + 'px');
       element.css('overflow-x', 'hidden');
-      element.css('overflow-y', 'auto');
+      element.css('overflow-y', 'scroll');
     };
 
     return function (scope, element, attrs) {

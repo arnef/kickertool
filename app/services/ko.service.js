@@ -22,6 +22,7 @@
     var idxTeam2 = getRound(T.teamList.length) * 2 - 1;
 
     function setTeams(game) {
+      console.debug(idxTeam1, idxTeam2);
       game.team1 = T.teamList[idxTeam1];
       if (idxTeam2 >= T.teamList.length) {
         game.team2 = {
@@ -96,8 +97,10 @@
         updateMatches(match);
         T.playedMatches.push(match);
         T.currentMatches[idx] = null;
+        console.debug(idx);
+        callback(idx);
       }
-      callback(idx);
+
     }
   }]);
 })();

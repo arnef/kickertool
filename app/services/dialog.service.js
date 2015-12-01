@@ -103,7 +103,7 @@
         $scope.team1 = items.team1;
         $scope.team2 = items.team2;
         //TODO ko round
-        $scope.draw = $rootScope.globals.withDraw === '1' && !$rootScope.globals.koRound;
+        $scope.draw = $rootScope.globals.withDraw && !$rootScope.globals.koRound;
         $scope.cancel = function () {
           $uibModalInstance.dismiss();
         };

@@ -64,13 +64,14 @@
         $location.path('tournament');
       };
 
-
-      for (var i = 0; i < 20; i++) {
-        T.teamList.push({
-          name: 'Player ' + (i + 1),
-          points: 0,
-          matches: 0
-        });
+      if (T.teamList.length === 0) {
+        for (var i = 0; i < 8; i++) {
+          T.teamList.push({
+            name: 'Player ' + (i + 1),
+            points: 0,
+            matches: 0
+          });
+        }
       }
     });
 })();
