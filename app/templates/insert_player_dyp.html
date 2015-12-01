@@ -1,19 +1,12 @@
 <div class="form-group">
   <label class="sr-only">Name</label>
-  <input type="text"
-         class="form-control input-sm"
-         ng-model="newPlayer.name"
-         placeholder="Name"
-         focus-me="focusInput" />
+  <input type="text" class="form-control input-sm" ng-model="newPlayer.name" placeholder="Name" focus-me="focusInput" />
 
 </div>
 <div class="form-group">
   <label class="sr-only">Position</label>
   <div class="btn-group btn-group-justified">
-    <label class="btn btn-default btn-sm"
-           ng-model="newPlayer.position"
-           ng-repeat="position in POSITIONS"
-           btn-radio="{{ position.value }}">
+    <label class="btn btn-default btn-sm" ng-model="newPlayer.position" ng-repeat="position in POSITIONS" uib-btn-radio="{{ position.value }}">
       {{ position.name }}
     </label>
   </div>
@@ -21,11 +14,9 @@
 <div class="form-group">
   <label class="sr-only">Stärke</label>
   <div class="btn-group btn-group-justified">
-    <label class="btn btn-default btn-sm"
-           ng-model="newPlayer.type"
-           ng-repeat="type in TYPES"
-           btn-radio="{{ type.value }}">
+    <label class="btn btn-default btn-sm" ng-model="newPlayer.type" ng-repeat="type in TYPES" uib-btn-radio="{{ type.value }}">
       {{ type.name }}
     </label>
   </div>
 </div>
+<pre>{{ newPlayer | json }}</pre>

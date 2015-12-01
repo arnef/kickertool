@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  angular.module('kDirectives', [])
+  angular.module('app')
 
   .directive('scrolltable', function ($window) {
     var resize = function (element, attrs) {
@@ -12,7 +12,7 @@
 
       var winHeight = $window.innerHeight;
 
-      element.css('height', (winHeight - diff)  + 'px');
+      element.css('height', (winHeight - diff) + 'px');
       element.css('overflow-x', 'hidden');
       element.css('overflow-y', 'auto');
     };
@@ -25,38 +25,37 @@
     };
   })
 
-  .directive('insertForm', function (Tourment) {
-    console.debug(Tourment.getModus());
-    switch (Tourment.getModus()) {
-      case FAIR_FOR_ALL:
-        return {
-          restrict: 'E',
-          templateUrl: 'templates/insert_player_dyp.html'
-        };
-      case TWO_ON_TWO:
-        return {
-          restrict: 'E',
-          templateUrl: 'templates/insert_team.html'
-        };
-      default:
-        return {
-          restrict: 'E',
-          templateUrl: 'templates/insert_player.html'
-        };
-    }
-  })
-
-.directive('focusMe', function($timeout) {
-  return {
-    link: function(scope, element, attrs) {
-      scope.$watch(attrs.focusMe, function(value) {
-        if(value === true) {
-            element[0].focus();
-            scope[attrs.focusMe] = false;
+  .directive('insertPlayerDyp', function () {
+      return {
+        restrict: 'E',
+        templateUrl: 'templates/insert_player_dyp.html'
+      };
+    })
+    .directive('insertPlayer', function () {
+      return {
+        restrict: 'E',
+        templateUrl: 'templates/insert_player.html'
+      };
+    })
+    .directive('insertTeam', function () {
+      return {
+        restrict: 'E',
+        templateUrl: 'templates/insert_team.html'
+      };
+    })
+    .directive('focusMe', function ($timeout) {
+      return {
+        link: function (scope, element, attrs) {
+          scope.$watch(attrs.focusMe, function (value) {
+            $timeout(function () {
+              if (value === true) {
+                element[0].focus();
+                scope[attrs.focusMe] = false;
+              }
+            }, 200);
+          });
         }
-      });
-    }
-  };
-});
+      };
+    });
 
 })();
