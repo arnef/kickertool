@@ -4,10 +4,9 @@
   angular.module('app')
 
   .controller('TournamentController', function ($rootScope, $scope, $location, Dialog, SwissSystem, Ko, ScoreService) {
-    var _self, _currentTab, T, _modus;
+    var _self, T, _modus;
 
     _self = this;
-    _currentTab = 0;
     T = $rootScope.globals;
     if (T.koRound) {
       _modus = Ko;
@@ -73,7 +72,7 @@
     };
 
     $scope.isTab = function (tab) {
-      return _currentTab == tab;
+      return T.currentTab == tab;
     };
 
     $scope.setTab = function (tab) {
@@ -97,11 +96,11 @@
             console.debug('start ko round');
             _modus.start();
             fillTables();
-            _currentTab = tab;
+            T.currentTab = tab;
           }
         });
       } else if (!(T.koRound && tab == 0)) {
-        _currentTab = tab;
+        T.currentTab = tab;
       }
     };
 

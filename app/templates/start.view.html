@@ -30,7 +30,7 @@
       </div>
       <ul class="nav nav-tabs bottom">
         <li class="active"><a>Einstellungen</a></li>
-        <li class="pull-right">
+        <li class="pull-right" ng-if="!globals.ongoing">
           <button ng-click="start()" class="btn btn-primary">Turnier starten</button>
         </li>
       </ul>

@@ -81,6 +81,7 @@ Array.prototype.shuffle = function () {
         T.playerList = [];
         T.teamList = [];
         T.ongoing = false;
+        T.currentTab = 0;
       }
       if (!T.tables) {
         clearData();
