@@ -25,6 +25,40 @@ Array.prototype.shuffle = function () {
     'kUpdateService'
     ])
     .factory('K', function ($rootScope) {
+
+      return $rootScope.K;
+    })
+    .controller('NavController', function ($rootScope, $location, $window, K) {
+      this.active = function (idx) {
+        switch (idx) {
+        case 0:
+          return $location.path() === '/';
+        case 1:
+          return $location.path() === '/player' || $location.path() === '/playerDyp' || $location.path() === '/team';
+        case 2:
+          return $location.path() === '/tournament';
+        }
+        return false;
+      };
+
+      this.getLink = function () {
+        switch ($rootScope.globals.modus) {
+        case K.FAIR_FOR_ALL:
+          return 'playerDyp';
+        case K.ONE_ON_ONE:
+          return 'player';
+        case K.TWO_ON_TWO:
+          return 'team';
+        }
+      };
+
+      this.close = function () {
+        var gui = require('nw.gui');
+        gui.Window.get().close(true);
+      }
+    })
+    .run(function ($rootScope, $localStorage, $location, Dialog) {
+      // define global const
       $rootScope.K = {};
       $rootScope.K.FAIR_FOR_ALL = 200;
       $rootScope.K.ONE_ON_ONE = 201;
@@ -33,9 +67,8 @@ Array.prototype.shuffle = function () {
       $rootScope.K.NAME[$rootScope.K.FAIR_FOR_ALL] = 'Fair for all Dyp';
       $rootScope.K.NAME[$rootScope.K.ONE_ON_ONE] = 'Einzel';
       $rootScope.K.NAME[$rootScope.K.TWO_ON_TWO] = 'Offenes Doppel';
-      return $rootScope.K;
-    })
-    .run(function ($rootScope, $localStorage, $location, Dialog) {
+
+      // load data
       $rootScope.globals = $localStorage;
       var T = $rootScope.globals;
 
@@ -68,7 +101,7 @@ Array.prototype.shuffle = function () {
         })
       } else {
         clearData();
-        $location.path('/');
+        //$location.path('/');
       }
     })
     .config(function ($routeProvider) {

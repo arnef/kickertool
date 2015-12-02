@@ -4,11 +4,13 @@
   "version": "0.5.0",
   "window": {
     "title": "Kickertool",
-    "toolbar": true,
+    "frame": false,
+    "toolbar": false,
     "icon": "icon.png",
     "min_width": 800,
     "width": 1100,
-    "height": 600
+    "height": 600,
+    "position": "center"
   },
   "downloads": {
     "linux64": "https://github.com/arnef/kickertool/raw/master/build/linux64.zip",

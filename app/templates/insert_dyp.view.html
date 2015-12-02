@@ -2,49 +2,40 @@
   <div class="row">
     <div class="col-sm-4">
       <form ng-submit="add()">
-        <div>
-          <ul class="nav nav-tabs">
-            <li class="active">
-              <a>Spieler hinzufügen</a>
-            </li>
-          </ul>
-        </div>
-
-        <div class="tab-content table-border text-right" style="padding:10px">
+        <div class="tab-content bottom table-border" style="padding:10px">
           <div class="form-group">
-            <label class="sr-only">Name</label>
             <input type="text" class="form-control input-sm" ng-model="newPlayer.name" placeholder="Name" focus-me="focusInput" />
 
           </div>
-          <div class="form-group">
-            <label class="sr-only">Position</label>
-            <div class="btn-group btn-group-justified">
-              <label class="btn btn-default btn-sm" ng-model="newPlayer.position" ng-repeat="position in POSITIONS" uib-btn-radio="{{ position.value }}">
-                {{ position.name }}
-              </label>
+          <div class="form-group row">
+            <div class="col-sm-6">
+              <div class="btn-group-vertical btn-block">
+                <label class="btn btn-default btn-sm" ng-model="newPlayer.position" ng-repeat="position in POSITIONS" uib-btn-radio="{{ position.value }}">
+                  {{ position.name }}
+                </label>
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label class="sr-only">Stärke</label>
-            <div class="btn-group btn-group-justified">
-              <label class="btn btn-default btn-sm" ng-model="newPlayer.type" ng-repeat="type in TYPES" uib-btn-radio="{{ type.value }}">
-                {{ type.name }}
-              </label>
+            <div class="col-sm-6">
+              <div class="btn-group-vertical btn-block">
+                <label class="btn btn-default btn-sm" ng-model="newPlayer.type" ng-repeat="type in TYPES" uib-btn-radio="{{ type.value }}">
+                  {{ type.name }}
+                </label>
+              </div>
             </div>
           </div>
         </div>
-        <button type="submit" class="btn btn-success btn-sm btn-next-step" ng-disabled="validateInput()">
-          Hinzufügen
-        </button>
+        <ul class="nav nav-tabs bottom">
+          <li class="active">
+            <a>Spieler hinzufügen</a>
+          </li>
+          <li class="pull-right">
+            <button type="submit" class="btn btn-primary" ng-disabled="validateInput()">Hinzufügen</button>
+          </li>
+        </ul>
       </form>
     </div>
     <div class="col-sm-4">
-      <div>
-        <ul class="nav nav-tabs">
-          <li class="active"><a>Angemeldete Spieler</a></li>
-        </ul>
-      </div>
-      <div class="tab-content table-border">
+      <div class="tab-content bottom table-border">
         <table class="table">
           <thead>
             <tr>
@@ -67,20 +58,19 @@
           </table>
         </div>
       </div>
-
-      <button class="btn btn-success btn-sm btn-next-step" ng-click="createTeams()" ng-disabled="disabledDraw()">
-        Lose Teams
-        <span class="glyphicon glyphicon-menu-right"></span>
-      </button>
+      <ul class="nav nav-tabs bottom">
+        <li class="active"><a>Angemeldete Spieler</a></li>
+        <li class="pull-right">
+          <button class="btn btn-primary" ng-click="createTeams()" ng-disabled="disabledDraw()" ng-hide="globals.ongoing">
+            Lose Teams
+            <i class="glyphicon glyphicon-menu-right"></i>
+          </button>
+        </li>
+      </ul>
     </div>
 
     <div class="col-sm-4">
-      <div>
-        <ul class="nav nav-tabs">
-          <li class="active"><a>Teams</a></li>
-        </ul>
-      </div>
-      <div class="tab-content table-border">
+      <div class="tab-content bottom table-border">
         <table class="table">
           <thead>
             <tr>
@@ -104,11 +94,14 @@
           </table>
         </div>
       </div>
-
-      <button class="btn btn-success btn-sm btn-next-step" ng-click="start()" ng-disabled="globals.teamList.length < 2">
-        {{ btnText }}
-        <span class="glyphicon glyphicon-menu-right"></span>
-      </button>
+      <ul class="nav nav-tabs bottom">
+        <li class="active"><a>Teams</a></li>
+        <li class="pull-right" ng-hide="globals.ongoing">
+          <button class="btn btn-primary" ng-click="start()" ng-disabled="globals.teamList.length < 2">
+            Turnier starten
+          </button>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

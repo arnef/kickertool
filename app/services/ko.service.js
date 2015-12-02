@@ -88,6 +88,16 @@
       }
     }
 
+    function sortTable() {
+      T.teamList.sort(function (a, b) {
+        if (a.points == b.points) {
+          return b.matches - a.matches;
+        } else {
+          return b.points - a.points;
+        }
+      });
+    }
+
     _self.enterScore = function (idx, score, callback) {
       console.debug('enter score ko');
       var match = T.currentMatches[idx];
@@ -99,6 +109,7 @@
         T.currentMatches[idx] = null;
         console.debug(idx);
         callback(idx);
+        sortTable();
       }
 
     }

@@ -110,7 +110,9 @@
               var team = T.teamList[idx];
               T.teamList[idx] = T.teamList[idx2];
               T.teamList[idx2] = team;
+              updateMatrix();
             }
+            console.debug('swap ' + idx + ' and ' + idx2);
           };
 
           var failedIdx = failed();
@@ -119,7 +121,9 @@
             swapTeams(failedIdx);
             failedIdx = failed();
             tries += 1;
+            console.debug(failedIdx);
           }
+          console.debug(failedIdx);
 
           for (var i = 0; i < T.teamList.length / 2; i++) {
             if (!matchPlayed(T.teamList[i], T.teamList[T.teamList.length - i - 1])) {
@@ -154,7 +158,15 @@
           }
         }
 
-
+        function sortTableByPointsAndMatches() {
+          T.teamList.sort(function (a, b) {
+            if (a.points == b.points) {
+              return a.matches - b.matches;
+            } else {
+              return b.points - a.points;
+            }
+          });
+        }
 
 
         /**
@@ -176,14 +188,16 @@
             }
           }
           callback(idx);
-
+          sortTableByPointsAndMatches();
         };
+
 
         _self.nextRound = function () {
           T.lastRound = T.teamList.length / 2;
           sortTable();
           updateMatrix();
           buildMatches();
+          sortTableByPointsAndMatches();
         }
 
 

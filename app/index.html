@@ -36,9 +36,19 @@
 </head>
 
 <body>
+  <div class="navbar navbar-static-top" ng-controller="NavController as navCtrl">
+    <ul class="nav nav-tabs">
+      <li ng-class="navCtrl.active(0) ? 'active':''"><a href="#/">Kickerturnier</a></li>
+      <li ng-class="navCtrl.active(1) ? 'active':''" ng-if="globals.ongoing"><a href="#/{{ navCtrl.getLink() }}">Teilnehmer</a></li>
+      <li ng-class="navCtrl.active(2) ? 'active':''" ng-if="globals.ongoing"><a href="#/tournament">Turnier</a></li>
+      <li class="pull-right">
+        <a ng-click="navCtrl.close()"><i class="glyphicon glyphicon-remove"></i></a>
+      </li>
+    </ul>
 
-  <div ng-view></div>
-
+  </div>
+  </div>
+  <ng-view></ng-view>
 </body>
 
 </html>

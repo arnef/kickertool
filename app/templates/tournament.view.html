@@ -2,13 +2,7 @@
 
   <div class="row">
     <div class="col-sm-4">
-      <div>
-        <ul class="nav nav-tabs">
-          <li class="active"><a>Tabelle</a>
-          </li>
-        </ul>
-      </div>
-      <div class="tab-content table-border">
+      <div class="tab-content bottom table-border">
         <table class="table">
           <thead class="table-head">
             <tr>
@@ -22,7 +16,7 @@
         <div scrolltable fullheight="{{ modus == 200}}">
           <table class="table">
             <tbody class="table-body">
-              <tr ng-repeat="team in globals.teamList | orderBy: '-points' track by $index" ng-class="team.out ? 'text-muted': ''">
+              <tr ng-repeat="team in globals.teamList track by $index" ng-class="team.out ? 'text-muted': ''">
                 <td class="active text-center td-50">{{ $index+1 }}</td>
                 <td>{{ team.name }}</td>
                 <td class="text-center td-50">{{ team.matches }}</td>
@@ -33,25 +27,13 @@
           </table>
         </div>
       </div>
-
-      <button ng-disabled="addDisabled()" ng-hide="globals.modus == 200" ng-click="add()" class="btn btn-sm btn-next-step btn-default">
-        {{ globals.modus == K.TWO_ON_TWO ? 'Team':'Spieler' }} nachmelden
-      </button>
-
+      <ul class="nav nav-tabs bottom">
+        <li class="active"><a>Tabelle</a></li>
+      </ul>
     </div>
 
     <div class="col-sm-8">
-      <div>
-        <ul class="nav nav-tabs">
-          <li ng-class="isTab(0) ? 'active' : ''" class="{{ isKoRound() ? 'disabled' : '' }} " ng-click="setTab(0)"><a href>Vorrunde</a>
-          </li>
-          <li ng-class="isTab(1) ? 'active' : ''" ng-click="setTab(1)"><a href>K.O. Runde</a>
-          </li>
-          <li ng-class="isTab(2) ? 'active' : ''" ng-click="setTab(2)"><a href>Gespielte Begegnungen</a>
-          </li>
-        </ul>
-      </div>
-      <div class="tab-content table-border">
+      <div class="tab-content bottom table-border">
         <div class="tab-pane active" ng-show="isTab(0) || isTab(1)">
           <table class="table">
             <thead>
@@ -142,21 +124,15 @@
             </table>
           </div>
         </div>
-
       </div>
-
-      <button ng-disabled="globals.koRound" ng-click="toggleLastRound()" class="btn btn-sm btn-default btn-next-step" ng-class="isLastRound ? 'active' : ''">
-
-        <span ng-hide="isLastRound" class="glyphicon glyphicon-remove"></span>
-        <span ng-show="isLastRound" class="glyphicon glyphicon-ok"></span>
-      </button>
-      <label class="label-bottom-right" ng-class="globals.koRound ? 'text-muted':''">
-        Letzte Vorrunde?
-      </label>
-      <button class="btn btn-sm btn-next-step btn-default" ng-hide="true">
-        Tisch hinzufügen / entfernen
-      </button>
-
+      <ul class="nav nav-tabs bottom">
+        <li ng-class="isTab(0) ? 'active' : ''" class="{{ isKoRound() ? 'disabled' : '' }} " ng-click="setTab(0)"><a href>Vorrunde</a>
+        </li>
+        <li ng-class="isTab(1) ? 'active' : ''" ng-click="setTab(1)"><a href>K.O. Runde</a>
+        </li>
+        <li ng-class="isTab(2) ? 'active' : ''" ng-click="setTab(2)"><a href>Gespielte Begegnungen</a>
+        </li>
+      </ul>
     </div>
 
   </div>

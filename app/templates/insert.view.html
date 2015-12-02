@@ -2,30 +2,22 @@
   <div class="row">
     <div class="col-sm-4">
       <form ng-submit="add()">
-        <div>
-          <ul class="nav nav-tabs">
-            <li class="active">
-              <a>{{ globals.modus === K.ONE_ON_ONE ? 'Spieler' : 'Team' }} hinzufügen</a>
-            </li>
-          </ul>
-        </div>
-
-        <div class="tab-content table-border text-right" style="padding:10px">
+        <div class="tab-content bottom table-border text-right" style="padding:10px">
           <insert-player ng-if="globals.modus === K.ONE_ON_ONE"></insert-player>
           <insert-team ng-if="globals.modus === K.TWO_ON_TWO"></insert-team>
         </div>
-        <button type="submit" class="btn btn-success btn-sm btn-next-step" ng-disabled="validateInput()">
-          Hinzufügen
-        </button>
+        <ul class="nav nav-tabs bottom">
+          <li class="active">
+            <a>{{ globals.modus === K.ONE_ON_ONE ? 'Spieler' : 'Team' }} hinzufügen</a>
+          </li>
+          <li class="pull-right">
+            <button class="btn btn-primary" type="submit" ng-disabled="validateInput()">Hinzufügen</button>
+          </li>
+        </ul>
       </form>
     </div>
-    <div ng-class="isFairForAll ? 'col-sm-4' : 'col-sm-8'">
-      <div>
-        <ul class="nav nav-tabs">
-          <li class="active"><a>Angemeldete {{ globals.modus === K.ONE_ON_ON ? 'Spieler':'Teams' }}</a></li>
-        </ul>
-      </div>
-      <div class="tab-content table-border">
+    <div class="col-sm-8">
+      <div class="tab-content bottom table-border">
         <table class="table">
           <thead>
             <tr>
@@ -49,12 +41,15 @@
           </table>
         </div>
       </div>
-
-      <button class="btn btn-success btn-sm btn-next-step" ng-click="start()" ng-hide="isFairForAll" ng-disabled="globals.teamList.length < 2">
-        {{ btnText }}
-        <span class="glyphicon glyphicon-menu-right"></span>
-      </button>
-
+      <ul class="nav nav-tabs bottom">
+        <li class="active"><a>Angemeldete {{ globals.modus === K.ONE_ON_ON ? 'Spieler':'Teams' }}</a></li>
+        <li ng-hide="globals.ongoing" class="pull-right">
+          <button class="btn btn-primary" ng-click="start()">
+            Turnier starten
+            <i class="glyphicon glyphicon-menu-right"></i>
+          </button>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

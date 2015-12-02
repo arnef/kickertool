@@ -1,6 +1,7 @@
 body {
-  padding-top: 10px;
   cursor: default;
+  text-transform: uppercase!important;
+  font-size: 11px;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -9,9 +10,34 @@ body {
   user-select: none;
 }
 
+a {
+  cursor: default!important;
+}
+
+.navbar > .nav-tabs {
+  background-color: #eee;
+  padding-top: 6px;
+  -webkit-app-region: drag;
+}
+
+.navbar > .nav-tabs > li {
+  -webkit-app-region: no-drag;
+}
+
+.nav-tabs > li > a {
+  color: #555;
+}
+
+.navbar > .nav-tabs > li:first-child {
+  margin-left: 15px;
+}
+
+input {
+  text-transform: uppercase;
+}
+
 .hover:hover {
   background-color: #f5f5f5;
-  cursor: pointer;
 }
 
 .table-border {
@@ -25,16 +51,12 @@ body {
   margin-bottom: 0;
 }
 
-.navbar-fixed-bottom {
-  padding-bottom: 10px;
-  background-color: #fcfcfc !important;
-}
-
 .btn-next-step {
   margin-top: 10px;
   float: right;
   text-transform: uppercase;
   margin-left: 10px;
+  font-size: 11px;
 }
 
 .label-bottom-right {
@@ -117,4 +139,70 @@ a:hover {
 
 .td-70 {
   width: 70px;
+}
+
+.border {
+  border: 1px solid black;
+}
+
+.navbar {
+  text-transform: uppercase!important;
+  font-size: 11px;
+  background-color: #fff;
+  margin-bottom: 0;
+}
+
+.btn {
+  text-transform: uppercase!important;
+  font-size: 11px;
+}
+
+.tab-content.bottom {
+  border: 1px solid #ddd;
+  border-bottom: 0px;
+}
+
+.nav-tabs.bottom {
+  border-bottom: 0px;
+  border-top: 1px solid #ddd;
+}
+
+.nav-tabs.bottom > li {
+  margin-bottom: 0;
+  margin-top: -1px;
+}
+
+option,
+select {
+  text-transform: uppercase;
+}
+
+.nav-tabs.bottom > li > a {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  line-height: 20px;
+  border: 1px solid transparent;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+  -moz-border-radius-bottomright: 5px;
+  -webkit-border-bottom-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.nav-tabs.bottom > li > .btn {
+  margin-top: 4px;
+}
+
+.nav-tabs.bottom > .active > a,
+.nav-tabs.bottom > .active > a:hover,
+.nav-tabs.bottom > .active > a:focus {
+  color: #555555;
+  cursor: default;
+  background-color: #ffffff;
+  border: 1px solid #ddd !important;
+  border-top-color: transparent !important;
 }

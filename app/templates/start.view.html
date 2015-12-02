@@ -1,80 +1,41 @@
 <div class="downloading" ng-show="downloading">
   <p>Update wird geladen...</p>
 </div>
+<!-- .downloading -->
+
 <div class="container-fluid">
-
   <div class="row">
-    <form ng-submit="startTourment()">
-      <div class="col-md-8 col-md-offset-2">
-        <div>
-          <ul class="nav nav-tabs">
-            <li ng-class="isTab(K.FAIR_FOR_ALL) ? 'active' : ''" ng-click="setTab(K.FAIR_FOR_ALL)"><a href>{{ K.NAME[K.FAIR_FOR_ALL] }}</a>
-            </li>
-            <li ng-class="isTab(K.ONE_ON_ONE) ? 'active' : ''" ng-click="setTab(K.ONE_ON_ONE)"><a href>{{ K.NAME[K.ONE_ON_ONE] }}</a>
-            </li>
-            <li ng-class="isTab(K.TWO_ON_TWO) ? 'active' : ''" ng-click="setTab(K.TWO_ON_TWO)"><a href>{{ K.NAME[K.TWO_ON_TWO] }}</a>
-            </li>
-          </ul>
-        </div>
-        <div class="tab-content table-border">
-          <div class="tab-pane active" ng-show="isTab(K.FAIR_FOR_ALL)">
-            <div class="padding">
-              <p>
-                Spieler werden nach Position und Stärke eingetragen. Zu Begin des Turniers werden ausgeglichene Teams zusammen gelost.
-              </p>
-              <p>
-                Die Vorrunde wird nach Schweizer System gespielt, sie kann jederzeit beendet werden und die K.O. Runde gestartet.
-              </p>
+    <div class="col-sm-6 col-sm-offset-3">
+      <div class="tab-content bottom" style="padding: 20px;">
+        <div class="form-horizontal">
+          <div class="form-group">
+            <label for="inputModus" class="col-sm-6 control-label">Modus</label>
+            <div class="col-sm-6">
+              <select class="form-control" id="inputModus" ng-model="globals.modus" ng-options="modus.value as modus.name for modus in optionsModus"></select>
             </div>
           </div>
-          <div class="tab-pane active" ng-show="isTab(K.ONE_ON_ONE)">
-            <div class="padding">
-              <p>
-                Die Vorrunde wird nach Schweizer System gespielt, sie kann jederzeit beendet werden und die K.O. Runde gestartet.
-              </p>
+          <div class="form-group">
+            <label for="inputTables" class="col-sm-6 control-label">Anzahl Tische</label>
+            <div class="col-sm-6">
+              <input id="inputTables" type="number" class="form-control" ng-model="globals.tables">
             </div>
           </div>
-
-          <div class="tab-pane active" ng-show="isTab(K.TWO_ON_TWO)">
-            <div class="padding">
-              <p>
-                Die Vorrunde wird nach Schweizer System gespielt, sie kann jederzeit beendet werden und die K.O. Runde gestartet.
-              </p>
-            </div>
-          </div>
-
-
-          <div class="tab-pane active">
-            <div class="padding">
-              <div class="form-horizontal">
-                <div class="form-group">
-                  <label class="col-sm-6 col-sm-offset-4 control-label">Anzahl Tische</label>
-                  <div class="col-sm-2">
-                    <input class="form-control form-center" type="number" ng-model="globals.tables" autofocus placeholder="Anzahl Tische">
-
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-6 col-sm-offset-4 control-label">Unentschieden während der Vorrunde?</label>
-                  <div class="col-sm-2">
-                    <label class="btn btn-default btn-block" ng-model="globals.withDraw" uib-btn-checkbox>
-                      <span class="glyphicon glyphicon-ok" ng-show="globals.withDraw"></span>
-                      <span class="glyphicon glyphicon-remove" ng-hide="globals.withDraw"></span>
-                    </label>
-                  </div>
-                </div>
-              </div>
+          <div class="form-group">
+            <label for="inputDraw" class="col-sm-6 control-label">Unentschieden während der Vorrunde?</label>
+            <div class="col-sm-6">
+              <select class="form-control" id="inputDraw" ng-model="globals.withDraw" ng-options="modus.value as modus.name for modus in optionsDraw"></select>
             </div>
           </div>
         </div>
-
-        <button type="submit" ng-disabled="tables <= 0" class="btn btn-success btn-sm btn-next-step">
-          Turnier starten
-          <span class="glyphicon glyphicon-menu-right"></span>
-        </button>
       </div>
-  </div>
-  </form>
-</div>
+      <ul class="nav nav-tabs bottom">
+        <li class="active"><a>Einstellungen</a></li>
+        <li class="pull-right">
+          <button ng-click="start()" class="btn btn-primary">Turnier starten</button>
+        </li>
+      </ul>
 
+    </div>
+
+  </div>
 </div>

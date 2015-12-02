@@ -40,7 +40,6 @@
     }
     if (T.round == 0) {
       _modus.nextRound();
-
     }
     fillTables();
 

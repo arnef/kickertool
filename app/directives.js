@@ -4,28 +4,39 @@
   angular.module('app')
 
   .directive('scrolltable', function ($window) {
-    var resize = function (element, attrs) {
-      var diff = 142;
+      var resize = function (element, attrs) {
+        var diff = 142;
 
-      if (attrs.fullheight == 'true')
-        diff = 100;
+        if (attrs.fullheight == 'true')
+          diff = 100;
 
-      var winHeight = $window.innerHeight;
+        var winHeight = $window.innerHeight;
 
-      element.css('height', (winHeight - diff) + 'px');
-      element.css('overflow-x', 'hidden');
-      element.css('overflow-y', 'scroll');
-    };
+        element.css('height', (winHeight - diff) + 'px');
+        element.css('overflow-x', 'hidden');
+        element.css('overflow-y', 'scroll');
+      };
 
-    return function (scope, element, attrs) {
-      resize(element, attrs);
-      angular.element($window).bind('resize', function (e) {
+      return function (scope, element, attrs) {
         resize(element, attrs);
-      });
-    };
-  })
-
-  .directive('insertPlayerDyp', function () {
+        angular.element($window).bind('resize', function (e) {
+          resize(element, attrs);
+        });
+      };
+    })
+    .directive('navbarTournament', function () {
+      return {
+        restrict: 'E',
+        templateUrl: 'templates/directive/navbar-tournament.view.html'
+      };
+    })
+    .directive('navbarInsert', function () {
+      return {
+        restrict: 'E',
+        templateUrl: 'templates/directive/navbar-insert.view.html'
+      };
+    })
+    .directive('insertPlayerDyp', function () {
       return {
         restrict: 'E',
         templateUrl: 'templates/insert_player_dyp.html'

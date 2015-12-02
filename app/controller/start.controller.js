@@ -5,8 +5,31 @@
 
   .controller('StartController', function ($rootScope, $scope, $http, $location, UpdateService, Dialog, K) {
 
-    // if data is from old app version
-    $scope.modus = $rootScope.globals.modus;
+    $scope.optionsModus = [
+      {
+        value: K.FAIR_FOR_ALL,
+        name: K.NAME[K.FAIR_FOR_ALL]
+      },
+      {
+        value: K.ONE_ON_ONE,
+        name: K.NAME[K.ONE_ON_ONE]
+      },
+      {
+        value: K.TWO_ON_TWO,
+        name: K.NAME[K.TWO_ON_TWO]
+      }
+    ];
+
+    $scope.optionsDraw = [
+      {
+        value: true,
+        name: 'Ja'
+      },
+      {
+        value: false,
+        name: 'Nein'
+      }
+    ];
 
     /**
      * check for updates
@@ -64,28 +87,17 @@
 
     });
 
-    $scope.setTab = function (newTab) {
-      console.debug(newTab);
-      $scope.modus = newTab;
-      $rootScope.globals.modus = $scope.modus;
-    };
 
-    $scope.isTab = function (tab) {
-      return $scope.modus == tab;
-    };
-
-
-
-    $scope.startTourment = function () {
+    $scope.start = function () {
       $rootScope.globals.ongoing = false;
       switch ($rootScope.globals.modus) {
-      case 200:
+      case K.FAIR_FOR_ALL:
         $location.path('playerDyp');
         break;
-      case 201:
+      case K.ONE_ON_ONE:
         $location.path('player');
         break;
-      case 202:
+      case K.TWO_ON_TWO:
         $location.path('team');
         break;
       }
