@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('app')
-    .controller('PlayerController', function ($rootScope, $scope, $location, Dialog, SwissSystem) {
+    .controller('PlayerController', function ($rootScope, $scope, $location, Dialog, SwissSystem, ScoreService) {
       var T = $rootScope.globals;
 
       $scope.focusInput = false;
@@ -40,6 +40,44 @@
         $scope.focusInput = true;
       };
 
+      function removePlayer(idx) {
+        var team = T.teamList[idx];
+        if (T.ongoing && !T.koRound) {
+          for (var i = 0; i < T.currentMatches; i++) {
+            if (T.currentMatches[i] !== null) {
+              var match = T.currentMatches[i];
+              if (match.team1.name === team.name) {
+                SwissSystem.enterScore(i, '0:2');
+              }
+              if (match.team2.name === team.name) {
+                SwissSystem.enterScore(i, '2:0')
+              }
+            }
+          }
+          for (var j = 0; j < T.nextMatches; j++) {
+            var match = T.nextMatches[j];
+            if (match.team1.name === team.name) {
+              T.playedMatches.push(match);
+              ScoreService.reenterScore(match, '0:2');
+              T.nextMatches.splice(j, 1);
+              break;
+            }
+            if (match.team2.name == team.name) {
+              T.playedMatches.push(match);
+              ScoreService.reenterScore(match, '2:0');
+              T.nextMatches.splice(j, 1);
+              break;
+            }
+          }
+          T.teamList.splice(idx, 1);
+        }
+        if (T.ongoing && T.koRound) {
+          console.debug('set team out');
+        }
+        if (!T.ongoing) {
+          T.teamList.splice(idx, 1);
+        }
+      }
 
       $scope.remove = function (idx) {
         var team = T.teamList[idx];
@@ -51,7 +89,8 @@
             cancel: 'Nein'
           }).result.then(function (result) {
             if (result === 1)
-              T.teamList.splice(idx, 1);
+              removePlayer(idx);
+            //T.teamList.splice(idx, 1);
           });
         }
         $scope.focusInput = true;

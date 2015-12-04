@@ -1,7 +1,7 @@
 body {
   cursor: default;
   text-transform: uppercase!important;
-  font-size: 11px;
+  font-size: 11px !important;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -12,6 +12,10 @@ body {
 
 a {
   cursor: default!important;
+}
+
+.dropdown-menu {
+  font-size: inherit;
 }
 
 .navbar > .nav-tabs {
@@ -84,12 +88,11 @@ a:hover {
 
 .downloading {
   position: fixed;
-  padding-top: -10px;
   height: 100%;
   width: 100%;
   background-color: #ffffff;
-  z-index: 1000;
-  opacity: .8;
+  z-index: 9999;
+  opacity: .9;
 }
 
 .downloading p {
@@ -99,8 +102,10 @@ a:hover {
   left: 50%;
   text-align: center;
   margin-left: -100px;
-  font-size: 16px;
+  margin-top: 6px;
+  font-size: 14px;
   color: #666666;
+  font-weight: bold;
 }
 
 #loading-bar-spinner {
@@ -111,14 +116,16 @@ a:hover {
   left: 50%;
   margin-left: -7px;
   margin-top: -20px;
+  color: #fff;
 }
 
 #loading-bar .bar {
-  height: 4px;
+  height: 2px;
+  top: 50%;
 }
 
 #loading-bar .peg {
-  height: 4px;
+  height: 2px;
 }
 
 .blocked {
@@ -131,6 +138,10 @@ a:hover {
 
 .uib-dropdown-menu {
   top: 80%;
+}
+
+.td-20 {
+  width: 20px;
 }
 
 .td-50 {
@@ -205,4 +216,12 @@ select {
   background-color: #ffffff;
   border: 1px solid #ddd !important;
   border-top-color: transparent !important;
+}
+
+.modal-dialog {
+  margin-top: 84px;
+}
+
+button {
+  cursor: default!important;
 }

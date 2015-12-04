@@ -44,6 +44,13 @@
           }
           match.score = newScore[0] + ':' + newScore[1];
         }
+        T.teamList.sort(function (a, b) {
+          if (a.points === b.points) {
+            return a.matches - b.matches;
+          } else {
+            return b.points - a.points;
+          }
+        })
       };
 
     }]);

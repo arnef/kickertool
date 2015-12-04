@@ -3,9 +3,13 @@
 
   angular.module('app')
     .factory('Dialog', ['$uibModal', function ($uibModal) {
+      var _animation;
+      _animation = false;
+
+
       function teams(teamList) {
         var modalInstance = $uibModal.open({
-          animation: true,
+          animation: _animation,
           templateUrl: 'templates/teams.dialog.view.html',
           controller: 'TeamsDialogController',
           size: 'md',
@@ -21,7 +25,7 @@
 
       function score(team1, team2) {
         return $uibModal.open({
-          animation: true,
+          animation: _animation,
           templateUrl: 'templates/score.dialog.view.html',
           controller: 'ScoreDialogController',
           size: 'md',
@@ -36,7 +40,7 @@
 
       function confirm(content) {
         return $uibModal.open({
-          animation: true,
+          animation: _animation,
           templateUrl: 'templates/confirm.dialog.view.html',
           controller: 'ConfirmDialogController',
           size: 'md',
@@ -50,7 +54,7 @@
 
       function alert(content) {
         return $uibModal.open({
-          animation: true,
+          animation: _animation,
           templateUrl: 'templates/alert.dialog.view.html',
           controller: 'AlertDialogController',
           size: 'md',

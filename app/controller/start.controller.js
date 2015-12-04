@@ -51,7 +51,7 @@
         if (result === 1) {
 
 
-          $scope.downloading = true;
+          $rootScope.downloading = true;
           $scope.load_update = false;
           $http({
               url: update.link,
@@ -60,7 +60,7 @@
               cache: false
             })
             .success(function (data) {
-              $scope.downloading = false;
+              $rootScope.downloading = false;
               var filename = 'kickertool_v' + update.version.substring(0, 5) + '.zip';
               var fileAsBlob = new Blob([data], {
                 type: 'application/zip'
@@ -80,7 +80,7 @@
               };
             })
             .error(function () {
-              $scope.downloading = false;
+              $rootScope.downloading = false;
             });
         }
       });

@@ -187,7 +187,10 @@
               buildMatches();
             }
           }
-          callback(idx);
+          if (callback) {
+            callback(idx);
+          }
+
           sortTableByPointsAndMatches();
         };
 

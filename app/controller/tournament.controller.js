@@ -104,8 +104,8 @@
       }
     };
 
-    $scope.showReenterScore = function (idx) {
-      return !T.koRound && T.playedMatches[idx].round === T.round;
+    $scope.showReenterScore = function (round) {
+      return round === T.round;
     };
 
     $scope.insertScore = function (idx) {
@@ -148,17 +148,14 @@
     };
 
 
-    $scope.reenterScore = function (idx) {
-      if ($scope.showReenterScore(idx)) {
-        var match = T.playedMatches[idx];
-        if (match != null) {
-          Dialog.score(
-            match.team1.name,
-            match.team2.name
-          ).result.then(function (score) {
-            ScoreService.reenterScore(match, score);
-          });
-        }
+    $scope.reenterScore = function (match) {
+      if ($scope.showReenterScore(match.round)) {
+        Dialog.score(
+          match.team1.name,
+          match.team2.name
+        ).result.then(function (score) {
+          ScoreService.reenterScore(match, score);
+        });
       }
     };
 

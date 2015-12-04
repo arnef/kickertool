@@ -1,4 +1,4 @@
 <div class="form-group">
   <label class="sr-only">Name</label>
-  <input type="text" class="form-control input-sm" ng-model="newPlayer.name" required placeholder="Name" focus-me="focusInput">
+  <input type="text" class="form-control input-sm" ng-model="newPlayer.name" required placeholder="Name" focus-me="focusInput" ng-disabled="globals.round > 1">
 </div>

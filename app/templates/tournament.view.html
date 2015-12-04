@@ -114,8 +114,8 @@
                   <td width="4%" uib-dropdown uib-dropdown-toggle class="hover">
                     <i class="glyphicon glyphicon-option-vertical text-muted"></i>
                     <ul class="uib-dropdown-menu dropdown-menu-right">
-                      <li ng-class="showReenterScore($index) ? '':'disabled'">
-                        <a href ng-click="reenterScore($index)">Ergebnis bearbeiten</a>
+                      <li ng-class="showReenterScore(match.round) ? '':'disabled'">
+                        <a href ng-click="reenterScore(match)">Ergebnis bearbeiten</a>
                       </li>
                     </ul>
                   </td>
@@ -126,11 +126,17 @@
         </div>
       </div>
       <ul class="nav nav-tabs bottom">
-        <li ng-class="isTab(0) ? 'active' : ''" class="{{ isKoRound() ? 'disabled' : '' }} " ng-click="setTab(0)"><a href>Vorrunde</a>
+        <li ng-class="isTab(0) ? 'active' : ''" class="{{ globals.koRound ? 'disabled' : '' }} " ng-click="setTab(0)"><a href>Vorrunde</a>
         </li>
         <li ng-class="isTab(1) ? 'active' : ''" ng-click="setTab(1)"><a href>K.O. Runde</a>
         </li>
         <li ng-class="isTab(2) ? 'active' : ''" ng-click="setTab(2)"><a href>Gespielte Begegnungen</a>
+        </li>
+        <li class="pull-right">
+          <button class="btn btn-default" ng-click="toggleLastRound()" ng-disabled="globals.koRound">Letzte Vorrunde?
+            <span ng-show="globals.lastRound === globals.round">Ja</span>
+            <span ng-show="globals.lastRound !== globals.round">Nein</span>
+          </button>
         </li>
       </ul>
     </div>

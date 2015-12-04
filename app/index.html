@@ -36,6 +36,10 @@
 </head>
 
 <body>
+  <div class="modal-backgrop in downloading" ng-show="downloading">
+    <p>Update wird geladen...</p>
+  </div>
+  <!-- .downloading -->
   <div class="navbar navbar-static-top" ng-controller="NavController as navCtrl">
     <ul class="nav nav-tabs">
       <li ng-class="navCtrl.active(0) ? 'active':''"><a href="#/">Kickerturnier</a></li>
