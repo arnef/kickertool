@@ -141,12 +141,13 @@ Array.prototype.shuffle = function () {
             $location.path('/');
           } else {
             restoreData();
-            $location.path('tournament');
+            //$location.path('tournament');
           }
         })
       } else {
         clearData();
-        // $location.path('/');
+        if ($location.path() !== '/player')
+          $location.path('/');
       }
     })
     .config(function ($routeProvider) {

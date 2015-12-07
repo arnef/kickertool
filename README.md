@@ -2,15 +2,21 @@
 
 ## Download ##
 Hier gibts die ausführbaren Programme für verschiedene Systeme.
-Akutelle Version ist v0.4.3
-* [Linux 32bit](https://github.com/arnef/kickertool/raw/master/build/linux32.zip) /
- [Linux 64bit](https://github.com/arnef/kickertool/raw/master/build/linux64.zip)
-* [Mac OSX 32 / 64bit](https://github.com/arnef/kickertool/raw/master/build/osx.zip)
-* [Windows 32 / 64bit](https://github.com/arnef/kickertool/raw/master/build/win.zip)
+Akutelle Version ist v0.5.0
+* [Linux 32bit](http://arnefeil.de/kickertool/linux32.zip) /
+ [Linux 64bit](http://arnefeil.de/kickertool/linux64.zip)
+* [Mac OSX 32 / 64bit](http://arnefeil.de/kickertool/osx.zip)
+* [Windows 32 / 64bit](http://arnefeil.de/kickertool.zip)
 
 ## Changelog ##
 
-
+    v0.5.0
+    - Stabile Vorrunde, es gehen keine Spiele mehr verloren
+    - Neuer K.o. Baum, nächste Spiele können früher gespielt werden
+    - Spieler/Teams können in jedem Modus während der ersten Runde nachgemeldet werden
+    - Spieler/Teams können jederzeit aus dem Turnier entfernt werden
+    - Turnierstand wird gespeichert und kann nach beenden der App weitergeführt werden
+    
     v0.4.3
     - Autofocus bei Eingabe von Spielern
     - Spieler können während der 1. Runde hinzugefügt/gelöscht
