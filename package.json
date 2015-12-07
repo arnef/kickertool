@@ -12,12 +12,16 @@
     "position": "center"
   },
   "downloads": {
-    "linux64": null,
-    "linux32": null,
-    "osx": null,
-    "win": null
+    "linux64": "http://arnefeil.de/kickertool/linux64.zip",
+    "linux32": "http://arnefeil.de/kickertool/linux32.zip",
+    "osx": "http://arnefeil.de/kickertool/osx.zip",
+    "win": "http://arnefeil.de/kickertool.zip"
   },
   "changelog": [
-
+    "Stabile Vorrunde, es gehen keine Spiele mehr verloren"
+    "Neuer K.o. Baum, nächste Spiele können früher gespielt werden",
+    "Spieler/Teams können in jedem Modus während der ersten Runde nachgemeldet werden",
+    "Spieler/Teams können jederzeit aus dem Turnier entfernt werden",
+    "Turnierstand wird gespeichert und kann nach beenden der App weitergeführt werden"
   ]
 }
