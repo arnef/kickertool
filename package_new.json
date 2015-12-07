@@ -13,7 +13,7 @@
   },
   "packages": {
     "linux64": {
-      "url": "http://arnefeil.de/kickertool/linux64.zip"
+      "url": "http://localhost:8080/build/linux64.tar.gz"
     },
     "linux32": "http://arnefeil.de/kickertool/linux32.zip",
     "osx": "http://arnefeil.de/kickertool/osx.zip",

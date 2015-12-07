@@ -5,7 +5,7 @@
     .service('UpdateService', function ($rootScope, $http) {
       var self = this,
         gui, pkg, copyPath, execPath, os, platform,
-        tmpPath, request;
+        tmpPath, request, fs;
       $rootScope.updater = {
         downloading: false
       };
@@ -15,11 +15,41 @@
       }
 
       self.checkForUpdates = function (callback) {
-        // try {
-        gui = require('nw.gui');
+
+        var gui = require('nw.gui');
+        var pkg = require('../package.json'); // Insert your app's manifest here
+        pkg.manifestUrl = 'http://localhost:8080/package_new.json';
+        var updater = require('node-webkit-updater');
+        var upd = new updater(pkg);
+        var copyPath, execPath;
+
+
+        upd.checkNewVersion(function (error, newVersionExists, manifest) {
+          console.debug(error, newVersionExists, manifest);
+          if (!error && newVersionExists) {
+            upd.download(function (error, filename) {
+              console.debug(error, filename);
+              if (!error) {
+                upd.unpack(filename, function (error, newAppPath) {
+                  console.debug(error, newAppPath);
+                  if (!error) {
+                    upd.runInstaller(newAppPath, [upd.getAppPath(), upd.getAppExec()], {});
+                    gui.App.quit();
+                  }
+                }, manifest);
+              }
+            }, manifest);
+          }
+        });
+      };
+
+      // try {
+      /*  gui = require('nw.gui');
         pkg = require('../package.json');
         os = require('os');
         request = require('request');
+        fs = require('fs');
+
         tmpPath = os.tmpdir();
         console.debug(tmpPath);
         // pkg.manifestUrl = "https://raw.githubusercontent.com/arnef/kickertool/master/package.json";
@@ -29,10 +59,30 @@
         checkNewVersion(pkg, function (err, newVersion) {
           console.debug(err, newVersion);
           if (!err && newVersion) {
-            console.debug(pkg.downloads.linux64);
+            var dl = request(pkg.downloads.linux64, function (err, response) {
+              console.debug(err, response);
+              if (response && response.statusCode < 200 || response.statusCode >= 300) {
+                dl.abort();
+                console.debug('error download');
+              }
+            });
+            dl.on('response', function (response) {
+              if (response && response.headers && response.headers['content-length']) {
+                dl['content-length'] = response.headers['content-length'];
+              }
+            });
+            var destinationPath = tmpPath + '/update.zip';
+            fs.unlink(destinationPath, function () {
+              dl.pipe(fs.createWriteStream(destinationPath));
+              dl.resume();
+            });
+            dl.on('end', function () {
+              console.debug('download done');
+              console.debug(process.execPath);
+            });
           }
         });
-      };
+      };*/
       //  } catch (e) {
       //     console.debug(e.message);
       //   }
