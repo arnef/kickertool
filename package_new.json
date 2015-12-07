@@ -1,7 +1,7 @@
 {
   "name": "Kickertool",
   "main": "app/index.html",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "window": {
     "title": "Kickertool",
     "frame": false,
@@ -11,8 +11,10 @@
     "height": 600,
     "position": "center"
   },
-  "downloads": {
-    "linux64": "http://localhost:8080/build/linux64.zip",
+  "packages": {
+    "linux64": {
+      "url": "http://arnefeil.de/kickertool/linux64.zip"
+    },
     "linux32": "http://arnefeil.de/kickertool/linux32.zip",
     "osx": "http://arnefeil.de/kickertool/osx.zip",
     "win": "http://arnefeil.de/kickertool.zip"

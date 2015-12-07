@@ -35,6 +35,7 @@
      * check for updates
      **/
     UpdateService.checkForUpdates(function (update) {
+      console.debug(update);
       var msg = '<p>Ein Update von Version ' + update.local_version + ' auf Version ' + update.version + ' ist Verfügbar!</p>' + '<p>Soll es jetzt heruntergeladen werden?</p>';
       msg += '<p>Was ist neu?</p><p><ul>';
       for (var i = 0; i < update.changelog.length; i++) {

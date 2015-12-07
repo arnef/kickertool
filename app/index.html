@@ -35,8 +35,8 @@
 </head>
 
 <body>
-  <div class="modal-backgrop in downloading" ng-show="downloading">
-    <p>Update wird geladen...</p>
+  <div class="downloading" ng-show="updater.downloading">
+    <p>{{ updater.msg }}</p>
   </div>
   <!-- .downloading -->
   <div class="navbar navbar-static-top" ng-controller="NavController as navCtrl">

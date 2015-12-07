@@ -3,3 +3,4 @@ core
 components/
 tests/
 .idea/
+node_modules/
