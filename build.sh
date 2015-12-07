@@ -2,9 +2,10 @@
 echo "remove old build/"
 rm -rf build/
 echo "build kickertool"
-nwbuild -p linux64,linux32,osx32,win32 -v 0.12.2 --quiet ./
-echo "copy mac icon"
-cp icon.icns build/Kickertool/osx32/Kickertool.app/Contents/Resources/nw.icns
+#nwbuild -p linux64,linux32,osx32,win32 -v 0.12.2 --quiet ./
+nwbuild -p linux64 -v 0.12.3 --quiet ./
+#echo "copy mac icon"
+#cp icon.icns build/Kickertool/osx32/Kickertool.app/Contents/Resources/nw.icns
 cd build/Kickertool/
 for file in *; do
 

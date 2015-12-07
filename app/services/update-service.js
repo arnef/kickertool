@@ -27,12 +27,16 @@
         upd.checkNewVersion(function (error, newVersionExists, manifest) {
           console.debug(error, newVersionExists, manifest);
           if (!error && newVersionExists) {
+            $rootScope.updater.downloading = true;
+            $rootScope.updater.msg = 'Lade Updates...';
             upd.download(function (error, filename) {
               console.debug(error, filename);
               if (!error) {
+                $rootScope.updater.msg = 'Entpacke Updates...';
                 upd.unpack(filename, function (error, newAppPath) {
                   console.debug(error, newAppPath);
                   if (!error) {
+                    $rootScope.updater.msg = 'Kickertool wird neugestartet...';
                     upd.runInstaller(newAppPath, [upd.getAppPath(), upd.getAppExec()], {});
                     gui.App.quit();
                   }
