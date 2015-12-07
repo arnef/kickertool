@@ -2,10 +2,10 @@
   'use strict';
 
   angular.module('app').
-  service('Ko', ['$rootScope', 'ScoreService', function ($rootScope, ScoreService) {
+  service('Ko', ['$rootScope', function ($rootScope) {
     var _self,
       T,
-      maxLevel;
+      maxLevel, idxTeam1, idxTeam2;
 
     _self = this;
     T = $rootScope.globals;
@@ -17,9 +17,6 @@
       }
       return round / 2;
     }
-
-    var idxTeam1 = 0;
-    var idxTeam2 = getRound(T.teamList.length) * 2 - 1;
 
     function setTeams(game) {
       console.debug(idxTeam1, idxTeam2);
@@ -69,15 +66,18 @@
         return b.points - a.points;
       });
       maxLevel = getRound(T.teamList.length);
+      idxTeam1 = 0;
+      idxTeam2 = maxLevel * 2 - 1;
       buildTree(T.finals[0], 2);
+      T.round += 1;
     }
 
     function updateMatches(match) {
-      console.debug('update matches');
       var nextMatch = T.finals[match.nextMatch];
-      console.debug(nextMatch);
-      if (!nextMatch) return;
       var winner = match.score == '2:0' ? match.team1 : match.team2;
+      var looser = match.score == '0:2' ? match.team1 : match.team2;
+      looser.out = true;
+      if (!nextMatch) return;
       if (!nextMatch.team1) {
         nextMatch.team1 = winner;
       } else {
@@ -90,11 +90,10 @@
 
     function sortTable() {
       T.teamList.sort(function (a, b) {
-        if (a.points == b.points) {
-          return b.matches - a.matches;
-        } else {
+        if (a.matches == b.matches)
           return b.points - a.points;
-        }
+        else
+          return b.matches - a.matches;
       });
     }
 
@@ -102,14 +101,12 @@
       console.debug('enter score ko');
       var match = T.currentMatches[idx];
       if (match != null) {
-        match.score = score;
-        ScoreService.enterScore(match);
         updateMatches(match);
         T.playedMatches.push(match);
         T.currentMatches[idx] = null;
-        console.debug(idx);
-        callback(idx);
         sortTable();
+        callback(idx);
+
       }
 
     }

@@ -1,8 +1,8 @@
 (function () {
   'use strict';
   angular.module('app')
-    .service('SwissSystem', ['$rootScope', 'ScoreService',
-      function ($rootScope, ScoreService) {
+    .service('SwissSystem', ['$rootScope',
+      function ($rootScope) {
         var _self = this,
           T = $rootScope.globals,
           _matchMatrix = [];
@@ -112,7 +112,6 @@
               T.teamList[idx2] = team;
               updateMatrix();
             }
-            console.debug('swap ' + idx + ' and ' + idx2);
           };
 
           var failedIdx = failed();
@@ -176,8 +175,6 @@
         _self.enterScore = function (idx, score, callback) {
           var match = T.currentMatches[idx];
           if (match != null) {
-            match.score = score;
-            ScoreService.enterScore(match);
             T.playedMatches.push(match);
             T.currentMatches[idx] = null;
 
@@ -190,7 +187,6 @@
           if (callback) {
             callback(idx);
           }
-
           sortTableByPointsAndMatches();
         };
 

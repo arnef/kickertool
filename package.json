@@ -7,23 +7,17 @@
     "frame": false,
     "toolbar": false,
     "icon": "icon.png",
-    "min_width": 800,
     "width": 1100,
     "height": 600,
     "position": "center"
   },
   "downloads": {
-    "linux64": "https://github.com/arnef/kickertool/raw/master/build/linux64.zip",
-    "linux32": "https://github.com/arnef/kickertool/raw/master/build/linux32.zip",
-    "osx": "https://github.com/arnef/kickertool/raw/master/build/osx.zip",
-    "win": "https://github.com/arnef/kickertool/raw/master/build/win.zip"
+    "linux64": null,
+    "linux32": null,
+    "osx": null,
+    "win": null
   },
   "changelog": [
-    "Autofocus bei Eingabe von Spielern",
-    "Spieler können während der 1. Runde hinzugefügt/gelöscht werden (nicht beim DYP)",
-    "Nur Spiele der aktuellen Runde können korrigiert werden",
-    "Unentschienden kann deaktiviert werden",
-    "Letzte Einstellungen werden gespeichert",
-    "Mac Icon"
+
   ]
 }

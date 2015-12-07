@@ -113,6 +113,7 @@
         };
         $scope.score = function (idx) {
           var scores = ['2:0', '1:1', '0:2'];
+          console.debug(scores[idx]);
           $uibModalInstance.close(scores[idx]);
         };
       });

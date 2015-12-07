@@ -24,15 +24,14 @@
   <script src="services/update-service.js"></script>
   <script src="services/teamdrawer.service.js"></script>
   <script src="services/dialog.service.js"></script>
-  <script src="services/score.service.js"></script>
   <script src="services/swisssystem.service.js"></script>
   <script src="services/ko.service.js"></script>
+  <script src="services/tournament.service.js"></script>
 
   <script src="controller/start.controller.js"></script>
   <script src="controller/tournament.controller.js"></script>
-  <script src="controller/playerdyp.controller.js"></script>
+  <script src="controller/insert.controller.js"></script>
   <script src="controller/player.controller.js"></script>
-  <script src="controller/team.controller.js"></script>
 </head>
 
 <body>
@@ -43,14 +42,22 @@
   <div class="navbar navbar-static-top" ng-controller="NavController as navCtrl">
     <ul class="nav nav-tabs">
       <li ng-class="navCtrl.active(0) ? 'active':''"><a href="#/">Kickerturnier</a></li>
-      <li ng-class="navCtrl.active(1) ? 'active':''" ng-if="globals.ongoing || navCtrl.active(1)"><a href="#/{{ navCtrl.getLink() }}">Teilnehmer</a></li>
+      <li ng-class="navCtrl.active(1) ? 'active':''" ng-if="globals.ongoing || navCtrl.active(1)"><a href="#/insert">Teilnehmer</a></li>
       <li ng-class="navCtrl.active(2) ? 'active':''" ng-if="globals.ongoing"><a href="#/tournament">Turnier</a></li>
       <li class="pull-right">
         <a ng-click="navCtrl.close()"><i class="glyphicon glyphicon-remove"></i></a>
       </li>
+      <li class="pull-right" uib-dropdown>
+        <a uib-dropdown-toggle>
+          <i class="glyphicon glyphicon-option-vertical"></i>
+        </a>
+        <ul class="uib-dropdown-menu dropdown-menu-right">
+          <li><a href="#/player">Spielerliste bearbeiten</a></li>
+          <li><a ng-click="navCtrl.close()">Kickertool beenden</a></li>
+        </ul>
+      </li>
     </ul>
 
-  </div>
   </div>
   <ng-view></ng-view>
 </body>

@@ -3,7 +3,7 @@
 
   angular.module('app')
 
-  .controller('StartController', function ($rootScope, $scope, $http, $location, UpdateService, Dialog, K) {
+  .controller('StartController', function ($rootScope, $scope, $http, $location, UpdateService, Dialog, K, Tournament) {
 
     $scope.optionsModus = [
       {
@@ -90,18 +90,13 @@
 
     $scope.start = function () {
       $rootScope.globals.ongoing = false;
-      switch ($rootScope.globals.modus) {
-      case K.FAIR_FOR_ALL:
-        $location.path('playerDyp');
-        break;
-      case K.ONE_ON_ONE:
-        $location.path('player');
-        break;
-      case K.TWO_ON_TWO:
-        $location.path('team');
-        break;
-      }
+      $location.path('insert')
     };
+
+    $scope.new = function () {
+      Tournament.clear();
+      $scope.start();
+    }
   });
 
 })();

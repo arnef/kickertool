@@ -3,46 +3,13 @@
 
   angular.module('app')
 
-  .controller('TournamentController', function ($rootScope, $scope, $location, Dialog, SwissSystem, Ko, ScoreService) {
-    var _self, T, _modus;
+  .controller('TournamentController', function ($rootScope, $scope, $location, Dialog, Tournament) {
+    var _self, T;
 
     _self = this;
     T = $rootScope.globals;
-    if (T.koRound) {
-      _modus = Ko;
-    } else {
-      _modus = SwissSystem;
-    }
+
     $scope.isLastRound = T.lastRound === T.round;
-
-    function fillTables(idx) {
-      if (T.nextMatches.length === 0) {
-        return;
-      }
-      if (idx !== undefined) {
-        T.currentMatches[idx] = T.nextMatches[0];
-        T.nextMatches.splice(0, 1);
-        if (T.currentMatches[idx].team2.ghost) {
-          _modus.enterScore(idx, '2:0', fillTables);
-        }
-      } else {
-        for (var i = 0; i < T.currentMatches.length; i++) {
-          if (T.currentMatches[i] == null) {
-            T.currentMatches[i] = T.nextMatches[0];
-            T.nextMatches.splice(0, 1);
-          }
-          if (T.currentMatches[i].team2.ghost) {
-            _modus.enterScore(i, '2:0', fillTables);
-          }
-        }
-      }
-    }
-    if (T.round == 0) {
-      _modus.nextRound();
-    }
-    fillTables();
-
-
 
     $scope.toggleLastRound = function () {
       $scope.isLastRound = !$scope.isLastRound;
@@ -84,18 +51,7 @@
           cancel: 'Nein'
         }).result.then(function (result) {
           if (result === 1) {
-            // start ko round
-            T.koRound = true;
-            if (T.nextMatches.length > 0) {
-              T.nextMatches = [];
-            }
-            for (var i = 0; i < T.currentMatches.length; i++) {
-              T.currentMatches[i] = null;
-            }
-            _modus = Ko;
-            console.debug('start ko round');
-            _modus.start();
-            fillTables();
+            Tournament.startKo();
             T.currentTab = tab;
           }
         });
@@ -110,13 +66,15 @@
 
     $scope.insertScore = function (idx) {
       var match = T.currentMatches[idx];
-      if (match !== null) {
+      if (match != null) {
         Dialog.score(
           match.team1.name,
           match.team2.name
         ).result.then(function (score) {
-          _modus.enterScore(idx, score, fillTables);
+          Tournament.enterScore(idx, score);
         });
+      } else {
+        Tournament.fillTables();
       }
     };
 
@@ -130,10 +88,7 @@
           })
           .result.then(function (result) {
             if (result === 1) {
-              var match = T.currentMatches[tableIdx];
-              T.nextMatches.push(match);
-              T.currentMatches[tableIdx] = null;
-              fillTables(tableIdx);
+              Tournament.deferMatch(tableIdx);
             }
           });
       }
@@ -144,7 +99,7 @@
 
     $scope.canDeferMatch = function (tableIdx) {
       var match = T.currentMatches[tableIdx];
-      return match !== null && T.nextMatches.length > 0 && (T.koRound || match.round == T.round);
+      return match != null && T.nextMatches.length > 0 && (T.koRound || match.round == T.round);
     };
 
 
@@ -154,10 +109,13 @@
           match.team1.name,
           match.team2.name
         ).result.then(function (score) {
-          ScoreService.reenterScore(match, score);
+          Tournament.correctScore(match, score);
         });
       }
     };
+
+
+
 
   });
 })();

@@ -34,22 +34,11 @@ Array.prototype.shuffle = function () {
         case 0:
           return $location.path() === '/';
         case 1:
-          return $location.path() === '/player' || $location.path() === '/playerDyp' || $location.path() === '/team';
+          return $location.path() === '/insert' || $location.path() === '/playerDyp' || $location.path() === '/team';
         case 2:
           return $location.path() === '/tournament';
         }
         return false;
-      };
-
-      this.getLink = function () {
-        switch ($rootScope.globals.modus) {
-        case K.FAIR_FOR_ALL:
-          return 'playerDyp';
-        case K.ONE_ON_ONE:
-          return 'player';
-        case K.TWO_ON_TWO:
-          return 'team';
-        }
       };
 
       this.close = function () {
@@ -80,8 +69,62 @@ Array.prototype.shuffle = function () {
         T.koRound = false;
         T.playerList = [];
         T.teamList = [];
+        T.teamListOut = [];
         T.ongoing = false;
         T.currentTab = 0;
+        T.globalPlayerList = [];
+      }
+
+      function updateCurrentMaches(team) {
+        for (var i = 0; i < T.currentMatches.length; i++) {
+          var match = T.currentMatches[i];
+          if (match != null) {
+            if (team.name == match.team1.name)
+              match.team1 = team;
+            if (team.name == match.team2.name)
+              match.team2 = team;
+          }
+        }
+      }
+
+      function updateNextMatches(team) {
+        for (var i = 0; i < T.nextMatches.length; i++) {
+          var match = T.nextMatches[i];
+          if (team.name == match.team1.name)
+            match.team1 = team;
+          if (team.name == match.team2.name)
+            match.team2 = team;
+        }
+      }
+
+      function updatePlayedMatches(team) {
+        for (var i = 0; i < T.playedMatches.length; i++) {
+          var m = T.playedMatches[i];
+          if (team.name == m.team1.name)
+            m.team1 = team;
+          if (team.name == m.team2.name)
+            m.team2 = team;
+        }
+      }
+
+      function updateFinals(team) {
+        for (var i = 0; i < T.finals.length; i++) {
+          var m = T.finals[i];
+          if (m.team1 && team.name == m.team1.name)
+            m.team1 = team;
+          if (m.team2 && team.name == m.team2.name)
+            m.team2 = team;
+        }
+      }
+
+      function restoreData() {
+        for (var i = 0; i < T.teamList.length; i++) {
+          var t = T.teamList[i];
+          updateCurrentMaches(t);
+          updateNextMatches(t);
+          updatePlayedMatches(t);
+          updateFinals(t);
+        }
       }
       if (!T.tables) {
         clearData();
@@ -97,12 +140,13 @@ Array.prototype.shuffle = function () {
             clearData();
             $location.path('/');
           } else {
+            restoreData();
             $location.path('tournament');
           }
         })
       } else {
         clearData();
-        //$location.path('/');
+        // $location.path('/');
       }
     })
     .config(function ($routeProvider) {
@@ -111,21 +155,17 @@ Array.prototype.shuffle = function () {
           templateUrl: 'templates/start.view.html',
           controller: 'StartController'
         })
-        .when('/player', {
+        .when('/insert', {
           templateUrl: 'templates/insert.view.html',
-          controller: 'PlayerController'
-        })
-        .when('/playerDyp', {
-          templateUrl: 'templates/insert_dyp.view.html',
-          controller: 'PlayerDypController'
-        })
-        .when('/team', {
-          templateUrl: 'templates/insert.view.html',
-          controller: 'TeamController'
+          controller: 'InsertController'
         })
         .when('/tournament', {
           templateUrl: 'templates/tournament.view.html',
           controller: 'TournamentController'
+        })
+        .when('/player', {
+          templateUrl: '/templates/player.view.html',
+          controller: 'PlayerController'
         });
     });
 

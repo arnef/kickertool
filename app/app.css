@@ -40,6 +40,11 @@ input {
   text-transform: uppercase;
 }
 
+.text-out {
+  text-decoration: line-through;
+  color: #777;
+}
+
 .hover:hover {
   background-color: #f5f5f5;
 }
@@ -222,6 +227,7 @@ select {
   margin-top: 84px;
 }
 
-button {
+button,
+label {
   cursor: default!important;
 }

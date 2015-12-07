@@ -3,70 +3,90 @@
 
   angular.module('app')
 
+  .directive('insertPlayer', function () {
+      return {
+        restrict: 'E',
+        templateUrl: 'templates/insert_player.directive.html',
+        scope: {
+          player: '=player',
+          focus: '=focus'
+        },
+        controller: 'InsertPlayerDirectiveController'
+      };
+    })
+    .controller('InsertPlayerDirectiveController', function ($rootScope, $scope, $location, TeamDrawer, K) {
+      $scope.TYPES = [
+        {
+          name: 'Gesetzt',
+          value: TeamDrawer.PRO
+      },
+        {
+          name: 'Gelost',
+          value: TeamDrawer.AMATEUR
+      }];
+      $scope.POSITIONS = [
+        {
+          name: 'Torwart/Stürmer',
+          value: TeamDrawer.BOTH
+      },
+        {
+          name: 'Torwart',
+          value: TeamDrawer.GOALIE
+      },
+        {
+          name: 'Stürmer',
+          value: TeamDrawer.STRIKER
+      }];
+
+      $scope.newPlayer = {
+        type: TeamDrawer.PRO,
+        position: TeamDrawer.BOTH
+      };
+
+      $scope.showOptions = $rootScope.globals.modus === K.FAIR_FOR_ALL && !$rootScope.globals.ongoing || $location.path() == '/player';
+      $scope.disableInput = $rootScope.globals.round > 1;
+
+      $scope.$watch('focus', function () {
+        console.debug($scope.focus);
+      });
+
+    })
+
   .directive('scrolltable', function ($window) {
-      var resize = function (element, attrs) {
-        var diff = 142;
+    var resize = function (element, attrs) {
+      var diff = 142;
 
-        if (attrs.fullheight == 'true')
-          diff = 100;
+      if (attrs.fullheight == 'true')
+        diff = 100;
 
-        var winHeight = $window.innerHeight;
+      var winHeight = $window.innerHeight;
 
-        element.css('height', (winHeight - diff) + 'px');
-        element.css('overflow-x', 'hidden');
-        element.css('overflow-y', 'scroll');
-      };
+      element.css('height', (winHeight - diff) + 'px');
+      element.css('overflow-x', 'hidden');
+      element.css('overflow-y', 'scroll');
+    };
 
-      return function (scope, element, attrs) {
+    return function (scope, element, attrs) {
+      resize(element, attrs);
+      angular.element($window).bind('resize', function (e) {
         resize(element, attrs);
-        angular.element($window).bind('resize', function (e) {
-          resize(element, attrs);
+      });
+    };
+  })
+
+  .directive('focusMe', function ($timeout) {
+    return {
+      link: function (scope, element, attrs) {
+        scope.$watch(attrs.focusMe, function (value) {
+          $timeout(function () {
+            if (value === true) {
+              element[0].focus();
+              scope[attrs.focusMe] = false;
+            }
+          }, 200);
         });
-      };
-    })
-    .directive('navbarTournament', function () {
-      return {
-        restrict: 'E',
-        templateUrl: 'templates/directive/navbar-tournament.view.html'
-      };
-    })
-    .directive('navbarInsert', function () {
-      return {
-        restrict: 'E',
-        templateUrl: 'templates/directive/navbar-insert.view.html'
-      };
-    })
-    .directive('insertPlayerDyp', function () {
-      return {
-        restrict: 'E',
-        templateUrl: 'templates/insert_player_dyp.html'
-      };
-    })
-    .directive('insertPlayer', function () {
-      return {
-        restrict: 'E',
-        templateUrl: 'templates/insert_player.html'
-      };
-    })
-    .directive('insertTeam', function () {
-      return {
-        restrict: 'E',
-        templateUrl: 'templates/insert_team.html'
-      };
-    })
-    .directive('focusMe', function ($timeout) {
-      return {
-        link: function (scope, element, attrs) {
-          scope.$watch(attrs.focusMe, function (value) {
-            $timeout(function () {
-              if (value === true) {
-                element[0].focus();
-                scope[attrs.focusMe] = false;
-              }
-            }, 200);
-          });
-        }
-      };
-    });
+      }
+    };
+  });
 
 })();

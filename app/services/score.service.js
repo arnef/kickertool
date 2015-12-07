@@ -11,17 +11,21 @@
         var score = match.score.split(':');
         var pointsTeam1 = parseInt(score[0], 10);
         var pointsTeam2 = parseInt(score[1], 10);
-        for (var i = 0; i < T.teamList.length; i++) {
-          var team = T.teamList[i];
-          if (team.name == match.team1.name) {
-            team.points += pointsTeam1;
-            team.matches += 1;
-          }
-          if (team.name == match.team2.name) {
-            team.points += pointsTeam2;
-            team.matches += 1;
-          }
-        }
+        match.team1.points += pointsTeam1;
+        match.team2.points += pointsTeam2;
+        match.team1.matches += 1;
+        match.team2.matches += 1;
+        /*   for (var i = 0; i < T.teamList.length; i++) {
+             var team = T.teamList[i];
+             if (team.name == match.team1.name) {
+               team.points += pointsTeam1;
+               team.matches += 1;
+             }
+             if (team.name == match.team2.name) {
+               team.points += pointsTeam2;
+               team.matches += 1;
+             }
+           }*/
       };
 
       _self.enterScore = function (match) {
