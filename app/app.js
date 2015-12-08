@@ -25,16 +25,16 @@ Array.prototype.shuffle = function () {
     'kUpdateService'
     ])
     .factory('K', function ($rootScope) {
-
       return $rootScope.K;
-    })
-    .controller('NavController', function ($rootScope, $location, $window, K) {
+    }).
+    controller('NavController', function ($rootScope, $location, $window, K) {
       this.active = function (idx) {
         switch (idx) {
         case 0:
           return $location.path() === '/';
         case 1:
-          return $location.path() === '/insert' || $location.path() === '/playerDyp' || $location.path() === '/team';
+          return $location.path() === '/insert' || $location.path() === '/playerDyp'
+          || $location.path() === '/team';
         case 2:
           return $location.path() === '/tournament';
         }
@@ -45,8 +45,8 @@ Array.prototype.shuffle = function () {
         var gui = require('nw.gui');
         gui.Window.get().close(true);
       }
-    })
-    .run(function ($rootScope, $localStorage, $location, Dialog) {
+    }).
+    run(function ($rootScope, $localStorage, $location, Dialog) {
       // define global const
       $rootScope.K = {};
       $rootScope.K.FAIR_FOR_ALL = 200;
@@ -129,10 +129,12 @@ Array.prototype.shuffle = function () {
       if (!T.tables) {
         clearData();
         $location.path('/');
-      } else if (T.ongoing && !(T.playedMatches.length > 0 && T.playedMatches[T.playedMatches.length - 1].round === 'Finale')) {
+      } else if (T.ongoing && !(T.playedMatches.length > 0
+        && T.playedMatches[T.playedMatches.length - 1].round === 'Finale')) {
         Dialog.confirm({
           title: 'Turnierdaten vorhanden',
-          body: 'Es wurden vorhandene Daten eines laufenden Turniers gefunden. Sollten diese wiederhergestellt werden?',
+          body: 'Es wurden vorhandene Daten eines laufenden Turniers gefunden. '+
+          Sollten diese wiederhergestellt werden?',
           cancel: 'Nein, neues Turnier starten',
           confirm: 'Ja, Turnier fortsetzen'
         }).result.then(function (result) {
@@ -149,8 +151,8 @@ Array.prototype.shuffle = function () {
         if ($location.path() !== '/player')
           $location.path('/');
       }
-    })
-    .config(function ($routeProvider) {
+    }).
+    config(function ($routeProvider) {
       $routeProvider
         .when('/', {
           templateUrl: 'templates/start.view.html',
