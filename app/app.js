@@ -134,7 +134,7 @@ Array.prototype.shuffle = function () {
         Dialog.confirm({
           title: 'Turnierdaten vorhanden',
           body: 'Es wurden vorhandene Daten eines laufenden Turniers gefunden. ' +
-            Sollten diese wiederhergestellt werden ? ',
+            'Sollten diese wiederhergestellt werden ? ',
           cancel: 'Nein, neues Turnier starten',
           confirm: 'Ja, Turnier fortsetzen'
         }).result.then(function (result) {

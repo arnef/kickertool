@@ -21,11 +21,8 @@
     function setTeams(game) {
       if (counter % 2 === 0)  {
         idxTeam1 = counter;
-        console.log(idxTeam1+1);
       } else {
         idxTeam1 = maxLevel - counter;
-        console.log(idxTeam1+1);
-        console.log('--');
       }
       idxTeam2 = maxLevel * 2 - 1 - idxTeam1;
 
