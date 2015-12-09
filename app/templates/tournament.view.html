@@ -13,16 +13,16 @@
             </tr>
           </thead>
         </table>
-        <div scrolltable fullheight="{{ modus == 200}}">
+        <div fullheight="{{ modus == 200}}" scrolltable>
           <table class="table">
             <tbody class="table-body">
-              <tr ng-repeat="team in globals.teamList track by $index" ng-class="team.out ? 'text-muted':''">
+              <tr ng-class="team.out ? 'text-muted':''" ng-repeat="team in globals.teamList track by $index">
                 <td class="active text-center td-50">{{ $index+1 }}</td>
                 <td>{{ team.name }}</td>
                 <td class="text-center td-50">{{ team.matches }}</td>
                 <td class="text-center td-50">{{ team.points }}</td>
               </tr>
-              <tr ng-repeat="team in globals.teamListOut track by $index" class="text-out">
+              <tr class="text-out" ng-repeat="team in globals.teamListOut track by $index">
                 <td class="active text-center td-50">{{ globals.teamList.length + $index + 1}}</td>
                 <td>{{ team.name }}</td>
                 <td class="text-center td-50">{{ team.matches }}</td>
@@ -33,7 +33,9 @@
         </div>
       </div>
       <ul class="nav nav-tabs bottom">
-        <li class="active"><a>Tabelle</a></li>
+        <li class="active">
+          <a>Tabelle</a>
+        </li>
       </ul>
     </div>
 
@@ -43,11 +45,11 @@
           <table class="table">
             <thead>
               <tr>
-                <th width="5%" class="text-center">Tisch</th>
-                <th width="10%" class="text-center">Runde</th>
-                <th width="38%" class="text-center">Team 1</th>
-                <th width="5%" class="text-center"></th>
-                <th width="38%" class="text-center">Team 2</th>
+                <th class="text-center" width="5%">Tisch</th>
+                <th class="text-center" width="10%">Runde</th>
+                <th class="text-center" width="38%">Team 1</th>
+                <th class="text-center" width="5%"></th>
+                <th class="text-center" width="38%">Team 2</th>
                 <th width="4%"></th>
               </tr>
             </thead>
@@ -55,16 +57,16 @@
           <div scrolltable>
             <table class="table">
               <tbody class="text-center">
-                <tr ng-repeat="table in globals.currentMatches track by $index" class="hover">
-                  <td width="5%" class="active">{{ $index+1 }}</td>
-                  <td width="10%" ng-click="insertScore($index)">{{ table.round }}</td>
-                  <td width="38%" ng-click="insertScore($index)">{{ table.team1.name }}</td>
-                  <td width="5%" ng-click="insertScore($index)">
+                <tr class="hover" ng-repeat="table in globals.currentMatches track by $index">
+                  <td class="active" width="5%">{{ $index+1 }}</td>
+                  <td ng-click="insertScore($index)" width="10%">{{ table.round }}</td>
+                  <td ng-click="insertScore($index)" width="38%">{{ table.team1.name }}</td>
+                  <td ng-click="insertScore($index)" width="5%">
                     <span ng-show="table.team1 != null">vs.</span>
                     <span ng-show="table.team1 == null">Frei</span>
                   </td>
-                  <td width="38%" ng-click="insertScore($index)">{{ table.team2.name }}</td>
-                  <td width="4%" uib-dropdown uib-dropdown-toggle>
+                  <td ng-click="insertScore($index)" width="38%">{{ table.team2.name }}</td>
+                  <td uib-dropdown uib-dropdown-toggle width="4%">
                     <i class="glyphicon glyphicon-option-vertical text-muted"></i>
                     <ul class="uib-dropdown-menu dropdown-menu-right">
                       <li ng-class="disableInsertScore($index) ? 'disabled':''">
@@ -78,13 +80,14 @@
 
                 </tr>
                 <tr ng-hide="globals.nextMatches.length === 0">
-                  <th colspan="6" class="divider"></th>
+                  <th class="divider" colspan="6"></th>
                 </tr>
                 <tr ng-repeat="match in globals.nextMatches" {{ /*ng-class="match.getHome().isPlaying() || match.getAway().isPlaying() ? 'blocked' : ''" */ }}>
                   <td class="active"></td>
                   <td>{{ match.round }}</td>
                   <td ng-class="match.team1.out ? 'text-out':''">{{ match.team1.name }}</td>
-                  <td>vs. </td>
+                  <td>vs.
+                  </td>
                   <td ng-class="match.team2.out ? 'text-out':''">{{ match.team2.name }}</td>
                   <td></td>
                 </tr>
@@ -98,11 +101,11 @@
           <table class="table">
             <thead>
               <tr>
-                <th width="5%" class="text-center">Tisch</th>
-                <th width="10%" class="text-center">Runde</th>
-                <th width="38%" class="text-center">Team 1</th>
-                <th width="5%" class="text-center"></th>
-                <th width="38%" class="text-center">Team 2</th>
+                <th class="text-center" width="5%">Tisch</th>
+                <th class="text-center" width="10%">Runde</th>
+                <th class="text-center" width="38%">Team 1</th>
+                <th class="text-center" width="5%"></th>
+                <th class="text-center" width="38%">Team 2</th>
                 <th width="4%"></th>
               </tr>
             </thead>
@@ -110,13 +113,13 @@
           <div scrolltable>
             <table class="table">
               <tbody class="text-center">
-                <tr ng-repeat="match in globals.playedMatches | orderBy: '-'" class="hover">
-                  <td width="5%" class="active"></td>
+                <tr class="hover" ng-repeat="match in globals.playedMatches | orderBy: '-'">
+                  <td class="active" width="5%"></td>
                   <td width="10%">{{ match.round }}</td>
                   <td width="38%">{{ match.team1.name }}</td>
                   <td width="5%">{{ match.score }}</td>
                   <td width="38%">{{ match.team2.name }}</td>
-                  <td width="4%" uib-dropdown uib-dropdown-toggle>
+                  <td uib-dropdown uib-dropdown-toggle width="4%">
                     <i class="glyphicon glyphicon-option-vertical text-muted"></i>
                     <ul class="uib-dropdown-menu dropdown-menu-right">
                       <li ng-class="showReenterScore(match.round) ? '':'disabled'">
@@ -131,11 +134,14 @@
         </div>
       </div>
       <ul class="nav nav-tabs bottom">
-        <li ng-class="isTab(0) ? 'active' : ''" class="{{ globals.koRound ? 'disabled' : '' }} " ng-click="setTab(0)"><a href>Vorrunde</a>
+        <li class="{{ globals.koRound ? 'disabled' : '' }} " ng-class="isTab(0) ? 'active' : ''" ng-click="setTab(0)">
+          <a href>Vorrunde</a>
         </li>
-        <li ng-class="isTab(1) ? 'active' : ''" ng-click="setTab(1)"><a href>K.O. Runde</a>
+        <li ng-class="isTab(1) ? 'active' : ''" ng-click="setTab(1)">
+          <a href>K.O. Runde</a>
         </li>
-        <li ng-class="isTab(2) ? 'active' : ''" ng-click="setTab(2)"><a href>Gespielte Begegnungen</a>
+        <li ng-class="isTab(2) ? 'active' : ''" ng-click="setTab(2)">
+          <a href>Gespielte Begegnungen</a>
         </li>
         <li class="pull-right">
           <button class="btn btn-default" ng-click="toggleLastRound()" ng-disabled="globals.koRound">Letzte Vorrunde?
@@ -145,5 +151,4 @@
         </li>
       </ul>
     </div>
-
   </div>

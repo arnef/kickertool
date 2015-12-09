@@ -6,6 +6,7 @@
         var _self = this,
           T = $rootScope.globals,
           _matchMatrix = [];
+          $rootScope.matrix = _matchMatrix;
 
         /**
          *
@@ -25,8 +26,8 @@
             }
           }
 
-          for (i = 0; i < T.nextMatches.length; i++) {
-            if (teamInMatch(T.nextMatches[i], team1, team2)) {
+          for (i = 0; i < T.playedMatches.length; i++) {
+            if (teamInMatch(T.playedMatches[i], team1, team2)) {
               return true;
             }
           }
@@ -53,6 +54,7 @@
               }
             }
           }
+
         }
 
         /**
