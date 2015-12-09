@@ -145,14 +145,5 @@
         $location.path('tournament');
       };
 
-
-      // dummy data
-      for (var i = 0; i < 14; i++) {
-        T.teamList.push({
-          name: 'Player ' + (i+1),
-          points: i+2,
-          matches: 0
-        });
-      }
     });
 })();
