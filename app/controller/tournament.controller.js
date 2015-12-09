@@ -53,6 +53,7 @@
           if (result === 1) {
             Tournament.startKo();
             T.currentTab = tab;
+            //console.log($rootScope.finals);
           }
         });
       } else if (!(T.koRound && tab == 0)) {

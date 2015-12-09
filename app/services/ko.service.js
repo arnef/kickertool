@@ -17,21 +17,30 @@
       }
       return round / 2;
     }
-
+    var counter = 0;;
     function setTeams(game) {
-      console.debug(idxTeam1, idxTeam2);
-      game.team1 = T.teamList[idxTeam1];
-      if (idxTeam2 >= T.teamList.length) {
-        game.team2 = {
-          name: 'Freilos',
-          ghost: true
-        };
+      if (counter % 2 === 0)  {
+        idxTeam1 = counter;
+        console.log(idxTeam1+1);
       } else {
-        game.team2 = T.teamList[idxTeam2];
+        idxTeam1 = maxLevel - counter;
+        console.log(idxTeam1+1);
+        console.log('--');
+      }
+      idxTeam2 = maxLevel * 2 - 1 - idxTeam1;
+
+      var team1 = T.teamList[idxTeam1];
+      var team2 = T.teamList[idxTeam2];
+      if (team1 && team2) {
+        game.team1 = team1;
+        game.team2 = team2;
+      } else {
+        var ghost = { name: 'Freilos', ghost: true};
+        game.team1 = team1 ? team1 : team2;
+        game.team2 = ghost;
       }
       T.nextMatches.push(game);
-      idxTeam1++;
-      idxTeam2--;
+      counter++;
     }
 
     function buildTree(parentGame, currentLevel) {
@@ -40,7 +49,7 @@
       g1 = {
         idx: T.finals.length,
         round: currentLevel + '. Finale',
-        nextMatch: parentGame.idx,
+        nextMatch: parentGame.idx
       };
       g2 = {
         idx: T.finals.length + 1,
@@ -66,10 +75,13 @@
         return b.points - a.points;
       });
       maxLevel = getRound(T.teamList.length);
-      idxTeam1 = 0;
-      idxTeam2 = maxLevel * 2 - 1;
       buildTree(T.finals[0], 2);
       T.round += 1;
+      T.nextMatches.sort(function (a, b) {
+        a = a.team2.ghost ? 1:0;
+        b = b.team2.ghost ? 1:0;
+        return b-a;
+      });
     }
 
     function updateMatches(match) {
@@ -98,7 +110,6 @@
     }
 
     _self.enterScore = function (idx, score, callback) {
-      console.debug('enter score ko');
       var match = T.currentMatches[idx];
       if (match != null) {
         updateMatches(match);
