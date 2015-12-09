@@ -10,13 +10,17 @@ Akutelle Version ist v0.5.0
 
 ## Changelog ##
 
+    v0.5.1
+    - Fehler (Wiederholungen bei Paarungen) in der Vorrunde behoben
+    - K.O. Baum wird fairer befüllt
+
     v0.5.0
     - Stabile Vorrunde, es gehen keine Spiele mehr verloren
     - Neuer K.o. Baum, nächste Spiele können früher gespielt werden
     - Spieler/Teams können in jedem Modus während der ersten Runde nachgemeldet werden
     - Spieler/Teams können jederzeit aus dem Turnier entfernt werden
     - Turnierstand wird gespeichert und kann nach beenden der App weitergeführt werden
-    
+
     v0.4.3
     - Autofocus bei Eingabe von Spielern
     - Spieler können während der 1. Runde hinzugefügt/gelöscht
