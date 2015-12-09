@@ -43,9 +43,13 @@ Array.prototype.shuffle = function () {
       };
 
       this.close = function () {
+        try {
         var gui = require('nw.gui');
         gui.Window.get().close(true);
+      } catch (e) {
+
       }
+    };
     })
     .run(function ($rootScope, $localStorage, $location, Dialog) {
       // define global const

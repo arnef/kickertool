@@ -1,6 +1,6 @@
 {
   "name": "Kickertool",
-  "main": "app/index.html",
+  "main": "index.js",
   "version": "0.5.1",
   "window": {
     "title": "Kickertool",
@@ -11,6 +11,10 @@
     "height": 600,
     "position": "center"
   },
+
+  "scripts": {
+    "start": "electron ."
+  },
   "downloads": {
     "linux64": "http://localhost:8080/build/linux64.zip",
     "linux32": "http://arnefeil.de/kickertool/linux32.zip",
@@ -20,5 +24,9 @@
   "changelog": [
     "Fehler (Wiederholungen bei Paarungen) in der Vorrunde behoben",
     "K.O. Baum wird fairer befüllt"
-  ]
+  ],
+  "devDependencies": {
+    "electron-packager": "^5.1.1",
+    "electron-prebuilt": "^0.35.4"
+  }
 }
