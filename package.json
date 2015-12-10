@@ -11,9 +11,10 @@
     "height": 600,
     "position": "center"
   },
-
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "pack": "asar p . app.asar --unpack-dir='Kickertool-linux-x64'",
+    "build-linux": "electron-packager . Kickertool --platform=linux --arch=x64 --version=0.35.4"
   },
   "downloads": {
     "linux64": "http://localhost:8080/build/linux64.zip",
@@ -26,6 +27,7 @@
     "K.O. Baum wird fairer befüllt"
   ],
   "devDependencies": {
+    "asar": "^0.8.3",
     "electron-packager": "^5.1.1",
     "electron-prebuilt": "^0.35.4"
   }
