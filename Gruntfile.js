@@ -44,7 +44,7 @@ module.exports = function (grunt) {
             // copy bootstrap fonts for glyphicons
             cwd: 'bower_components/bootstrap/dist/fonts/',
             src: '**',
-            dest: 'app/src/dist/fonts/',
+            dest: 'app/dist/fonts/',
             expand: true
           }
         ]
@@ -52,7 +52,7 @@ module.exports = function (grunt) {
     },
     watch: {
       js: {
-        files: ['**/*.js', '!bower_components/**', '!node_modules/**', '!app/src/dist/**'],
+        files: ['**/*.js', '!bower_components/**', '!node_modules/**', '!app/dist/**'],
         tasks: ['concat:js']
       }
     }
