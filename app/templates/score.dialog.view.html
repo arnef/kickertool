@@ -1,0 +1,13 @@
+<div class="modal-header">
+  <h4 class="modal-title">Gewinner wählen</h4>
+</div>
+<div class="modal-body">
+  <div class="btn-group btn-group-justified">
+    <label class="btn btn-primary" ng-click="score(0)">{{ team1 }}</label>
+    <label class="btn btn-primary" ng-click="score(1)" ng-show="draw">unentschieden</label>
+    <label class="btn btn-primary" ng-click="score(2)">{{ team2 }}</label>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default btn-block" ng-click="cancel()">Abbrechen</button>
+</div>

@@ -67,7 +67,9 @@ module.exports.download = function (callback) {
   var loaded = 0;
   dlPkg.on('data', function (chunk) {
     loaded += chunk.length;
-    appWindow.webContents.send('update', Math.floor(loaded / dlPkg['content-length'] * 100));
+    var progress = loaded / dlPkg['content-length'];
+    appWindow.webContents.send('update', Math.round(progress * 100));
+    appWindow.setProgressBar(progress);
   });
 
   // save download to tmp folder
@@ -79,16 +81,30 @@ module.exports.download = function (callback) {
 
   // copy update when download done
   dlPkg.on('complete', function () {
-    appWindow.setTitle('Entpacke Update');
-    var appRunningPath = process.resourcesPath + '/app.asar';
-    var appAsarFile = fs.createWriteStream(appRunningPath);
-    var updateAsarFile = fs.createReadStream(destinationPath);
-
-    updateAsarFile.pipe(appAsarFile);
-    updateAsarFile.on('end', function () {
+    if (loaded !== parseInt(dlPkg['content-length'], 10)) {
+      //TODO error feedback
       appWindow.close();
       callback();
-    });
+      return;
+    } else {
+      console.log('cp app.asar file');
+      appWindow.setTitle('Entpacke Update');
+      var appRunningPath = process.resourcesPath + '/app.asar';
+      var appAsarFile = fs.createWriteStream(appRunningPath);
+      var updateAsarFile = fs.createReadStream(destinationPath);
+
+      updateAsarFile.pipe(appAsarFile);
+      updateAsarFile.on('end', function () {
+        appWindow.close();
+        callback();
+      });
+    }
+
+  });
+
+  appWindow.on('close', function () {
+    if (dlPkg) dlPkg.abort();
+    return;
   });
 };
 

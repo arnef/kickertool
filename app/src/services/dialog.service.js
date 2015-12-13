@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('app')
-  .factory('Dialog', ['$rootScope', '$q', function ($rootScope, $q) {
+  .factory('Dialog', ['$rootScope', '$q', '$uibModal', function ($rootScope, $q, $uibModal) {
     var dialog = require('electron').remote.dialog;
     var BrowserWindow = require('electron').remote.BrowserWindow;
 
@@ -60,6 +60,26 @@ angular.module('app')
       return deferred.promise;
     }
 
+    function score(team1, team2) {
+      var deferred = $q.defer();
+
+      $uibModal.open({
+        animation: true,
+        templateUrl: 'templates/score.dialog.view.html',
+        controller: 'ScoreDialogController',
+        size: 'md',
+        resolve: {
+          items: {
+            team1: team1,
+            team2: team2
+          }
+        }
+      }).result.then(function (score) {
+        deferred.resolve(score);
+      });
+      return deferred.promise;
+    }
+
     function confirmElectron(content) {
       modal(true);
       var deferred = $q.defer();
@@ -77,8 +97,22 @@ angular.module('app')
     }
 
     return {
-      score: scoreElectron,
+      score: score,
       alert: alertElectron,
       confirm: confirmElectron
     };
-  }]);
+  }]).controller('ScoreDialogController',
+    function ($rootScope, $scope, $uibModalInstance, items) {
+      $scope.team1 = items.team1;
+      $scope.team2 = items.team2;
+      //TODO ko round
+      $scope.draw = $rootScope.globals.withDraw && !$rootScope.globals.koRound;
+      $scope.cancel = function () {
+        $uibModalInstance.dismiss();
+      };
+      $scope.score = function (idx) {
+        var scores = ['2:0', '1:1', '0:2'];
+        console.debug(scores[idx]);
+        $uibModalInstance.close(scores[idx]);
+      };
+    });
