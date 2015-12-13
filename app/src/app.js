@@ -50,6 +50,8 @@ Array.prototype.shuffle = function () {
 
       }
     };
+
+    this.version = 'v ' + require('../package.json').version;
     })
     .run(function ($rootScope, $localStorage, $location, Dialog) {
       // define global const

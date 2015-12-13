@@ -21,8 +21,8 @@
       <li ng-class="navCtrl.active(0) ? 'active':''"><a href="#/">Kickerturnier</a></li>
       <li ng-class="navCtrl.active(1) ? 'active':''" ng-if="globals.ongoing || navCtrl.active(1)"><a href="#/insert">Teilnehmer</a></li>
       <li ng-class="navCtrl.active(2) ? 'active':''" ng-if="globals.ongoing"><a href="#/tournament">Turnier</a></li>
-      <li class="pull-right">
-        <a ng-click="navCtrl.close()"><i class="glyphicon glyphicon-remove"></i></a>
+      <li class="pull-right" ng-if="navCtrl.version">
+        <a>{{ navCtrl.version }}</a>
       </li>
       <!--<li class="pull-right" uib-dropdown>
         <a uib-dropdown-toggle>
