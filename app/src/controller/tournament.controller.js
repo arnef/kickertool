@@ -46,10 +46,10 @@
       if (tab == 1 && !T.koRound) {
         Dialog.confirm({
           title: 'K.o. Runde starten',
-          body: 'Soll die K.o. Runde gestartet werden?<br>Dannach kann nicht mehr zu Vorrunde zurück gewechselt werden!',
+          body: 'Soll die K.o. Runde gestartet werden?\nDannach kann nicht mehr zu Vorrunde zurück gewechselt werden!',
           confirm: 'Ja',
           cancel: 'Nein'
-        }).result.then(function (result) {
+        }).then(function (result) {
           if (result === 1) {
             Tournament.startKo();
             T.currentTab = tab;
@@ -70,8 +70,7 @@
       if (match != null) {
         Dialog.score(
           match.team1.name,
-          match.team2.name
-        ).result.then(function (score) {
+          match.team2.name).then(function (score) {
           Tournament.enterScore(idx, score);
         });
       } else {

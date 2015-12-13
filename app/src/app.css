@@ -91,13 +91,16 @@ a:hover {
   background-color: #dddddd;
 }
 
-.downloading {
+.downloading, .my-modal {
   position: fixed;
   height: 100%;
   width: 100%;
   background-color: #ffffff;
   z-index: 9999;
-  opacity: .9;
+  opacity: .6;
+}
+.my-modal {
+  opacity: 0;
 }
 
 .downloading p {

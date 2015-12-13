@@ -26,9 +26,10 @@
 
       function addDypPlayer() {
         for (var i = 0; i < T.playerList.length; i++) {
-          if (T.playerList[i].name.toLowerCase().split(' ').join('') === $scope.players[0].name.toLowerCase().split(' ').join(''))
+          if (T.playerList[i].name.split(' ').join('') === $scope.players[0].name.topUpperCase().split(' ').join(''))
             return false;
         }
+        $scope.players[0].name = $scope.players[0].name.topUpperCase();
         T.playerList.push(angular.copy($scope.players[0]));
         delete $scope.players[0].name;
         return true;
@@ -36,11 +37,11 @@
 
       function addPlayer() {
         for (var i = 0; i < T.teamList.length; i++) {
-          if (T.teamList[i].name.toLowerCase().split(' ').join('') === $scope.players[0].name.toLowerCase().split(' ').join(''))
+          if (T.teamList[i].name.split(' ').join('') === $scope.players[0].name.toUpperCase().split(' ').join(''))
             return false;
         }
         T.teamList.push({
-          name: $scope.players[0].name,
+          name: $scope.players[0].name.toUpperCase(),
           points: 0,
           matches: 0
         });
@@ -53,11 +54,11 @@
         var team1 = $scope.players[0].name + ' / ' + $scope.players[1].name;
         var team2 = $scope.players[1].name + ' / ' + $scope.players[0].name;
         for (var i = 0; i < T.teamList.length; i++) {
-          if (T.teamList[i].name.toLowerCase().split(' ').join('') === team1.toLowerCase().split(' ').join('') || T.teamList[i].name.toLowerCase().split(' ').join('') === team2.toLowerCase().split(' ').join(''))
+          if (T.teamList[i].name.split(' ').join('') === team1.toUpperCase().split(' ').join('') || T.teamList[i].name.split(' ').join('') === team2.toUpperCase().split(' ').join(''))
             return false;
         }
         T.teamList.push({
-          name: team1,
+          name: team1.toUpperCase(),
           points: 0,
           matches: 0
         });
@@ -72,7 +73,7 @@
           if (!addDypPlayer()) {
             Dialog.alert({
               title: 'Spieler schon vorhanden!',
-              body: 'Der Spieler ' + $scope.players[0].name + ' ist bereits vorhanden'
+              body: 'Der Spieler ' + $scope.players[0].name.toUpperCase() + ' ist bereits vorhanden'
             });
           }
         }
@@ -80,7 +81,7 @@
           if (!addPlayer()) {
             Dialog.alert({
               title: 'Spieler schon vorhanden!',
-              body: 'Der Spieler ' + $scope.players[0].name + ' ist bereits vorhanden'
+              body: 'Der Spieler ' + $scope.players[0].name.toUpperCase() + ' ist bereits vorhanden'
             });
           }
         }
@@ -88,7 +89,7 @@
           if (!addTeam()) {
             Dialog.alert({
               title: 'Team schon vorhanden!',
-              body: 'Das Team ' + $scope.players[0].name + ' / ' + $scope.players[1].name + ' ist bereits vorhanden'
+              body: 'Das Team ' + ($scope.players[0].name + ' / ' + $scope.players[1].name).toUpperCase() + ' ist bereits vorhanden'
             });
           }
         }
@@ -110,7 +111,7 @@
             body: 'Den Spieler ' + player.name + ' löschen?',
             confirm: 'Ja',
             cancel: 'Nein'
-          }).result.then(function (result) {
+          }).then(function (result) {
             if (result === 1)
               T.playerList.splice(idx, 1);
 
@@ -128,9 +129,9 @@
           Dialog.confirm({
             title: title,
             body: body,
-            confirm: 'ja',
-            cancel: 'nein'
-          }).result.then(function (result) {
+            confirm: 'Ja',
+            cancel: 'Nein'
+          }).then(function (result) {
             if (result === 1)
               Tournament.removeTeam(idx);
 

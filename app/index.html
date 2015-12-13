@@ -11,6 +11,7 @@
 </head>
 
 <body>
+  <div ng-class="modalDialog ? 'my-modal':''"></div>
   <div class="downloading" ng-show="updater.downloading">
     <p>{{ updater.msg }}</p>
   </div>

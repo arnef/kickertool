@@ -1,26 +1,14 @@
 {
   "name": "Kickertool",
   "main": "index.js",
-  "version": "0.5.1",
-  "window": {
-    "title": "Kickertool",
-    "frame": false,
-    "toolbar": true,
-    "icon": "icon.png",
-    "width": 1100,
-    "height": 600,
-    "position": "center"
-  },
+  "version": "0.5.0",
   "scripts": {
-    "start": "electron .",
+    "start": "electron . --debug",
     "pack": "asar p . app.asar --unpack-dir='Kickertool-linux-x64'",
-    "build-linux": "electron-packager . Kickertool --platform=linux --arch=x64 --version=0.35.4 --asar --ignore='node_modules|components' --overwrite"
+    "build-linux": "electron-packager . Kickertool --platform=linux --arch=x64 --version=0.35.4 --asar --ignore='components|src' --overwrite"
   },
-  "downloads": {
-    "linux64": "http://localhost:8080/build/linux64.zip",
-    "linux32": "http://arnefeil.de/kickertool/linux32.zip",
-    "osx": "http://arnefeil.de/kickertool/osx.zip",
-    "win": "http://arnefeil.de/kickertool.zip"
+  "update": {
+    "url": "http://arnefeil.de/kickertool/test/app.asar"
   },
   "changelog": [
     "Fehler (Wiederholungen bei Paarungen) in der Vorrunde behoben",
@@ -33,6 +21,7 @@
     "grunt": "^0.4.5",
     "grunt-contrib-concat": "^0.5.1",
     "grunt-contrib-copy": "^0.8.2",
-    "grunt-contrib-watch": "^0.6.1"
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-electron": "^2.0.1"
   }
 }

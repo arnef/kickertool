@@ -141,7 +141,7 @@ Array.prototype.shuffle = function () {
             'Sollten diese wiederhergestellt werden ? ',
           cancel: 'Nein, neues Turnier starten',
           confirm: 'Ja, Turnier fortsetzen'
-        }).result.then(function (result) {
+        }).then(function (result) {
           if (result === 0) {
             clearData();
             $location.path('/');
