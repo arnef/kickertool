@@ -6,7 +6,7 @@ var app,
 app = require('app');
 dialog = require('electron').dialog;
 BrowserWindow = require('browser-window');
-updater = require('../updater/app.js');
+updater = require('../updater')(require('../package.json'));
 
 module.exports = [{
     label: 'Kickertool',
@@ -22,12 +22,12 @@ module.exports = [{
     }, {
       label: 'Nach Updates suchen',
       click: function (item, focusedWindow) {
-
-        updater.newVersion(require('../package.json'), 'http://arnefeil.de/kickertool/test/package.json', function (isUpdate) {
-          if (isUpdate && updater.dialog() == 1) {
-            updater.download();
-          };
-        })
+        updater.init();
+        // updater.newVersion(require('../package.json'), 'http://arnefeil.de/kickertool/test/package.json', function (isUpdate) {
+        //   if (isUpdate && updater.dialog() == 1) {
+        //     updater.download();
+        //   };
+        // })
 
       }
     }, {

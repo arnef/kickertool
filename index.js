@@ -5,7 +5,7 @@ var app,
 
 app = require('app');
 kickertool = require('./app/app.js');
-updater = require('./updater/app.js');
+updater = require('./updater');
 exec = require('child_process').exec;
 
 app.on('ready', function() {

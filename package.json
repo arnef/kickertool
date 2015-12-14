@@ -10,6 +10,7 @@
     "build-win": "electron-packager . kickertool --platform=win32 --arch=ia32 --version=0.35.4 --asar --ignore='node_modules/.bin/|node_modules/electron-*|components|src' --overwrite"
   },
   "update": {
+    "pkg": "http://arnefeil.de/kickertool/test/package.json",
     "url": "http://arnefeil.de/kickertool/test/app.asar"
   },
   "changelog": [

@@ -1,30 +1,98 @@
-/**
- * updater app for kickertool
- */
-var BrowserWindow,
-  Menu,
-  dialog,
-  pkg,
-  updatePkg,
-  request,
-  semver,
-  fs,
-  os;
+module.exports = function (pkg) {
+  var self,
+    BrowserWindow,
+    Menu,
+    updatePkg,
+    request,
+    semver,
+    fs,
+    os,
+    ui;
 
-BrowserWindow = require('browser-window');
-Menu = require('menu');
-request = require('request');
-dialog = require('electron').dialog;
-fs = require('original-fs');
-os = require('os');
-semver = require('semver');
+  self = this;
+  BrowserWindow = require('browser-window');
+  Menu = require('electron').Menu
+  request = require('request');
+  semver = require('semver');
+  fs = require('original-fs');
+  os = require('fs');
+
+  function initUI() {
+    ui = new BrowserWindow({
+      title: 'Updater',
+      width: 300,
+      height: 100,
+      useContentSize: true
+    });
+    ui.setMenu(null);
+    ui.loadURL('file://' + __dirname + '/updater.html');
+    ui.show();
+
+  }
+
+  self.init = function () {
+    initUI();
+    self.checkNewVersion(function (newVersion) {
+      setTimeout(function () {
+        if (newVersion) {
+          ui.webContents.send('message', 'Update gefunden');
+        } else {
+          ui.webContents.send('message', 'Kickertool ist auf dem neusten Stand');
+        }
+      }, 1000);
+    });
+  };
+
+  self.checkNewVersion = function (callback) {
+    if (!pkg.version || !pkg.update.pkg) {
+      return callback(false);
+    }
+
+    request.get(pkg.update.pkg, function (err, req, data) {
+      if (err || req.statusCode != 200) {
+        return callback(false);
+      }
+      try {
+        updatePkg = JSON.parse(data);
+        return callback(
+          (semver.gt(updatePkg.version, pkg.version) && updatePkg.update != null && updatePkg.update.url != null)
+        );
+      } catch (e) {
+        console.log(e);
+        return callback(false);
+      }
+    });
+  };
+
+  self.download = function (callback) {
+    updatePkg = require(updatePkg.update.url, function (err, res) {
+      if (err || res.statusCode != 200)
+        return callback(err);
+    });
+
+    updatePkg.on('response', function (res) {
+      if (!(res && res.headers && res.headers['content-length']))
+        return callback(false);
+      updatePkg.length = res.headers['content-length'];
+
+    });
+
+    var loaded = 0;
+    updatePkg.on('data', function (chunk) {
+      loaded += chunk.length;
+      //progress(loaded / updatePkg.length);
+    });
+  };
+
+  return self;
+};
 
 /**
  * check if a new version is available
  * @param  {object} manifest    package.json JSON.parsed
  * @param  {String} manifestUrl url to new package.json
  * @return {boolean}            version of manifestUrl is newer
- */
+
 module.exports.newVersion = function (manifest, manifestUrl, callback) {
   pkg = manifest;
   console.log('Check for new version');
@@ -43,7 +111,7 @@ module.exports.newVersion = function (manifest, manifestUrl, callback) {
 
 };
 
-
+/*
 module.exports.download = function (callback) {
   var appWindow = new BrowserWindow({
     width: 300,
@@ -118,3 +186,4 @@ module.exports.dialog = function () {
     buttons: ['Kickertool starten', 'Jetzt downloaden und installieren']
   });
 }
+*/
