@@ -5,7 +5,9 @@
     .service('Tournament', function (
       $rootScope, SwissSystem, Ko, K
     ) {
-      var _self, T;
+      var _self,
+        T;
+
       _self = this;
       T = $rootScope.globals;
 
@@ -50,13 +52,15 @@
 
       // enter score on table
       _self.enterScore = function (idx, score) {
-        if (T.currentMatches[idx] !== null)
+        if (T.currentMatches[idx] !== null) {
+
           var splitScore = score.split(':');
-        T.currentMatches[idx].score = score;
-        T.currentMatches[idx].team1.points += parseInt(splitScore[0], 10);
-        T.currentMatches[idx].team2.points += parseInt(splitScore[1], 10);
-        T.currentMatches[idx].team1.matches += 1;
-        T.currentMatches[idx].team2.matches += 1;
+          T.currentMatches[idx].score = score;
+          T.currentMatches[idx].team1.points += parseInt(splitScore[0], 10);
+          T.currentMatches[idx].team2.points += parseInt(splitScore[1], 10);
+          T.currentMatches[idx].team1.matches += 1;
+          T.currentMatches[idx].team2.matches += 1;
+        }
         getModus().enterScore(idx, score, fillTables);
       };
 
@@ -64,6 +68,7 @@
       _self.correctScore = function (match, newScore) {
         if (match.round === T.round) {
           //  ScoreService.reenterScore(match, newScore);
+          //  TODO implement this feature
         }
       };
 

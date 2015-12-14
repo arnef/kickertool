@@ -4,12 +4,16 @@
   angular.module('app')
 
   .controller('TournamentController', function ($rootScope, $scope, $location, Dialog, Tournament) {
-    var _self, T;
+    var _self,
+      T,
+      scores;
 
     _self = this;
     T = $rootScope.globals;
 
     $scope.isLastRound = T.lastRound === T.round;
+    $scope.scoreOpen = new Array(T.tables);
+    scores = ['2:0', '1:1', '0:2'];
 
     $scope.toggleLastRound = function () {
       $scope.isLastRound = !$scope.isLastRound;
@@ -65,14 +69,21 @@
       return round === T.round;
     };
 
-    $scope.insertScore = function (idx) {
+
+    $scope.insertScore = function (idx, score) {
+      console.log(score);
       var match = T.currentMatches[idx];
       if (match != null) {
-        Dialog.score(
-          match.team1.name,
-          match.team2.name).then(function (score) {
-          Tournament.enterScore(idx, score);
-        });
+        if ($scope.scoreOpen[idx]) {
+          $scope.scoreOpen[idx] = false;
+          if (score == undefined || score == 1 && (!T.withDraw || T.koRound)) {
+            return;
+          }
+          console.log(scores[score]);
+          Tournament.enterScore(idx, scores[score]);
+        } else {
+          $scope.scoreOpen[idx] = true;
+        }
       } else {
         Tournament.fillTables();
       }
@@ -103,15 +114,33 @@
     };
 
 
+    $scope.editScore = function (match, scoreIdx) {
+      console.log(match, scoreIdx);
+      if (match.editScore) {
+        if (scoreIdx == 1 && (T.koRound || !T.widthDraw)) {
+          return;
+        }
+        Tournament.correctScore(match, scores[scoreIdx]);
+        match.editScore = false;
+      }
+    }
+
     $scope.reenterScore = function (match) {
-      if ($scope.showReenterScore(match.round)) {
+
+      if (match.editScore) {
+        match.editScore = false;
+      } else {
+        match.editScore = true;
+      }
+
+      /*if ($scope.showReenterScore(match.round)) {
         Dialog.score(
           match.team1.name,
           match.team2.name
         ).result.then(function (score) {
           Tournament.correctScore(match, score);
         });
-      }
+      }*/
     };
 
 

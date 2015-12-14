@@ -54,6 +54,10 @@ module.exports = function (grunt) {
       js: {
         files: ['**/*.js', '!bower_components/**', '!node_modules/**', '!app/dist/**'],
         tasks: ['concat:js']
+      },
+      css: {
+        files: ['**/*.css', '!bower_components/**', '!node_modules/**', '!app/dist/**'],
+        tasks: ['concat:css']
       }
     }
   });

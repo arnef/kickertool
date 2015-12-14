@@ -55,17 +55,26 @@
             </thead>
           </table>
           <div scrolltable>
-            <table class="table">
+            <table class="table tables">
               <tbody class="text-center">
                 <tr class="hover" ng-repeat="table in globals.currentMatches track by $index">
                   <td class="active" width="5%">{{ $index+1 }}</td>
                   <td ng-click="insertScore($index)" width="10%">{{ table.round }}</td>
-                  <td ng-click="insertScore($index)" width="38%">{{ table.team1.name }}</td>
-                  <td ng-click="insertScore($index)" width="5%">
+                  <td ng-click="insertScore($index, 0)" width="38%">
+                    <span>{{ table.team1.name }}</span>
+                    <span ng-show="scoreOpen[$index]">Gewinner</span>
+                  </td>
+                  <td ng-click="insertScore($index, 1)" width="5%">
                     <span ng-show="table.team1 != null">vs.</span>
                     <span ng-show="table.team1 == null">Frei</span>
+                    <span ng-show="scoreOpen[$index] && globals.withDraw && !globals.koRound">
+                      unentschieden
+                    </span>
                   </td>
-                  <td ng-click="insertScore($index)" width="38%">{{ table.team2.name }}</td>
+                  <td ng-click="insertScore($index, 2)" width="38%">
+                    <span>{{ table.team2.name }}</span>
+                    <span ng-show="scoreOpen[$index]">Gewinner</span>
+                  </td>
                   <td uib-dropdown uib-dropdown-toggle width="4%">
                     <i class="glyphicon glyphicon-option-vertical text-muted"></i>
                     <ul class="uib-dropdown-menu dropdown-menu-right">
@@ -111,14 +120,25 @@
             </thead>
           </table>
           <div scrolltable>
-            <table class="table">
+            <table class="table tables">
               <tbody class="text-center">
                 <tr class="hover" ng-repeat="match in globals.playedMatches | orderBy: '-'">
                   <td class="active" width="5%"></td>
                   <td width="10%">{{ match.round }}</td>
-                  <td width="38%">{{ match.team1.name }}</td>
-                  <td width="5%">{{ match.score }}</td>
-                  <td width="38%">{{ match.team2.name }}</td>
+                  <td width="38%" ng-click="editScore(match, 0)">
+                    <span>{{ match.team1.name }}</span>
+                    <span ng-show="match.editScore">Gewinner</span>
+                  </td>
+                  <td width="5%" ng-click="editSCore(match, 1)">
+                    <span>{{ match.score }}</span>
+                    <span ng-show="match.editScore && globals.withDraw && !globals.koRound">
+                      unentschieden
+                    </span>
+                  </td>
+                  <td width="38%" ng-click="editScore(match, 2)">
+                    <span>{{ match.team2.name }}</span>
+                    <span ng-show="match.editScore">Gewinner</span>
+                  </td>
                   <td uib-dropdown uib-dropdown-toggle width="4%">
                     <i class="glyphicon glyphicon-option-vertical text-muted"></i>
                     <ul class="uib-dropdown-menu dropdown-menu-right">

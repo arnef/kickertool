@@ -315,3 +315,7 @@ label {
   background: #c8e4f8;
   color: #000;
 }
+
+.tables span {
+  display: block;
+}
