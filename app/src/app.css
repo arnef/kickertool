@@ -2,6 +2,7 @@ body {
   cursor: default;
   text-transform: uppercase!important;
   font-size: 11px !important;
+  padding-top: 10px;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;

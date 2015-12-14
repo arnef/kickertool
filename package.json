@@ -1,7 +1,7 @@
 {
   "name": "Kickertool",
   "main": "index.js",
-  "version": "0.5.2",
+  "version": "0.5.0",
   "scripts": {
     "start": "electron . --debug",
     "pack": "asar p . app.asar --unpack-dir='Kickertool-linux-x64'",

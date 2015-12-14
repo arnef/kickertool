@@ -51,9 +51,27 @@ Array.prototype.shuffle = function () {
       }
     };
 
+
+
     this.version = 'v ' + require('../package.json').version;
     })
     .run(function ($rootScope, $localStorage, $location, Dialog) {
+      require('electron').ipcRenderer.on('command', function (event, cmd) {
+        cmd = cmd.split('.');
+        console.log(event, cmd);
+        if (cmd[0] == 'path') {
+          console.log('change location ' + cmd[1]);
+          $location.path(cmd[1]);
+          $rootScope.$apply(); // service dafür, wie bei socket.io
+        }
+        if (cmd[0] == 'cmd') {
+          if (cmd[1] == 'newTournament') {
+            clearData();
+            $location.path('/');
+            $rootScope.$apply();
+          }
+        }
+      });
       // define global const
       $rootScope.K = {};
       $rootScope.K.FAIR_FOR_ALL = 200;
@@ -149,7 +167,7 @@ Array.prototype.shuffle = function () {
             $location.path('/');
           } else {
             restoreData();
-            //$location.path('tournament');
+            $location.path('tournament');
           }
         })
       } else {

@@ -9,7 +9,7 @@ updater = require('./updater/app.js');
 exec = require('child_process').exec;
 
 app.on('ready', function() {
-  var pkg = require('./package.json');
+/*  var pkg = require('./package.json');
   var url = 'http://arnefeil.de/kickertool/test/package.json';
   updater.newVersion(pkg, url, function (isNewVersion) {
     console.log(isNewVersion);
@@ -23,7 +23,8 @@ app.on('ready', function() {
     else {
       kickertool.app();
     }
-  });
+  });*/
+  kickertool.app();
 });
 
 app.on('window-all-closed', function () {

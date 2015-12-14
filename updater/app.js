@@ -2,6 +2,7 @@
  * updater app for kickertool
  */
 var BrowserWindow,
+  Menu,
   dialog,
   pkg,
   updatePkg,
@@ -11,6 +12,7 @@ var BrowserWindow,
   os;
 
 BrowserWindow = require('browser-window');
+Menu = require('menu');
 request = require('request');
 dialog = require('electron').dialog;
 fs = require('original-fs');
@@ -25,6 +27,7 @@ semver = require('semver');
  */
 module.exports.newVersion = function (manifest, manifestUrl, callback) {
   pkg = manifest;
+  console.log('Check for new version');
   request.get(manifestUrl, function (err, req, data) {
     if (err || req.statusCode != 200) {
       callback(false);

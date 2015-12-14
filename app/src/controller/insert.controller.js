@@ -147,14 +147,15 @@
       };
 
       (function () {
+        if (T.teamList.length > 0) return;
         for (var i = 0; i < 10; i++) {
           T.teamList.push({
-            name: 'Player ' + (i+1),
+            name: 'PLAYER ' + (i+1),
             points: 0,
             matches: 0
           });
         }
-      })()
+      })();
 
     });
 })();
