@@ -38,5 +38,12 @@
   </div>-->
   <ng-view></ng-view>
 </body>
-
+<script>
+// disable pinch zoom on osx
+document.addEventListener('mousewheel', function(e) {
+  if(e.ctrlKey) {
+    e.preventDefault();
+  }
+});
+</script>
 </html>
