@@ -2,6 +2,7 @@ module.exports = function (pkg) {
   var self,
     BrowserWindow,
     Menu,
+    dialog,
     updatePkg,
     request,
     semver,
@@ -11,7 +12,8 @@ module.exports = function (pkg) {
 
   self = this;
   BrowserWindow = require('browser-window');
-  Menu = require('electron').Menu
+  Menu = require('electron').Menu;
+  dialog = require('dialog');
   request = require('request');
   semver = require('semver');
   fs = require('original-fs');
@@ -33,13 +35,18 @@ module.exports = function (pkg) {
   self.init = function () {
     initUI();
     self.checkNewVersion(function (newVersion) {
-      setTimeout(function () {
-        if (newVersion) {
-          ui.webContents.send('message', 'Update gefunden');
-        } else {
-          ui.webContents.send('message', 'Kickertool ist auf dem neusten Stand');
+      if (newVersion) {
+        var result = dialog.showMessageBox(ui, {
+          title: 'Update verfügbar',
+          message: 'Eine neue Version vom Kickertool ist verfügbar',
+          buttons: ['Abbrechen', 'Jetzt downloaden und installieren']
+        });
+        if (result === 1) {
+          self.download(function (result) {
+            console.log(result);
+          });
         }
-      }, 1000);
+      }
     });
   };
 
@@ -65,7 +72,7 @@ module.exports = function (pkg) {
   };
 
   self.download = function (callback) {
-    updatePkg = require(updatePkg.update.url, function (err, res) {
+    updatePkg = request(updatePkg.update.url, function (err, res) {
       if (err || res.statusCode != 200)
         return callback(err);
     });
@@ -80,6 +87,8 @@ module.exports = function (pkg) {
     var loaded = 0;
     updatePkg.on('data', function (chunk) {
       loaded += chunk.length;
+      console.log(loaded);
+      ui.webContents.send('update', Math.floor(loaded / updatePkg.length * 100));
       //progress(loaded / updatePkg.length);
     });
   };

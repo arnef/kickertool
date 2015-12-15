@@ -6,14 +6,15 @@
   </head>
   <body>
       <div class="progress">
-        <div class="progress-bar" style="width: 60%"></div>
+        <div class="progress-bar" id="progress" style="width: 60%"></div>
       </div>
       <p id="message"></p>
       <script>
       var ipc = require('electron').ipcRenderer;
       console.log(ipc);
       ipc.on('update', function (event, arg) {
-        document.getElementById('updateProgress').value = arg;
+        console.log(arg);
+        document.getElementById('progress').style.width = arg + 'px';
       });
 
       ipc.on('message', function (event, arg) {
