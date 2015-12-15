@@ -85,10 +85,16 @@ module.exports = function (pkg) {
     });
 
     var loaded = 0;
+    var progress = 0;
     updatePkg.on('data', function (chunk) {
       loaded += chunk.length;
-      console.log(loaded);
-      ui.webContents.send('update', Math.floor(loaded / updatePkg.length * 100));
+      var newProgress = Math.floor(loaded / updatePkg.length * 100);
+      if (newProgress - progress > 0) {
+        console.log(newProgress);
+        ui.webContents.send('update', newProgress);
+      }
+
+      progress = newProgress;
       //progress(loaded / updatePkg.length);
     });
   };

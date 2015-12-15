@@ -14,7 +14,7 @@
       console.log(ipc);
       ipc.on('update', function (event, arg) {
         console.log(arg);
-        document.getElementById('progress').style.width = arg + 'px';
+        document.getElementById('progress').style.width = arg + '%';
       });
 
       ipc.on('message', function (event, arg) {
