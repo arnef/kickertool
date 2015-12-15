@@ -29,25 +29,41 @@ module.exports = function (pkg) {
     ui.setMenu(null);
     ui.loadURL('file://' + __dirname + '/updater.html');
     ui.show();
-
+    console.log('start updater');
   }
 
   self.init = function () {
     initUI();
-    self.checkNewVersion(function (newVersion) {
-      if (newVersion) {
-        var result = dialog.showMessageBox(ui, {
-          title: 'Update verfügbar',
-          message: 'Eine neue Version vom Kickertool ist verfügbar',
-          buttons: ['Abbrechen', 'Jetzt downloaden und installieren']
-        });
-        if (result === 1) {
-          self.download(function (result) {
-            console.log(result);
-          });
-        }
+    self.checkNewVersion(function (isUpdate) {
+      if (isUpdate) {
+        ui.webContents.executeJavaScript(
+          "document.getElementById('message').innerHTML = 'Update verfügbar';"
+          +"document.getElementById('dlbtn').style.display = 'block';"
+        );
+      } else {
+        ui.webContents.executeJavaScript(
+          "document.getElementById('message').innerHTML = 'Kickertool ist auf dem neusten Stand';"
+        )
       }
     });
+    /*ui.on('dom-ready', function () {
+      console.log('dom ready');
+      self.checkNewVersion(function (newVersion) {
+        if (newVersion) {
+          ui.webContents.send('message', 'Neue Version verfügbar');
+          /*var result = dialog.showMessageBox(ui, {
+            title: 'Update verfügbar',
+            message: 'Eine neue Version vom Kickertool ist verfügbar',
+            buttons: ['Abbrechen', 'Jetzt downloaden und installieren']
+          });
+          if (result === 1) {
+            self.download(function (result) {
+              console.log(result);
+            });
+          }
+        }
+    });
+  });*/
   };
 
   self.checkNewVersion = function (callback) {

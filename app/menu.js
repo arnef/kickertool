@@ -18,8 +18,10 @@ module.exports = [{
           message: app.getName() + '\nv ' + app.getVersion(),
           buttons: ['Ok']
         });
-      }
-    }, {
+      },
+    },
+{ type: 'separator' },
+    {
       label: 'Nach Updates suchen',
       click: function (item, focusedWindow) {
         updater.init();
@@ -30,8 +32,9 @@ module.exports = [{
         // })
 
       }
-    }, {
+    },{ type: 'separator' }, {
       label: 'Beenden',
+      accelerator: 'cmd+Q',
       click: function () {
         app.quit();
       }
