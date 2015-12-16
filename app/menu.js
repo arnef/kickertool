@@ -25,12 +25,6 @@ module.exports = [{
       label: 'Nach Updates suchen',
       click: function (item, focusedWindow) {
         updater.init();
-        // updater.newVersion(require('../package.json'), 'http://arnefeil.de/kickertool/test/package.json', function (isUpdate) {
-        //   if (isUpdate && updater.dialog() == 1) {
-        //     updater.download();
-        //   };
-        // })
-
       }
     },{ type: 'separator' }, {
       label: 'Beenden',

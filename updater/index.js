@@ -27,16 +27,18 @@ module.exports = function (pkg) {
   exec = require('child_process').exec;
 
   function initUI() {
+    var height = os.platform() == 'darwin' ? 95 : 80;
     ui = new BrowserWindow({
-      title: 'Updater',
+      title: app.getName() + ' Updater',
       width: 300,
-      height: 80,
+      height: height,
       maxWidth: 300,
       maxHeihgt: 90,
       useContentSize: true,
       resizable: false,
       alwaysOnTop: true
     });
+
     ui.setMenu(null);
     ui.loadURL('file://' + __dirname + '/updater.html');
     ui.show();
@@ -52,7 +54,8 @@ module.exports = function (pkg) {
             ui.webContents.send('message', 'Eine neue Version ist verfügbar');
             ui.webContents.send('button', [{
               id: 'cancel',
-              show: true
+              show: true,
+              title: 'Abbrechen'
             }, {
               id: 'download',
               show: true
@@ -148,7 +151,8 @@ module.exports = function (pkg) {
           ui.webContents.send('button', [{
             id: 'download', show: false
           }, {
-            id: 'restart', show: true
+            id: 'restart', show: true,
+            title: app.getName() + ' neustarten'
           }])
         });
       }
