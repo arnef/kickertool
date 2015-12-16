@@ -70,6 +70,10 @@
     };
 
 
+    $scope.toggleScore = function (idx) {
+      $scope.scoreOpen[idx] = $scope.scoreOpen[idx] ? false : true;
+    };
+    
     $scope.insertScore = function (idx, score) {
       console.log(score);
       var match = T.currentMatches[idx];

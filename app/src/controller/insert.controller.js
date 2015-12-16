@@ -80,8 +80,8 @@
         if (T.modus == K.ONE_ON_ONE) {
           if (!addPlayer()) {
             Dialog.alert({
-              title: 'Spieler schon vorhanden!',
-              body: 'Der Spieler ' + $scope.players[0].name.toUpperCase() + ' ist bereits vorhanden'
+               title: 'Spieler schon vorhanden!',
+               body: 'Der Spieler ' + $scope.players[0].name.toUpperCase() + ' ist bereits vorhanden'
             });
           }
         }

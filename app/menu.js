@@ -16,7 +16,8 @@ module.exports = [{
         dialog.showMessageBox(null, {
           title: 'Über ' + app.getName(),
           message: app.getName() + '\nv ' + app.getVersion(),
-          buttons: ['Ok']
+          buttons: ['Ok'],
+          icon: 'icon.png'
         });
       },
     },

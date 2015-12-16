@@ -59,19 +59,19 @@
               <tbody class="text-center">
                 <tr class="hover" ng-repeat="table in globals.currentMatches track by $index">
                   <td class="active" width="5%">{{ $index+1 }}</td>
-                  <td ng-click="insertScore($index)" width="10%">{{ table.round }}</td>
-                  <td ng-click="insertScore($index, 0)" width="38%">
+                  <td ng-click="toggleScore($index)" width="10%">{{ table.round }}</td>
+                  <td ng-click="toggleScore($index)" width="38%">
                     <span>{{ table.team1.name }}</span>
                     <span ng-show="scoreOpen[$index]">Gewinner</span>
                   </td>
-                  <td ng-click="insertScore($index, 1)" width="5%">
+                  <td ng-click="toggleScore($index)" width="5%">
                     <span ng-show="table.team1 != null">vs.</span>
                     <span ng-show="table.team1 == null">Frei</span>
                     <span ng-show="scoreOpen[$index] && globals.withDraw && !globals.koRound">
                       unentschieden
                     </span>
                   </td>
-                  <td ng-click="insertScore($index, 2)" width="38%">
+                  <td ng-click="toggleScore($index)" width="38%">
                     <span>{{ table.team2.name }}</span>
                     <span ng-show="scoreOpen[$index]">Gewinner</span>
                   </td>

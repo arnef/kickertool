@@ -2,8 +2,7 @@
 
 angular.module('app')
   .factory('Dialog', ['$rootScope', '$q', '$uibModal', function ($rootScope, $q, $uibModal) {
-    var dialog = require('electron').remote.dialog;
-    var BrowserWindow = require('electron').remote.BrowserWindow;
+    var ipc = require('electron').ipcRenderer;
 
     /**
      * alert dialog
@@ -13,12 +12,21 @@ angular.module('app')
      */
     function alertElectron(content) {
       var deferred = $q.defer();
-      deferred.resolve(dialog.showMessageBox(BrowserWindow.getFocusedWindow(), {
+      // return dialog.showMessageBox(appWindow, {
+      //   title: content.title,
+      //   type: 'info',
+      //   message: content.body,
+      //   buttons: ['Ok'],
+      // });
+      ipc.sendSync('dialog', {
         title: content.title,
         type: 'info',
         message: content.body,
-        buttons: ['Ok'],
-      }));
+        buttons: ['Ok']
+      });
+      ipc.on('dialog', function (event, arg) {
+        deferred.resolve(arg);
+      });
       return deferred.promise;
     }
 
@@ -29,7 +37,13 @@ angular.module('app')
      */
     function confirmElectron(content) {
       var deferred = $q.defer();
-      deferred.resolve(dialog.showMessageBox(BrowserWindow.getFocusedWindow(), {
+      // deferred.resolve(dialog.showMessageBox(appWindow, {
+      //   type: 'question',
+      //   title: content.title,
+      //   message: content.body,
+      //   buttons: [content.cancel, content.confirm]
+      // }));
+      deferred.resolve(ipc.sendSync('dialog', {
         type: 'question',
         title: content.title,
         message: content.body,
