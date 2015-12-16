@@ -1,69 +1,89 @@
 module.exports = function (pkg) {
   var self,
     BrowserWindow,
+    app,
     Menu,
     dialog,
+    ipc,
     updatePkg,
     request,
     semver,
     fs,
     os,
-    ui;
+    ui,
+    exec,
+    downloading;
 
   self = this;
   BrowserWindow = require('browser-window');
+  app = require('app');
   Menu = require('electron').Menu;
   dialog = require('dialog');
   request = require('request');
   semver = require('semver');
   fs = require('original-fs');
-  os = require('fs');
+  os = require('os');
+  ipc = require('electron').ipcMain;
+  exec = require('child_process').exec;
 
   function initUI() {
     ui = new BrowserWindow({
       title: 'Updater',
       width: 300,
-      height: 100,
-      useContentSize: true
+      height: 80,
+      maxWidth: 300,
+      maxHeihgt: 90,
+      useContentSize: true,
+      resizable: false,
+      alwaysOnTop: true
     });
     ui.setMenu(null);
     ui.loadURL('file://' + __dirname + '/updater.html');
     ui.show();
-    console.log('start updater');
   }
 
   self.init = function () {
     initUI();
-    self.checkNewVersion(function (isUpdate) {
-      if (isUpdate) {
-        ui.webContents.executeJavaScript(
-          "document.getElementById('message').innerHTML = 'Update verfügbar';"
-          +"document.getElementById('dlbtn').style.display = 'block';"
-        );
-      } else {
-        ui.webContents.executeJavaScript(
-          "document.getElementById('message').innerHTML = 'Kickertool ist auf dem neusten Stand';"
-        )
+    ipc.on('window', function (event, arg) {
+      if (arg == 'ready') {
+        console.log('window ready');
+        self.checkNewVersion(function (isUpdate) {
+          if (isUpdate) {
+            ui.webContents.send('message', 'Eine neue Version ist verfügbar');
+            ui.webContents.send('button', [{
+              id: 'cancel',
+              show: true
+            }, {
+              id: 'download',
+              show: true
+            }]);
+          } else {
+            ui.webContents.send('message', 'Die Software ist auf dem neusten Stand');
+            ui.webContents.send('button', ['cancel']);
+          }
+        });
+      }
+      if (arg == 'restart') {
+        // multi ipc sending no idea why?!?
+        if (downloading) {
+          exec(process.execPath);
+          app.quit();
+          downloading = false;
+        }
       }
     });
-    /*ui.on('dom-ready', function () {
-      console.log('dom ready');
-      self.checkNewVersion(function (newVersion) {
-        if (newVersion) {
-          ui.webContents.send('message', 'Neue Version verfügbar');
-          /*var result = dialog.showMessageBox(ui, {
-            title: 'Update verfügbar',
-            message: 'Eine neue Version vom Kickertool ist verfügbar',
-            buttons: ['Abbrechen', 'Jetzt downloaden und installieren']
-          });
-          if (result === 1) {
-            self.download(function (result) {
-              console.log(result);
-            });
-          }
-        }
+    ipc.on('download', function (event, arg) {
+      if (!downloading) {
+          self.download();
+          downloading = true;
+      }
     });
-  });*/
+    ui.on('close', function () {
+      downloading = false;
+      if (updatePkg && updatePkg.abort) {
+        updatePkg.abort();
+      }
+    });
   };
 
   self.checkNewVersion = function (callback) {
@@ -93,6 +113,12 @@ module.exports = function (pkg) {
         return callback(err);
     });
 
+    var destinationPath = os.tmpDir() + '/app.asar';
+    fs.unlink(destinationPath, function () {
+      updatePkg.pipe(fs.createWriteStream(destinationPath));
+      updatePkg.resume();
+    });
+
     updatePkg.on('response', function (res) {
       if (!(res && res.headers && res.headers['content-length']))
         return callback(false);
@@ -101,120 +127,35 @@ module.exports = function (pkg) {
     });
 
     var loaded = 0;
-    var progress = 0;
     updatePkg.on('data', function (chunk) {
       loaded += chunk.length;
-      var newProgress = Math.floor(loaded / updatePkg.length * 100);
-      if (newProgress - progress > 0) {
-        console.log(newProgress);
-        ui.webContents.send('update', newProgress);
+      ui.webContents.send('update', Math.floor(loaded / updatePkg.length * 100));
+    });
+
+    updatePkg.on('complete', function () {
+      if (loaded !== parseInt(updatePkg.length, 10)) {
+        ui.webContents.send('message', 'Fehler beim Download :(')
+        return;
+      } else {
+        ui.webContents.send('message', 'Entpacke Update...');
+        var appRunningPath = process.resourcesPath + '/app.asar';
+        var appAsarFile = fs.createWriteStream(appRunningPath);
+        var updateAsarFile = fs.createReadStream(destinationPath);
+
+        updateAsarFile.pipe(appAsarFile);
+        updateAsarFile.on('end', function () {
+          ui.webContents.send('message', 'Update installiert!');
+          ui.webContents.send('button', [{
+            id: 'download', show: false
+          }, {
+            id: 'restart', show: true
+          }])
+        });
       }
 
-      progress = newProgress;
-      //progress(loaded / updatePkg.length);
     });
   };
 
+
   return self;
 };
-
-/**
- * check if a new version is available
- * @param  {object} manifest    package.json JSON.parsed
- * @param  {String} manifestUrl url to new package.json
- * @return {boolean}            version of manifestUrl is newer
-
-module.exports.newVersion = function (manifest, manifestUrl, callback) {
-  pkg = manifest;
-  console.log('Check for new version');
-  request.get(manifestUrl, function (err, req, data) {
-    if (err || req.statusCode != 200) {
-      callback(false);
-    } else {
-      updatePkg = JSON.parse(data);
-      callback(
-        (semver.gt(updatePkg.version, pkg.version) &&
-        updatePkg.update &&
-        updatePkg.update.url)
-      );
-    }
-  });
-
-};
-
-/*
-module.exports.download = function (callback) {
-  var appWindow = new BrowserWindow({
-    width: 300,
-    height: 48,
-    title: 'Download Update',
-    center: true,
-    icon: '../icon.png'
-  });
-
-  appWindow.loadURL('file://' + __dirname + '/updater.html');
-  appWindow.webContents.send('update', 0);
-
-  var dlPkg = request(updatePkg.update.url, function (err, res) {
-    if (err || res.statusCode != 200) //TODO error feedback
-      callback(err);
-  });
-
-  dlPkg.on('response', function (res) {
-    if (res && res.headers && res.headers['content-length'])
-      dlPkg['content-length'] = res.headers['content-length'];
-  });
-
-  // send update progress to app window
-  var loaded = 0;
-  dlPkg.on('data', function (chunk) {
-    loaded += chunk.length;
-    var progress = loaded / dlPkg['content-length'];
-    appWindow.webContents.send('update', Math.round(progress * 100));
-    appWindow.setProgressBar(progress);
-  });
-
-  // save download to tmp folder
-  var destinationPath = os.tmpDir() + '/app.asar';
-  fs.unlink(destinationPath, function () {
-    dlPkg.pipe(fs.createWriteStream(destinationPath));
-    dlPkg.resume();
-  });
-
-  // copy update when download done
-  dlPkg.on('complete', function () {
-    if (loaded !== parseInt(dlPkg['content-length'], 10)) {
-      //TODO error feedback
-      appWindow.close();
-      callback();
-      return;
-    } else {
-      console.log('cp app.asar file');
-      appWindow.setTitle('Entpacke Update');
-      var appRunningPath = process.resourcesPath + '/app.asar';
-      var appAsarFile = fs.createWriteStream(appRunningPath);
-      var updateAsarFile = fs.createReadStream(destinationPath);
-
-      updateAsarFile.pipe(appAsarFile);
-      updateAsarFile.on('end', function () {
-        appWindow.close();
-        callback();
-      });
-    }
-
-  });
-
-  appWindow.on('close', function () {
-    if (dlPkg) dlPkg.abort();
-    return;
-  });
-};
-
-module.exports.dialog = function () {
-  return dialog.showMessageBox(null, {
-    title: 'Kickertool Updater',
-    message: 'Eine neue Version ' + updatePkg.version + ' ist verfügbar!',
-    buttons: ['Kickertool starten', 'Jetzt downloaden und installieren']
-  });
-}
-*/
