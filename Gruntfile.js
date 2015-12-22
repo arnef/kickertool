@@ -1,5 +1,12 @@
 module.exports = function (grunt) {
   grunt.initConfig({
+    less: {
+      production: {
+        files: {
+          'app/dist/css/app.css':'app/src/less/app.less'
+        }
+      }
+    },
     concat: {
       js: {
         src: [
@@ -27,14 +34,6 @@ module.exports = function (grunt) {
           'app/src/controller/player.controller.js'
         ],
         dest: 'app/dist/js/app.js'
-      },
-      css: {
-        src: [
-          'bower_components/bootstrap/dist/css/bootstrap.css',
-          'bower_components/angular-loading-bar/build/loading-bar.css',
-          'app/src/app.css'
-        ],
-        dest: 'app/dist/css/app.css'
       }
     },
     copy: {
@@ -55,6 +54,10 @@ module.exports = function (grunt) {
         files: ['**/*.js', '!bower_components/**', '!node_modules/**', '!app/dist/**'],
         tasks: ['concat:js']
       },
+      less: {
+        files: ['**/*.less', '!bower_components/**', '!node_modules/**', '!app/dist/**'],
+        tasks: ['less']
+      },
       css: {
         files: ['**/*.css', '!bower_components/**', '!node_modules/**', '!app/dist/**'],
         tasks: ['concat:css']
@@ -62,10 +65,11 @@ module.exports = function (grunt) {
     }
   });
 
+  grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy')
 
-  grunt.registerTask('build', ['concat', 'copy']);
-  grunt.registerTask('default', ['concat', 'copy', 'watch']);
+  grunt.registerTask('build', ['less', 'concat', 'copy']);
+  grunt.registerTask('default', ['less', 'concat', 'copy', 'watch']);
 };

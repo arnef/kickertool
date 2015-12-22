@@ -23,8 +23,7 @@ Array.prototype.shuffle = function () {
       'ngStorage',
       'ui.bootstrap',
       'luegg.directives',
-      'angular-loading-bar',
-      'kUpdateService'
+      'angular-loading-bar'
     ])
     .factory('K', function ($rootScope) {
       return $rootScope.K;
@@ -172,7 +171,7 @@ Array.prototype.shuffle = function () {
         })
       } else {
         clearData();
-        if ($location.path() !== '/player')
+        if ($location.path() !== '/insert')
           $location.path('/');
       }
     })

@@ -2,6 +2,11 @@
 
   <div class="row">
     <div class="col-sm-4">
+      <ul class="nav nav-tabs bottom">
+        <li class="active">
+          <a>Tabelle</a>
+        </li>
+      </ul>
       <div class="tab-content bottom table-border">
         <table class="table">
           <thead class="table-head">
@@ -13,7 +18,7 @@
             </tr>
           </thead>
         </table>
-        <div fullheight="{{ modus == 200}}" scrolltable>
+        <div scrolltable>
           <table class="table">
             <tbody class="table-body">
               <tr ng-class="team.out ? 'text-muted':''" ng-repeat="team in globals.teamList track by $index">
@@ -32,54 +37,61 @@
           </table>
         </div>
       </div>
-      <ul class="nav nav-tabs bottom">
-        <li class="active">
-          <a>Tabelle</a>
-        </li>
-      </ul>
     </div>
 
     <div class="col-sm-8">
-      <div class="tab-content bottom table-border">
-        <div class="tab-pane active" ng-show="isTab(0) || isTab(1)">
+      <ul class="nav nav-tabs">
+        <li class="{{ globals.koRound ? 'disabled' : '' }} " ng-class="isTab(0) ? 'active' : ''" ng-click="setTab(0)">
+          <a href>Vorrunde</a>
+        </li>
+        <li ng-class="isTab(1) ? 'active' : ''" ng-click="setTab(1)">
+          <a href>K.O. Runde</a>
+        </li>
+        <li ng-class="isTab(2) ? 'active' : ''" ng-click="setTab(2)">
+          <a href>Gespielte Begegnungen</a>
+        </li>
+      </ul>
+      <div class="tab-content table-border">
+        <div class="tab-pane active">
           <table class="table">
             <thead>
               <tr>
-                <th class="text-center" width="5%">Tisch</th>
-                <th class="text-center" width="10%">Runde</th>
-                <th class="text-center" width="38%">Team 1</th>
-                <th class="text-center" width="5%"></th>
-                <th class="text-center" width="38%">Team 2</th>
-                <th width="4%"></th>
+                <th class="text-center td-50">Tisch</th>
+                <th class="text-center td-50">Runde</th>
+                <th class="text-center">Team 1</th>
+                <th class="text-center td-120"></th>
+                <th class="text-center">Team 2</th>
+                <th class="td-50"></th>
               </tr>
             </thead>
           </table>
-          <div scrolltable>
-            <table class="table tables">
+          <div scrolltable with-btn-row="true">
+            <table class="table" ng-if="isTab(0) || isTab(1)">
               <tbody class="text-center">
                 <tr class="hover" ng-repeat="table in globals.currentMatches track by $index">
-                  <td class="active" width="5%">{{ $index+1 }}</td>
-                  <td ng-click="toggleScore($index)" width="10%">{{ table.round }}</td>
-                  <td ng-click="toggleScore($index)" width="38%">
+                  <td class="active td-50">{{ $index+1 }}</td>
+                  <td class="td-50" ng-click="toggleScore($index)">{{ table.round }}</td>
+                  <td ng-click="toggleScore($index)">
                     <span>{{ table.team1.name }}</span>
-                    <span ng-show="scoreOpen[$index]">Gewinner</span>
+                    <a class="btn btn-primary" ng-click="insertScore($index, 0)" ng-show="scoreOpen == $index">Gewinner</a>
                   </td>
-                  <td ng-click="toggleScore($index)" width="5%">
-                    <span ng-show="table.team1 != null">vs.</span>
+                  <td class="td-120" ng-click="toggleScore($index)">
                     <span ng-show="table.team1 == null">Frei</span>
-                    <span ng-show="scoreOpen[$index] && globals.withDraw && !globals.koRound">
+                    <span ng-show="table.team1 != null">vs.</span>
+                    <a class="btn btn-primary" ng-click="insertScore($index, 1)" ng-show="scoreOpen == $index && globals.withDraw && !globals.koRound">
                       unentschieden
-                    </span>
+                    </a>
                   </td>
-                  <td ng-click="toggleScore($index)" width="38%">
+                  <td ng-click="toggleScore($index)">
                     <span>{{ table.team2.name }}</span>
-                    <span ng-show="scoreOpen[$index]">Gewinner</span>
+
+                    <a class="btn btn-primary" ng-click="insertScore($index, 2)" ng-show="scoreOpen == $index">Gewinner</a>
                   </td>
-                  <td uib-dropdown uib-dropdown-toggle width="4%">
+                  <td class="td-50" uib-dropdown uib-dropdown-toggle>
                     <i class="glyphicon glyphicon-option-vertical text-muted"></i>
                     <ul class="uib-dropdown-menu dropdown-menu-right">
                       <li ng-class="disableInsertScore($index) ? 'disabled':''">
-                        <a href ng-click="insertScore($index)">Ergebnis eintragen</a>
+                        <a href ng-click="toggleScore($index)">Ergebnis eintragen</a>
                       </li>
                       <li ng-class="canDeferMatch($index) ? '':'disabled'">
                         <a href ng-click="deferMatch($index)">Spiel zurückstellen</a>
@@ -92,54 +104,42 @@
                   <th class="divider" colspan="6"></th>
                 </tr>
                 <tr ng-repeat="match in globals.nextMatches" {{ /*ng-class="match.getHome().isPlaying() || match.getAway().isPlaying() ? 'blocked' : ''" */ }}>
-                  <td class="active"></td>
-                  <td>{{ match.round }}</td>
-                  <td ng-class="match.team1.out ? 'text-out':''">{{ match.team1.name }}</td>
-                  <td>vs.
+                  <td class="active td-50"></td>
+                  <td class="td-50">{{ match.round }}</td>
+                  <td ng-class="match.team1.out ? 'text-out':''">
+                    <span>{{ match.team1.name }}</span>
                   </td>
-                  <td ng-class="match.team2.out ? 'text-out':''">{{ match.team2.name }}</td>
-                  <td></td>
+                  <td class="td-120">
+                    <span>vs.</span>
+                  </td>
+                  <td ng-class="match.team2.out ? 'text-out':''">
+                    <span>{{ match.team2.name }}
+                    </span>
+                  </td>
+                  <td class="td-50"></td>
                 </tr>
               </tbody>
             </table>
-          </div>
-        </div>
-
-        <!-- gespielte begegnungen -->
-        <div class="tab-pane active" ng-show="isTab(2)">
-          <table class="table">
-            <thead>
-              <tr>
-                <th class="text-center" width="5%">Tisch</th>
-                <th class="text-center" width="10%">Runde</th>
-                <th class="text-center" width="38%">Team 1</th>
-                <th class="text-center" width="5%"></th>
-                <th class="text-center" width="38%">Team 2</th>
-                <th width="4%"></th>
-              </tr>
-            </thead>
-          </table>
-          <div scrolltable>
-            <table class="table tables">
+            <table class="table" ng-if="isTab(2)">
               <tbody class="text-center">
                 <tr class="hover" ng-repeat="match in globals.playedMatches | orderBy: '-'">
-                  <td class="active" width="5%"></td>
-                  <td width="10%">{{ match.round }}</td>
-                  <td width="38%" ng-click="editScore(match, 0)">
+                  <td class="active td-50"></td>
+                  <td class="td-50">{{ match.round }}</td>
+                  <td ng-click="editScore(match, 0)">
                     <span>{{ match.team1.name }}</span>
                     <span ng-show="match.editScore">Gewinner</span>
                   </td>
-                  <td width="5%" ng-click="editSCore(match, 1)">
+                  <td class="td-120" ng-click="editSCore(match, 1)">
                     <span>{{ match.score }}</span>
                     <span ng-show="match.editScore && globals.withDraw && !globals.koRound">
                       unentschieden
                     </span>
                   </td>
-                  <td width="38%" ng-click="editScore(match, 2)">
+                  <td ng-click="editScore(match, 2)">
                     <span>{{ match.team2.name }}</span>
                     <span ng-show="match.editScore">Gewinner</span>
                   </td>
-                  <td uib-dropdown uib-dropdown-toggle width="4%">
+                  <td class="td-50" uib-dropdown uib-dropdown-toggle >
                     <i class="glyphicon glyphicon-option-vertical text-muted"></i>
                     <ul class="uib-dropdown-menu dropdown-menu-right">
                       <li ng-class="showReenterScore(match.round) ? '':'disabled'">
@@ -153,22 +153,11 @@
           </div>
         </div>
       </div>
-      <ul class="nav nav-tabs bottom">
-        <li class="{{ globals.koRound ? 'disabled' : '' }} " ng-class="isTab(0) ? 'active' : ''" ng-click="setTab(0)">
-          <a href>Vorrunde</a>
-        </li>
-        <li ng-class="isTab(1) ? 'active' : ''" ng-click="setTab(1)">
-          <a href>K.O. Runde</a>
-        </li>
-        <li ng-class="isTab(2) ? 'active' : ''" ng-click="setTab(2)">
-          <a href>Gespielte Begegnungen</a>
-        </li>
-        <li class="pull-right">
-          <button class="btn btn-default" ng-click="toggleLastRound()" ng-disabled="globals.koRound">Letzte Vorrunde?
-            <span ng-show="globals.lastRound === globals.round || globals.koRound">Ja</span>
-            <span ng-show="globals.lastRound !== globals.round && !globals.koRound">Nein</span>
-          </button>
-        </li>
-      </ul>
+      <div class="btn-row">
+        <button class="btn btn-default" ng-click="toggleLastRound()" ng-disabled="globals.koRound">Letzte Vorrunde?
+          <span ng-show="globals.lastRound === globals.round || globals.koRound">Ja</span>
+          <span ng-show="globals.lastRound !== globals.round && !globals.koRound">Nein</span>
+        </button>
+      </div>
     </div>
   </div>

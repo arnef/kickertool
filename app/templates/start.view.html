@@ -1,37 +1,30 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-6 col-sm-offset-3">
-      <div class="tab-content bottom" style="padding: 20px;">
-        <div class="form-horizontal">
+      <ul class="nav nav-tabs">
+        <li class="active">
+          <a>Einstellungen</a>
+        </li>
+      </ul>
+      <div class="tab-content table-border" style="padding: 20px;">
+        <div>
           <div class="form-group">
-            <label for="inputModus" class="col-sm-6 control-label">Modus</label>
-            <div class="col-sm-6">
-              <select class="form-control" id="inputModus" ng-model="globals.modus" ng-options="modus.value as modus.name for modus in optionsModus"></select>
-            </div>
+            <label class="control-label" for="inputModus">Modus</label>
+            <select class="form-control" id="inputModus" ng-model="globals.modus" ng-options="modus.value as modus.name for modus in optionsModus"></select>
           </div>
           <div class="form-group">
-            <label for="inputTables" class="col-sm-6 control-label">Anzahl Tische</label>
-            <div class="col-sm-6">
-              <input id="inputTables" type="number" class="form-control" ng-model="globals.tables">
-            </div>
+            <label class="control-label" for="inputTables">Anzahl Tische</label>
+            <input class="form-control" id="inputTables" ng-model="globals.tables" type="number">
           </div>
           <div class="form-group">
-            <label for="inputDraw" class="col-sm-6 control-label">Unentschieden während der Vorrunde?</label>
-            <div class="col-sm-6">
-              <select class="form-control" id="inputDraw" ng-model="globals.withDraw" ng-options="modus.value as modus.name for modus in optionsDraw"></select>
-            </div>
+            <label class="control-label" for="inputDraw">Unentschieden während der Vorrunde?</label>
+            <select class="form-control" id="inputDraw" ng-model="globals.withDraw" ng-options="modus.value as modus.name for modus in optionsDraw"></select>
+          </div>
+          <div class="clearfix" ng-hide="globals.ongoing">
+            <button class="btn btn-default pull-right" ng-click="start()">Turnier starten</button>
           </div>
         </div>
       </div>
-      <ul class="nav nav-tabs bottom">
-        <li class="active"><a>Einstellungen</a></li>
-        <li class="pull-right" ng-if="!globals.ongoing">
-          <button ng-click="start()" class="btn btn-primary">Turnier starten</button>
-        </li>
-        <li class="pull-right" ng-if="globals.ongoing">
-          <button ng-click="new()" class="btn btn-primary">Neues Turnier starten</button>
-        </li>
-      </ul>
 
     </div>
 

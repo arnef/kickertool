@@ -26,10 +26,10 @@
 
       function addDypPlayer() {
         for (var i = 0; i < T.playerList.length; i++) {
-          if (T.playerList[i].name.split(' ').join('') === $scope.players[0].name.topUpperCase().split(' ').join(''))
+          if (T.playerList[i].name.split(' ').join('') === $scope.players[0].name.toUpperCase().split(' ').join(''))
             return false;
         }
-        $scope.players[0].name = $scope.players[0].name.topUpperCase();
+        $scope.players[0].name = $scope.players[0].name.toUpperCase();
         T.playerList.push(angular.copy($scope.players[0]));
         delete $scope.players[0].name;
         return true;

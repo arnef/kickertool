@@ -54,7 +54,11 @@
 
   .directive('scrolltable', function ($window) {
     var resize = function (element, attrs) {
-      var diff = 92;
+      var diff = 92
+      if (attrs.withBtnRow == "true") {
+        console.log('smaller scrolltable');
+         diff = 92 + 34;
+      }
       var winHeight = $window.innerHeight;
 
       element.css('height', (winHeight - diff) + 'px');

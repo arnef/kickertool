@@ -2,26 +2,32 @@
   <div class="row">
     <div class="col-sm-4">
       <form ng-submit="add()">
-        <div class="tab-content bottom table-border" style="padding:10px">
-          <insert-player ng-repeat="p in players" player="p" focus="focus[$index]"></insert-player>
+        <ul class="nav nav-tabs">
+          <li class="active">
+            <a>{{ players.lengh > 1 ? 'Team':'Spieler' }}
+              hinzufügen</a>
+          </li>
+        </ul>
+        <div class="tab-content table-border" style="padding:10px">
+          <insert-player focus="focus[$index]" ng-repeat="p in players" player="p"></insert-player>
           <div ng-if="globals.round> 1">
             <p>Nachmeldungen sind nur während der 1. Vorrunde möglich!</p>
             <p>Teilnehmer können aber jederzeit aus dem Turnier entfernt werden.</p>
           </div>
+          <div class="clearfix">
+            <button class="btn btn-default pull-right" ng-disabled="!validateInput()" type="submit">Hinzufügen</button>
+          </div>
         </div>
-        <ul class="nav nav-tabs bottom">
-          <li class="active">
-            <a>{{ players.lengh > 1 ? 'Team':'Spieler' }} hinzufügen</a>
-          </li>
-          <li class="pull-right">
-            <button class="btn btn-primary" type="submit" ng-disabled="!validateInput()">Hinzufügen</button>
-          </li>
-        </ul>
       </form>
     </div>
 
     <div class="col-sm-4" ng-if="globals.modus === K.FAIR_FOR_ALL">
-      <div class="tab-content bottom table-border">
+      <ul class="nav nav-tabs">
+        <li class="active">
+          <a>Angemeldete Spieler</a>
+        </li>
+      </ul>
+      <div class="tab-content table-border">
         <table class="table">
           <thead>
             <tr>
@@ -31,19 +37,22 @@
             </tr>
           </thead>
         </table>
-        <div scrolltable scroll-glue>
+        <div scroll-glue scrolltable with-btn-row="{{ !globals.ongoing }}">
           <table class="table">
             <tbody>
-              <tr ng-repeat="p in globals.playerList" class="hover">
+              <tr class="hover" ng-repeat="p in globals.playerList">
                 <td class="active text-center td-50">
-                  {{ $index + 1}} </td>
+                  {{ $index + 1}}
+                </td>
                 <td>
                   {{ p.name }}
                 </td>
                 <td class="td-20" uib-dropdown uib-dropdown-toggle>
                   <i class="glyphicon glyphicon-option-vertical text-muted"></i>
                   <ul class="uib-dropdown-menu dropdown-menu-right">
-                    <li ng-click="removePlayer($index)" ng-class="globals.ongoing ? 'disabled':''"><a>entfernen</a></li>
+                    <li ng-class="globals.ongoing ? 'disabled':''" ng-click="removePlayer($index)">
+                      <a>entfernen</a>
+                    </li>
                   </ul>
                 </td>
               </tr>
@@ -51,20 +60,22 @@
           </table>
         </div>
       </div>
-      <ul class="nav nav-tabs bottom">
-        <li class="active"><a>Angemeldete Spieler</a></li>
-        <li class="pull-right">
-          <button class="btn btn-primary" ng-click="createTeams()" ng-disabled="globals.playerList.length == 0 || globals.playerList.length % 2 === 1" ng-hide="globals.ongoing">
-            Lose Teams
-            <i class="glyphicon glyphicon-menu-right"></i>
-          </button>
-        </li>
-      </ul>
+      <div class="btn-row">
+        <button class="btn btn-default" ng-click="createTeams()" ng-disabled="globals.playerList.length == 0 || globals.playerList.length % 2 === 1" ng-hide="globals.ongoing">
+          Lose Teams
+        </button>
+      </div>
     </div>
     <!-- table for dyp --->
 
     <div ng-class="globals.modus === K.FAIR_FOR_ALL ? 'col-md-4' : 'col-md-8'">
-      <div class="tab-content bottom table-border">
+      <ul class="nav nav-tabs">
+        <li class="active">
+          <a ng-if="globals.modus === K.ONE_ON_ONE">Angemeldete Spieler</a>
+          <a ng-if="globals.modus !== K.ONE_ON_ONE">Angemeldete Teams</a>
+        </li>
+      </ul>
+      <div class="tab-content table-border">
         <table class="table">
           <thead>
             <tr>
@@ -74,10 +85,10 @@
             </tr>
           </thead>
         </table>
-        <div scrolltable scroll-glue>
+        <div scroll-glue scrolltable with-btn-row="{{ !globals.ongoing }}">
           <table class="table">
             <tbody>
-              <tr ng-repeat="p in globals.teamList" class="hover">
+              <tr class="hover" ng-repeat="p in globals.teamList">
                 <td class="active text-center td-50">
                   {{ $index + 1}}
                 </td>
@@ -93,7 +104,7 @@
                   </ul>
                 </td>
               </tr>
-              <tr ng-repeat="t in globals.teamListOut" class="text-out">
+              <tr class="text-out" ng-repeat="t in globals.teamListOut">
                 <td class="active text-center td-50">
                   {{ globals.teamList.length + $index + 1}}
                 </td>
@@ -104,18 +115,11 @@
           </table>
         </div>
       </div>
-      <ul class="nav nav-tabs bottom">
-        <li class="active">
-          <a ng-if="globals.modus === K.ONE_ON_ONE">Angemeldete Spieler</a>
-          <a ng-if="globals.modus !== K.ONE_ON_ONE">Angemeldete Teams</a>
-        </li>
-        <li ng-hide="globals.ongoing" class="pull-right">
-          <button class="btn btn-primary" ng-click="start()" ng-disabled="globals.teamList.length < 2">
-            Turnier starten
-            <i class="glyphicon glyphicon-menu-right"></i>
-          </button>
-        </li>
-      </ul>
+      <div class="btn-row">
+        <button class="btn btn-default" ng-click="start()" ng-disabled="globals.teamList.length < 2">
+          Turnier starten
+        </button>
+      </div>
     </div>
   </div>
 </div>

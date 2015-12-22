@@ -11,31 +11,6 @@
 </head>
 
 <body>
-  <div ng-class="modalDialog ? 'my-modal':''"></div>
-  <div class="downloading" ng-show="updater.downloading">
-    <p>{{ updater.msg }}</p>
-  </div>
-  <!-- .downloading
-  <div class="navbar navbar-static-top" ng-controller="NavController as navCtrl">
-    <ul class="nav nav-tabs">
-      <li ng-class="navCtrl.active(0) ? 'active':''"><a href="#/">Kickerturnier</a></li>
-      <li ng-class="navCtrl.active(1) ? 'active':''" ng-if="globals.ongoing || navCtrl.active(1)"><a href="#/insert">Teilnehmer</a></li>
-      <li ng-class="navCtrl.active(2) ? 'active':''" ng-if="globals.ongoing"><a href="#/tournament">Turnier</a></li>
-      <li class="pull-right" ng-if="navCtrl.version">
-        <a>{{ navCtrl.version }}</a>
-      </li>
-      <!--<li class="pull-right" uib-dropdown>
-        <a uib-dropdown-toggle>
-          <i class="glyphicon glyphicon-option-vertical"></i>
-        </a>
-        <ul class="uib-dropdown-menu dropdown-menu-right">
-          <li><a href="#/player">Spielerliste bearbeiten</a></li>
-          <li><a ng-click="navCtrl.close()">Kickertool beenden</a></li>
-        </ul>
-      </li>
-    </ul>
-
-  </div>-->
   <ng-view></ng-view>
 </body>
 <script>

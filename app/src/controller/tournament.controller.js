@@ -12,7 +12,7 @@
     T = $rootScope.globals;
 
     $scope.isLastRound = T.lastRound === T.round;
-    $scope.scoreOpen = new Array(T.tables);
+    $scope.scoreOpen = -1;
     scores = ['2:0', '1:1', '0:2'];
 
     $scope.toggleLastRound = function () {
@@ -71,25 +71,25 @@
 
 
     $scope.toggleScore = function (idx) {
-      $scope.scoreOpen[idx] = $scope.scoreOpen[idx] ? false : true;
+      if (idx == $scope.scoreOpen) {
+        $scope.scoreOpen = -1;
+      } else {
+        $scope.scoreOpen = idx;
+      }
     };
-    
+
     $scope.insertScore = function (idx, score) {
       console.log(score);
       var match = T.currentMatches[idx];
       if (match != null) {
-        if ($scope.scoreOpen[idx]) {
-          $scope.scoreOpen[idx] = false;
+        if ($scope.scoreOpen == idx) {
+          //  $scope.scoreOpen[idx] = false;
           if (score == undefined || score == 1 && (!T.withDraw || T.koRound)) {
             return;
           }
           console.log(scores[score]);
           Tournament.enterScore(idx, scores[score]);
-        } else {
-          $scope.scoreOpen[idx] = true;
         }
-      } else {
-        Tournament.fillTables();
       }
     };
 
@@ -101,7 +101,7 @@
             cancel: 'Nein',
             confirm: 'Ja'
           })
-          .result.then(function (result) {
+          .then(function (result) {
             if (result === 1) {
               Tournament.deferMatch(tableIdx);
             }
