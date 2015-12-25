@@ -120,30 +120,31 @@
                 </tr>
               </tbody>
             </table>
+            <!-- gespielte begegnungen -->
             <table class="table" ng-if="isTab(2)">
               <tbody class="text-center">
                 <tr class="hover" ng-repeat="match in globals.playedMatches | orderBy: '-'">
                   <td class="active td-50"></td>
                   <td class="td-50">{{ match.round }}</td>
-                  <td ng-click="editScore(match, 0)">
+                  <td>
                     <span>{{ match.team1.name }}</span>
-                    <span ng-show="match.editScore">Gewinner</span>
+                    <a class="btn btn-primary" ng-click="editScore(match, 0)" ng-show="scoreOpen == $index">Gewinner</a>
                   </td>
-                  <td class="td-120" ng-click="editSCore(match, 1)">
+                  <td class="td-120">
                     <span>{{ match.score }}</span>
-                    <span ng-show="match.editScore && globals.withDraw && !globals.koRound">
+                    <a class="btn btn-primary" ng-click="editScore(match, 1)" ng-show="scoreOpen == $index && globals.withDraw && !globals.koRound">
                       unentschieden
-                    </span>
+                    </a>
                   </td>
-                  <td ng-click="editScore(match, 2)">
+                  <td>
                     <span>{{ match.team2.name }}</span>
-                    <span ng-show="match.editScore">Gewinner</span>
+                    <a class="btn btn-primary" ng-click="editScore(match, 2)" ng-show="scoreOpen == $index">Gewinner</a>
                   </td>
                   <td class="td-50" uib-dropdown uib-dropdown-toggle >
                     <i class="glyphicon glyphicon-option-vertical text-muted"></i>
                     <ul class="uib-dropdown-menu dropdown-menu-right">
                       <li ng-class="showReenterScore(match.round) ? '':'disabled'">
-                        <a href ng-click="reenterScore(match)">Ergebnis bearbeiten</a>
+                        <a href ng-click="toggleScore($index)">Ergebnis bearbeiten</a>
                       </li>
                     </ul>
                   </td>

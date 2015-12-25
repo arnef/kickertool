@@ -53,7 +53,6 @@
       // enter score on table
       _self.enterScore = function (idx, score) {
         if (T.currentMatches[idx] !== null) {
-
           var splitScore = score.split(':');
           T.currentMatches[idx].score = score;
           T.currentMatches[idx].team1.points += parseInt(splitScore[0], 10);
@@ -66,7 +65,14 @@
 
       // correct score for match
       _self.correctScore = function (match, newScore) {
-        if (match.round === T.round) {
+        if (match.round === T.round && match.score !== newScore) {
+          var oldScore = match.score.split(':');
+          match.team1.points -= parseInt(oldScore[0], 10);
+          match.team2.points -= parseInt(oldScore[1], 10);
+          match.score = newScore;
+          newScore = newScore.split(':');
+          match.team1.points += parseInt(newScore[0], 10);
+          match.team2.points += parseInt(newScore[1], 10);
           //  ScoreService.reenterScore(match, newScore);
           //  TODO implement this feature
         }

@@ -43,16 +43,12 @@ Array.prototype.shuffle = function () {
 
       this.close = function () {
         try {
-        var gui = require('nw.gui');
-        gui.Window.get().close(true);
-      } catch (e) {
+          var gui = require('nw.gui');
+          gui.Window.get().close(true);
+        } catch (e) {
 
-      }
-    };
-
-
-
-    this.version = 'v ' + require('../package.json').version;
+        }
+      };
     })
     .run(function ($rootScope, $localStorage, $location, Dialog) {
       require('electron').ipcRenderer.on('command', function (event, cmd) {
@@ -132,6 +128,8 @@ Array.prototype.shuffle = function () {
       }
 
       function updateFinals(team) {
+        // nothing to update if no finals are running
+        if (!T.finals) return;
         for (var i = 0; i < T.finals.length; i++) {
           var m = T.finals[i];
           if (m.team1 && team.name == m.team1.name)
