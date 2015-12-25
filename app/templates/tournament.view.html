@@ -57,7 +57,7 @@
             <thead>
               <tr>
                 <th class="text-center td-50">Tisch</th>
-                <th class="text-center td-50">Runde</th>
+                <th class="text-center td-70">Runde</th>
                 <th class="text-center">Team 1</th>
                 <th class="text-center td-120"></th>
                 <th class="text-center">Team 2</th>
@@ -68,9 +68,9 @@
           <div scrolltable with-btn-row="true">
             <table class="table" ng-if="isTab(0) || isTab(1)">
               <tbody class="text-center">
-                <tr class="hover" ng-repeat="table in globals.currentMatches track by $index">
+                <tr class="hover" ng-repeat="table in globals.currentMatches track by $index" animate-on-change="table">
                   <td class="active td-50">{{ $index+1 }}</td>
-                  <td class="td-50" ng-click="toggleScore($index)">{{ table.round }}</td>
+                  <td class="td-70" ng-click="toggleScore($index)">{{ table.round }}</td>
                   <td ng-click="toggleScore($index)">
                     <span>{{ table.team1.name }}</span>
                     <a class="btn btn-primary" ng-click="insertScore($index, 0)" ng-show="scoreOpen == $index">Gewinner</a>
@@ -125,7 +125,7 @@
               <tbody class="text-center">
                 <tr class="hover" ng-repeat="match in globals.playedMatches | orderBy: '-'">
                   <td class="active td-50"></td>
-                  <td class="td-50">{{ match.round }}</td>
+                  <td class="td-70">{{ match.round }}</td>
                   <td>
                     <span>{{ match.team1.name }}</span>
                     <a class="btn btn-primary" ng-click="editScore(match, 0)" ng-show="scoreOpen == $index">Gewinner</a>

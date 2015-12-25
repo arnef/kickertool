@@ -53,7 +53,7 @@ module.exports = [{
   }, {
     label: 'Letzte Vorrunde starten',
     click: function (item, focusedWindow) {
-      console.log('letzt vorrunde')
+      focusedWindow.webContents.send('tournament', 'lastRound');
     }
   }, {
     label: 'K.O. Runde starten',

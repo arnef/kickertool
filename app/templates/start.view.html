@@ -16,7 +16,7 @@
           </div>
           <div class="form-group">
             <label class="control-label" for="inputTables">Anzahl Tische</label>
-            <input class="form-control" id="inputTables" ng-model="globals.tables" type="number">
+            <input ng-disabled="globals.ongoing" class="form-control" id="inputTables" ng-model="globals.tables" type="number">
           </div>
           <div class="form-group">
             <label class="control-label" for="inputDraw">Unentschieden während der Vorrunde?</label>

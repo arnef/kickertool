@@ -160,9 +160,12 @@ angular.module('app', ['ngRoute', 'ngSanitize', 'ngStorage', 'ui.bootstrap', 'lu
       $location.path(path);
     });
     Command.on('tournament', function (event, cmd) {
-      if (cmd = 'new') {
+      if (cmd == 'new') {
         Tournament.clear();
         $location.path('/');
+      }
+      if (cmd == 'lastRound') {
+        Tournament.toogleLastRound();
       }
     });
   });

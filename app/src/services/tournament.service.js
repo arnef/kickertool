@@ -2,10 +2,11 @@
 
 angular.module('app')
   .service('Tournament', function ($rootScope, $localStorage, SwissSystem, Ko) {
-    var self, T;
+    var self, T, isLastRound;
 
     self = this;
     T = $rootScope.globals;
+    isLastRound = false; //$rootScope.globals.lastRound == $rootScope.globals.round;
 
     // fill tables
     function fillTables(idx) {
@@ -119,6 +120,15 @@ angular.module('app')
       }
     };
 
+    self.toogleLastRound = function () {
+      isLastRound = !isLastRound;
+      if (isLastRound) {
+        $rootScope.globals.lastRound = $rootScope.globals.round;
+      } else {
+        $rootScope.globals.lastRound = $rootScope.globals.teamList.length / 2;
+      }
+      // if ($rootScope.globals.lastRound == )
+    };
 
     /**
      * clear current tournament
