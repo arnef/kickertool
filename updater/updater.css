@@ -1,5 +1,5 @@
 body {
-  background-color: #dfe2e2;
+  background-color: #f3f3f3;
   font-family: sans-serif;
   font-size: 11px !important;
   padding: 10px;
@@ -53,11 +53,11 @@ body {
 }
 .btn-default {
   color: #454545;
-  background-color: #e5e9e8;
+  background-color: transparent;
   border-color: #9daca9;
 }
 .btn-default:hover {
-  background-color: #eff1f1;
+  background-color: rgba(0,0,0,.1);
 }
 .btn-default:active {
   border: 1px solid #9daca9;

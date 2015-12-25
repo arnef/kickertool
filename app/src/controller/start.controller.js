@@ -1,19 +1,19 @@
 'use strict';
 
 angular.module('app')
-  .controller('StartController', function ($rootScope, $scope, $location, K) {
+  .controller('StartController', function ($rootScope, $scope, $location) {
 
     var T = $rootScope.globals;
 
     $scope.optionsModus = [{
-      value: K.FAIR_FOR_ALL,
-      name: K.NAME[K.FAIR_FOR_ALL]
+      value: $rootScope.FAIR_FOR_ALL,
+      name: $rootScope.NAME[$rootScope.FAIR_FOR_ALL]
     }, {
-      value: K.ONE_ON_ONE,
-      name: K.NAME[K.ONE_ON_ONE]
+      value: $rootScope.ONE_ON_ONE,
+      name: $rootScope.NAME[$rootScope.ONE_ON_ONE]
     }, {
-      value: K.TWO_ON_TWO,
-      name: K.NAME[K.TWO_ON_TWO]
+      value: $rootScope.TWO_ON_TWO,
+      name: $rootScope.NAME[$rootScope.TWO_ON_TWO]
     }];
 
     $scope.optionsDraw = [{

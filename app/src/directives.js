@@ -14,28 +14,23 @@
         controller: 'InsertPlayerDirectiveController'
       };
     })
-    .controller('InsertPlayerDirectiveController', function ($rootScope, $scope, $location, TeamDrawer, K) {
-      $scope.TYPES = [
-        {
-          name: 'Gesetzt',
-          value: TeamDrawer.PRO
-      },
-        {
-          name: 'Gelost',
-          value: TeamDrawer.AMATEUR
+    .controller('InsertPlayerDirectiveController', function ($rootScope, $scope, $location, TeamDrawer) {
+      $scope.TYPES = [{
+        name: 'Gesetzt',
+        value: TeamDrawer.PRO
+      }, {
+        name: 'Gelost',
+        value: TeamDrawer.AMATEUR
       }];
-      $scope.POSITIONS = [
-        {
-          name: 'Torwart/Stürmer',
-          value: TeamDrawer.BOTH
-      },
-        {
-          name: 'Torwart',
-          value: TeamDrawer.GOALIE
-      },
-        {
-          name: 'Stürmer',
-          value: TeamDrawer.STRIKER
+      $scope.POSITIONS = [{
+        name: 'Torwart/Stürmer',
+        value: TeamDrawer.BOTH
+      }, {
+        name: 'Torwart',
+        value: TeamDrawer.GOALIE
+      }, {
+        name: 'Stürmer',
+        value: TeamDrawer.STRIKER
       }];
 
       $scope.newPlayer = {
@@ -43,7 +38,7 @@
         position: TeamDrawer.BOTH
       };
 
-      $scope.showOptions = $rootScope.globals.modus === K.FAIR_FOR_ALL && !$rootScope.globals.ongoing || $location.path() == '/player';
+      $scope.showOptions = $rootScope.globals.modus === $rootScope.FAIR_FOR_ALL && !$rootScope.globals.ongoing || $location.path() == '/player';
       $scope.disableInput = $rootScope.globals.round > 1;
 
       $scope.$watch('focus', function () {
@@ -57,7 +52,7 @@
       var diff = 92
       if (attrs.withBtnRow == "true") {
         console.log('smaller scrolltable');
-         diff = 92 + 34;
+        diff = 92 + 34;
       }
       var winHeight = $window.innerHeight;
 

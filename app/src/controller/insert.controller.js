@@ -2,14 +2,14 @@
   'use strict';
 
   angular.module('app')
-    .controller('InsertController', function ($rootScope, $scope, $location, Tournament, K, TeamDrawer, Dialog) {
+    .controller('InsertController', function ($rootScope, $scope, $location, Tournament, TeamDrawer, Dialog) {
       var T = $rootScope.globals;
       $scope.players = [{
         position: TeamDrawer.BOTH,
         type: TeamDrawer.PRO
       }];
 
-      if (T.modus == K.TWO_ON_TWO || T.modus == K.FAIR_FOR_ALL && T.ongoing) {
+      if (T.modus == $rootScope.TWO_ON_TWO || T.modus == $rootScope.FAIR_FOR_ALL && T.ongoing) {
         $scope.players = [{}, {}]
       }
 
@@ -69,7 +69,7 @@
 
       // add participant to tournament
       $scope.add = function () {
-        if (T.modus == K.FAIR_FOR_ALL && !T.ongoing) {
+        if (T.modus == $rootScope.FAIR_FOR_ALL && !T.ongoing) {
           if (!addDypPlayer()) {
             Dialog.alert({
               title: 'Spieler schon vorhanden!',
@@ -77,7 +77,7 @@
             });
           }
         }
-        if (T.modus == K.ONE_ON_ONE) {
+        if (T.modus == $rootScope.ONE_ON_ONE) {
           if (!addPlayer()) {
             Dialog.alert({
                title: 'Spieler schon vorhanden!',
@@ -85,7 +85,7 @@
             });
           }
         }
-        if (T.modus == K.TWO_ON_TWO || (T.modus == K.FAIR_FOR_ALL && T.ongoing)) {
+        if (T.modus == $rootScope.TWO_ON_TWO || (T.modus == $rootScope.FAIR_FOR_ALL && T.ongoing)) {
           if (!addTeam()) {
             Dialog.alert({
               title: 'Team schon vorhanden!',
@@ -124,8 +124,8 @@
       $scope.remove = function (idx) {
         var team = T.teamList[idx];
         if (team) {
-          var title = T.modus === K.ONE_ON_ONE ? 'Spieler entfernen?' : 'Team entfernen?';
-          var body = T.modus === K.ONE_ON_ONE ? 'Den Spieler ' + team.name + ' löschen?' : 'Das Team ' + team.name + ' löschen?';
+          var title = T.modus === $rootScope.ONE_ON_ONE ? 'Spieler entfernen?' : 'Team entfernen?';
+          var body = T.modus === $rootScope.ONE_ON_ONE ? 'Den Spieler ' + team.name + ' löschen?' : 'Das Team ' + team.name + ' löschen?';
           Dialog.confirm({
             title: title,
             body: body,

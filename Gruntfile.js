@@ -1,9 +1,11 @@
 module.exports = function (grunt) {
+  'use strict';
+
   grunt.initConfig({
     less: {
       production: {
         files: {
-          'app/dist/css/app.css':'app/src/less/app.less'
+          'app/dist/css/app.css': 'app/src/less/app.less'
         }
       }
     },
@@ -15,7 +17,6 @@ module.exports = function (grunt) {
           'bower_components/angular-bootstrap/ui-bootstrap.js',
           'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
           'bower_components/angular-scroll-glue/src/scrollglue.js',
-          'bower_components/angular-loading-bar/build/loading-bar.js', //TODO remove
           'bower_components/ngstorage/ngStorage.js',
           'bower_components/angular-sanitize/angular-sanitize.js',
 
@@ -27,6 +28,7 @@ module.exports = function (grunt) {
           'app/src/services/swisssystem.service.js',
           'app/src/services/ko.service.js',
           'app/src/services/tournament.service.js',
+          'app/src/services/command.service.js',
 
           'app/src/controller/start.controller.js',
           'app/src/controller/tournament.controller.js',
@@ -38,15 +40,13 @@ module.exports = function (grunt) {
     },
     copy: {
       main: {
-        files: [
-          {
-            // copy bootstrap fonts for glyphicons
-            cwd: 'bower_components/bootstrap/dist/fonts/',
-            src: '**',
-            dest: 'app/dist/fonts/',
-            expand: true
-          }
-        ]
+        files: [{
+          // copy bootstrap fonts for glyphicons
+          cwd: 'bower_components/bootstrap/dist/fonts/',
+          src: '**',
+          dest: 'app/dist/fonts/',
+          expand: true
+        }]
       }
     },
     watch: {
@@ -57,19 +57,19 @@ module.exports = function (grunt) {
       less: {
         files: ['**/*.less', '!bower_components/**', '!node_modules/**', '!app/dist/**'],
         tasks: ['less']
-      },
-      css: {
-        files: ['**/*.css', '!bower_components/**', '!node_modules/**', '!app/dist/**'],
-        tasks: ['concat:css']
       }
+      // css: {
+      //   files: ['**/*.css', '!bower_components/**', '!node_modules/**', '!app/dist/**'],
+      //   tasks: ['concat:css']
+      // }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-copy')
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
-  grunt.registerTask('build', ['less', 'concat', 'copy']);
+  grunt.registerTask('b uild', ['less', 'concat', 'copy']);
   grunt.registerTask('default', ['less', 'concat', 'copy', 'watch']);
 };

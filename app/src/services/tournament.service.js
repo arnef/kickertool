@@ -1,128 +1,141 @@
-(function () {
-  'use strict';
+'use strict';
 
-  angular.module('app')
-    .service('Tournament', function (
-      $rootScope, SwissSystem, Ko, K
-    ) {
-      var _self,
-        T;
+angular.module('app')
+  .service('Tournament', function ($rootScope, $localStorage, SwissSystem, Ko) {
+    var self, T;
 
-      _self = this;
-      T = $rootScope.globals;
+    self = this;
+    T = $rootScope.globals;
 
-      // fill tables
-      function fillTables(idx) {
-        if (T.nextMatches.length === 0) return;
+    // fill tables
+    function fillTables(idx) {
+      if ($rootScope.globals.nextMatches.length === 0) return;
 
-        if (idx !== undefined) {
-          T.currentMatches[idx] = T.nextMatches[0];
-          T.nextMatches.splice(0, 1);
-          if (T.currentMatches[idx] != null && T.currentMatches[idx].team2.ghost) {
-            _self.enterScore(idx, '2:0');
-          }
-        } else {
-          for (var i = 0; i < T.currentMatches.length; i++) {
-            if (T.currentMatches[i] == null) {
-              T.currentMatches[i] = T.nextMatches[0];
-              T.nextMatches.splice(0, 1);
-              if (T.currentMatches[i] != null && T.currentMatches[i].team2.ghost) {
-                _self.enterScore(i, '2:0');
-              }
+      if (idx !== undefined) {
+        $rootScope.globals.currentMatches[idx] = $rootScope.globals.nextMatches[0];
+        $rootScope.globals.nextMatches.splice(0, 1);
+        if ($rootScope.globals.currentMatches[idx] != null && $rootScope.globals.currentMatches[idx].team2.ghost) {
+          self.enterScore(idx, '2:0');
+        }
+      } else {
+        for (var i = 0; i < $rootScope.globals.currentMatches.length; i++) {
+          if ($rootScope.globals.currentMatches[i] == null) {
+            $rootScope.globals.currentMatches[i] = $rootScope.globals.nextMatches[0];
+            $rootScope.globals.nextMatches.splice(0, 1);
+            if ($rootScope.globals.currentMatches[i] != null && $rootScope.globals.currentMatches[i].team2.ghost) {
+              self.enterScore(i, '2:0');
             }
           }
         }
       }
+    }
 
-      _self.fillTables = fillTables;
+    self.fillTables = fillTables;
 
-      function getModus() {
-        if (T.koRound)
-          return Ko;
-        else
-          return SwissSystem;
+    function getModus() {
+      if ($rootScope.globals.koRound)
+        return Ko;
+      else
+        return SwissSystem;
+    }
+
+    // start the tournament
+    self.start = function () {
+      $rootScope.globals.ongoing = true;
+      getModus().nextRound();
+      fillTables();
+    };
+
+    // enter score on table
+    self.enterScore = function (idx, score) {
+      if ($rootScope.globals.currentMatches[idx] !== null) {
+        var splitScore = score.split(':');
+        $rootScope.globals.currentMatches[idx].score = score;
+        $rootScope.globals.currentMatches[idx].team1.points += parseInt(splitScore[0], 10);
+        $rootScope.globals.currentMatches[idx].team2.points += parseInt(splitScore[1], 10);
+        $rootScope.globals.currentMatches[idx].team1.matches += 1;
+        $rootScope.globals.currentMatches[idx].team2.matches += 1;
       }
+      getModus().enterScore(idx, score, fillTables);
+    };
 
-      // start the tournament
-      _self.start = function () {
-        T.ongoing = true;
-        getModus().nextRound();
-        fillTables();
-      };
-
-      // enter score on table
-      _self.enterScore = function (idx, score) {
-        if (T.currentMatches[idx] !== null) {
-          var splitScore = score.split(':');
-          T.currentMatches[idx].score = score;
-          T.currentMatches[idx].team1.points += parseInt(splitScore[0], 10);
-          T.currentMatches[idx].team2.points += parseInt(splitScore[1], 10);
-          T.currentMatches[idx].team1.matches += 1;
-          T.currentMatches[idx].team2.matches += 1;
-        }
-        getModus().enterScore(idx, score, fillTables);
-      };
-
-      // correct score for match
-      _self.correctScore = function (match, newScore) {
-        if (match.round === T.round && match.score !== newScore) {
-          var oldScore = match.score.split(':');
-          match.team1.points -= parseInt(oldScore[0], 10);
-          match.team2.points -= parseInt(oldScore[1], 10);
-          match.score = newScore;
-          newScore = newScore.split(':');
-          match.team1.points += parseInt(newScore[0], 10);
-          match.team2.points += parseInt(newScore[1], 10);
-          //  ScoreService.reenterScore(match, newScore);
-          //  TODO implement this feature
-        }
-      };
-
-      // defer match on table
-      _self.deferMatch = function (idx) {
-        if (T.currentMatches[idx] !== null) {
-          T.nextMatches.push(T.currentMatches[idx]);
-          T.currentMatches[idx] = null;
-          fillTables(idx);
-        }
-      };
-
-      // start ko round
-      _self.startKo = function () {
-        if (T.nextMatches.length > 0) {
-          T.nextMatches = [];
-        }
-        for (var i = 0; i < T.currentMatches.length; i++) {
-          T.currentMatches[i] = null;
-        }
-        T.koRound = true;
-        getModus().start();
-        fillTables();
-      };
-
-
-      // remove team from tournament
-      _self.removeTeam = function (idx) {
-        var team = T.teamList[idx];
-        if (T.ongoing) {
-          T.teamListOut.splice(0, 0, team);
-          team.out = true;
-        }
-        T.teamList.splice(idx, 1);
+    // correct score for match
+    self.correctScore = function (match, newScore) {
+      if (match.round === $rootScope.globals.round && match.score !== newScore) {
+        var oldScore = match.score.split(':');
+        match.team1.points -= parseInt(oldScore[0], 10);
+        match.team2.points -= parseInt(oldScore[1], 10);
+        match.score = newScore;
+        newScore = newScore.split(':');
+        match.team1.points += parseInt(newScore[0], 10);
+        match.team2.points += parseInt(newScore[1], 10);
+        //  ScoreService.reenterScore(match, newScore);
+        //  TODO implement this feature
       }
+    };
 
-      // clear localstorage for new tournament
-      _self.clear = function () {
-        T.nextMatches = [];
-        T.playedMatches = [];
-        T.currentMatches = new Array(T.tables);
-        T.round = 0;
-        T.koRound = false;
-        T.playerList = [];
-        T.teamList = [];
-        T.teamListOut = [];
-        T.ongoing = false;
-        T.currentTab = 0;
-      };
-    });
-})();
+    // defer match on table
+    self.deferMatch = function (idx) {
+      if ($rootScope.globals.currentMatches[idx] !== null) {
+        $rootScope.globals.nextMatches.push($rootScope.globals.currentMatches[idx]);
+        $rootScope.globals.currentMatches[idx] = null;
+        fillTables(idx);
+      }
+    };
+
+    // start ko round
+    self.startKo = function () {
+      if ($rootScope.globals.nextMatches.length > 0) {
+        $rootScope.globals.nextMatches = [];
+      }
+      for (var i = 0; i < $rootScope.globals.currentMatches.length; i++) {
+        $rootScope.globals.currentMatches[i] = null;
+      }
+      $rootScope.globals.koRound = true;
+      getModus().start();
+      fillTables();
+    };
+
+
+    // remove team from tournament
+    self.removeTeam = function (idx) {
+      var team = $rootScope.globals.teamList[idx];
+      if ($rootScope.globals.ongoing) {
+        $rootScope.globals.teamListOu$rootScope.globals.splice(0, 0, team);
+        team.out = true;
+      }
+      $rootScope.globals.teamLis$rootScope.globals.splice(idx, 1);
+    }
+
+    /**
+     * set tables
+     * @param {Number} count count of tables
+     */
+    self.setTables = function (count) {
+      if (count != $rootScope.globals.currentMatches.length) {
+        // TODO change tables while tournament
+        $rootScope.globals.currentMatches = [];
+        $rootScope.globals.currentMatches.length = count;
+      }
+    };
+
+
+    /**
+     * clear current tournament
+     */
+    self.clear = function () {
+      $rootScope.globals.nextMatches = [];
+      $rootScope.globals.playedMatches = [];
+      $rootScope.globals.currentMatches = [];
+      if ($rootScope.globals.tables) {
+        $rootScope.globals.currentMatches.length = $rootScope.globals.tables;
+      }
+      $rootScope.globals.round = 0;
+      $rootScope.globals.koRound = false;
+      $rootScope.globals.playerList = [];
+      $rootScope.globals.teamList = [];
+      $rootScope.globals.teamListOut = [];
+      $rootScope.globals.ongoing = false;
+      $rootScope.globals.currentTab = 0;
+    };
+  });

@@ -41,7 +41,7 @@ module.exports = [{
   submenu: [{
     label: 'Übersicht',
     click: function (item, focusedWindow) {
-      focusedWindow.webContents.send('command', 'path.tournament');
+      focusedWindow.webContents.send('path', 'tournament');
     }
   }, {
     label: 'Gespielte Begegnungen',
@@ -63,14 +63,14 @@ module.exports = [{
   }, {
     label: 'Einstellungen',
     click: function (item, focusedWindow) {
-      focusedWindow.webContents.send('command', 'path./');
+      focusedWindow.webContents.send('path', '/');
     }
   }, {
     type: 'separator'
   }, {
     label: 'Neues Turnier starten',
     click: function (item, focusedWindow) {
-      focusedWindow.webContents.send('command', 'cmd.newTournament');
+      focusedWindow.webContents.send('tournament', 'new');
     }
   }]
 }, {
@@ -78,17 +78,29 @@ module.exports = [{
   submenu: [{
     label: 'Teilnehmer bearbeiten',
     click: function (item, focusedWindow) {
-      focusedWindow.webContents.send('command', 'path.insert');
+      focusedWindow.webContents.send('path', '/insert');
     }
   }]
 }, {
-  label: 'Debug',
+  label: 'Dev',
   submenu: [{
-    label: 'Reload',
+    label: 'Reload View',
     accelerator: 'CmdOrCtrl+R',
     click: function (item, focusedWindow) {
       if (focusedWindow)
         focusedWindow.reload();
+    }
+  }, {
+    label: 'Toggle Dev Tools',
+    accelerator: (function () {
+      if (process.platform == 'darwin')
+        return 'Alt+Command+I';
+      else
+        return 'Ctrl+Shift+I';
+    })(),
+    click: function (item, focusedWindow) {
+      if (focusedWindow)
+        focusedWindow.toggleDevTools();
     }
   }]
 }];
