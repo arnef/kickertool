@@ -23,5 +23,8 @@
     "ngstorage": "~0.3.10",
     "angular-sanitize": "~1.4.8",
     "bootstrap": "~3.3.6"
+  },
+  "dependencies": {
+    "angular-timer": "~1.3.3"
   }
 }

@@ -69,6 +69,11 @@
 
 
       $scope.toggleScore = function (idx) {
+        if (T.currentMatches[idx] == null) {
+          Tournament.fillTables(idx);
+          return;
+        }
+
         if (idx == $scope.scoreOpen) {
           $scope.scoreOpen = -1;
         } else {

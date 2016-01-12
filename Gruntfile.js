@@ -10,6 +10,9 @@ module.exports = function (grunt) {
       }
     },
     concat: {
+      options: {
+        sourceMap: true
+      },
       js: {
         src: [
           'bower_components/angular/angular.js',

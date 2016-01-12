@@ -155,7 +155,8 @@ angular.module('app', ['ngRoute', 'ngSanitize', 'ngStorage', 'ui.bootstrap', 'lu
     }
   })
   // menu
-  .run(function ($location, Command, Tournament) {
+  .run(function ($rootScope, $location, Command, Tournament) {
+
     Command.on('path', function (event, path) {
       $location.path(path);
     });
@@ -166,6 +167,13 @@ angular.module('app', ['ngRoute', 'ngSanitize', 'ngStorage', 'ui.bootstrap', 'lu
       }
       if (cmd == 'lastRound') {
         Tournament.toogleLastRound();
+      }
+    });
+    Command.on('setTab', function (event, cmd) {
+      cmd = cmd == 0 && $rootScope.globals.koRound ? 1 : cmd;
+      $rootScope.globals.currentTab = cmd;
+      if ($location.path() !== '/tournament') {
+        $location.path('/tournament');
       }
     });
   });

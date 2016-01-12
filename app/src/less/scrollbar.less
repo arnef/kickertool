@@ -3,12 +3,13 @@
 }
 /* Track */
 ::-webkit-scrollbar-track {
-  background-color: inherit;
+  background-color: #fff;
+  border: 1px solid @table-border-color;
 }
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: @table-border-color;
   &:hover {
-    background: darken(@table-border-color, 10);
+    background: darken(@table-border-color, 10%);
   }
 }

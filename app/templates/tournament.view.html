@@ -61,6 +61,7 @@
                 <th class="text-center">Team 1</th>
                 <th class="text-center td-120"></th>
                 <th class="text-center">Team 2</th>
+                <th class="td-70"></th>
                 <th class="td-50"></th>
               </tr>
             </thead>
@@ -84,8 +85,10 @@
                   </td>
                   <td ng-click="toggleScore($index)">
                     <span>{{ table.team2.name }}</span>
-
                     <a class="btn btn-primary" ng-click="insertScore($index, 2)" ng-show="scoreOpen == $index">Gewinner</a>
+                  </td>
+                  <td class="td-70">
+                    <!-- <timer on-change="table"></timer> -->
                   </td>
                   <td class="td-50" uib-dropdown uib-dropdown-toggle>
                     <i class="glyphicon glyphicon-option-vertical text-muted"></i>
@@ -101,7 +104,7 @@
 
                 </tr>
                 <tr ng-hide="globals.nextMatches.length === 0">
-                  <th class="divider" colspan="6"></th>
+                  <th class="divider" colspan="7"></th>
                 </tr>
                 <tr ng-repeat="match in globals.nextMatches" {{ /*ng-class="match.getHome().isPlaying() || match.getAway().isPlaying() ? 'blocked' : ''" */ }}>
                   <td class="active td-50"></td>
@@ -116,6 +119,7 @@
                     <span>{{ match.team2.name }}
                     </span>
                   </td>
+                  <td class="td-70"></td>
                   <td class="td-50"></td>
                 </tr>
               </tbody>

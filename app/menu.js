@@ -42,11 +42,12 @@ module.exports = [{
     label: 'Übersicht',
     click: function (item, focusedWindow) {
       focusedWindow.webContents.send('path', 'tournament');
+      focusedWindow.webContents.send('setTab', 0);
     }
   }, {
     label: 'Gespielte Begegnungen',
     click: function (item, focusedWindow) {
-
+      focusedWindow.webContents.send('setTab', 2);
     }
   }, {
     type: 'separator'

@@ -68,33 +68,68 @@ angular.module('app')
 })
 
 .directive('focusMe', function ($timeout) {
-  return {
-    link: function (scope, element, attrs) {
-      scope.$watch(attrs.focusMe, function (value) {
-        $timeout(function () {
-          if (value === true) {
-            element[0].focus();
-            scope[attrs.focusMe] = false;
-          }
-        }, 200);
-      });
-    }
-  };
-})
-
-.directive('animateOnChange', function ($timeout) {
-  return function (scope, element, attr) {
-    scope.$watch(attr.animateOnChange, function (newVal, oldVal) {
-      if (newVal != oldVal && newVal != null) {
-        element.removeClass('hover');
-        element.addClass('bg-info');
-        $timeout(function () {
-          element.removeClass('bg-info');
+    return {
+      link: function (scope, element, attrs) {
+        scope.$watch(attrs.focusMe, function (value) {
+          $timeout(function () {
+            if (value === true) {
+              element[0].focus();
+              scope[attrs.focusMe] = false;
+            }
+          }, 200);
+        });
+      }
+    };
+  })
+  .directive('timer', function ($interval) {
+    return function (scope, element, attr) {
+      var time, running;
+      if (scope.table != null) {
+        if (!scope.table.time) {
+          scope.table.time = 0;
+        }
+        $interval(function () {
+          scope.table.time += 1;
+        }, 1000);
+      }
+      // time = 0;
+      // running = true;
+      // element.html(time + ' min');
+      // $interval(function () {
+      //   time += 1;
+      //   if (running) {
+      //     element.html(time + ' min');
+      //   }
+      // }, 1000 );
+      //
+      // scope.$watch(attr.onChange, function (newVal, oldVal) {
+      //   if (newVal != oldVal && newVal != null) {
+      //     running = true;
+      //     time = 0;
+      //     element.html(time + ' min');
+      //   } else if (newVal == null) {
+      //     running = false;
+      //     element.html('');
+      //   }
+      // });
+    };
+  })
+  .directive('animateOnChange', function ($timeout) {
+    return function (scope, element, attr) {
+      scope.$watch(attr.animateOnChange, function (newVal, oldVal) {
+        if (newVal != oldVal && newVal != null) {
+          element.removeClass('hover');
+          element.addClass('bg-info');
+          $timeout(function () {
+            element.removeClass('bg-info');
+          }, 100);
           $timeout(function () {
             element.addClass('hover');
-          }, 5000);
-        }, 5000);
-      }
-    });
-  };
-});
+          }, 1000 * 60)
+        } else if (newVal == null) {
+          element.removeClass('bg-info');
+          element.addClass('hover');
+        }
+      });
+    };
+  });
