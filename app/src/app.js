@@ -1,34 +1,16 @@
 'use strict';
 
-angular.module('app', ['ngRoute', 'ngSanitize', 'ngStorage', 'ui.bootstrap', 'luegg.directives'])
-  // routes
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: 'templates/start.view.html',
-        controller: 'StartController'
-      })
-      .when('/insert', {
-        templateUrl: 'templates/insert.view.html',
-        controller: 'InsertController'
-      })
-      .when('/tournament', {
-        templateUrl: 'templates/tournament.view.html',
-        controller: 'TournamentController'
-      })
-      .when('/player', {
-        templateUrl: '/templates/player.view.html',
-        controller: 'PlayerController'
-      });
-  })
+angular.module('app', ['ngRoute', 'ngSanitize', 'ngStorage', 'ui.bootstrap', 'luegg.directives', 'templates-app'])
   .run(function ($rootScope, $localStorage, $location, Dialog, Tournament) {
     // define global const
     $rootScope.FAIR_FOR_ALL = 200;
     $rootScope.ONE_ON_ONE = 201;
+    $rootScope.SINGLES = 201;
+    $rootScope.DOUBLES = 202;
     $rootScope.TWO_ON_TWO = 202;
     $rootScope.NAME = {};
-    $rootScope.NAME[$rootScope.FAIR_FOR_ALL] = 'Fair for all Dyp';
-    $rootScope.NAME[$rootScope.ONE_ON_ONE] = 'Einzel';
+    $rootScope.NAME[$rootScope.FAIR_FOR_ALL] = 'Fair for all DYP';
+    $rootScope.NAME[$rootScope.ONE_ON_ONE] = 'Einzel / Goalie';
     $rootScope.NAME[$rootScope.TWO_ON_TWO] = 'Offenes Doppel';
 
     // load data
@@ -128,31 +110,31 @@ angular.module('app', ['ngRoute', 'ngSanitize', 'ngStorage', 'ui.bootstrap', 'lu
       $rootScope.globals.currentTab = 0;
     }
 
-    if (!$rootScope.globals.tables) {
-      init();
-      $location.path('/');
-    } else if ($rootScope.globals.ongoing && !($rootScope.globals.playedMatches.length > 0 && $rootScope.globals.playedMatches[$rootScope.globals.playedMatches.length - 1].round === 'Finale')) {
-      Dialog.confirm({
-        title: 'Turnierdaten vorhanden',
-        body: 'Es wurden vorhandene Daten eines laufenden Turniers gefunden. ' +
-          'Sollten diese wiederhergestellt werden ? ',
-        cancel: 'Nein, neues Turnier starten',
-        confirm: 'Ja, Turnier fortsetzen'
-      }).then(function (result) {
-        if (result === 0) {
-          Tournament.clear();
-          $location.path('/');
-        } else {
-          restoreData();
-          $location.path('tournament');
-        }
-      });
-    } else {
-      Tournament.clear();
-      if ($location.path() !== '/insert') {
-        $location.path('/');
-      }
-    }
+    // if (!$rootScope.globals.tables) {
+    //   init();
+    //   $location.path('/');
+    // } else if ($rootScope.globals.ongoing && !($rootScope.globals.playedMatches.length > 0 && $rootScope.globals.playedMatches[$rootScope.globals.playedMatches.length - 1].round === 'Finale')) {
+    //   Dialog.confirm({
+    //     title: 'Turnierdaten vorhanden',
+    //     body: 'Es wurden vorhandene Daten eines laufenden Turniers gefunden. ' +
+    //       'Sollten diese wiederhergestellt werden ? ',
+    //     cancel: 'Nein, neues Turnier starten',
+    //     confirm: 'Ja, Turnier fortsetzen'
+    //   }).then(function (result) {
+    //     if (result === 0) {
+    //       Tournament.clear();
+    //       $location.path('/');
+    //     } else {
+    //       restoreData();
+    //       $location.path('tournament');
+    //     }
+    //   });
+    // } else {
+    //   Tournament.clear();
+    //   if ($location.path() !== '/insert') {
+    //     $location.path('/');
+    //   }
+    // }
   })
   // menu
   .run(function ($rootScope, $location, Command, Tournament) {

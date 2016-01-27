@@ -142,6 +142,7 @@
       };
 
       $scope.start = function () {
+        console.log('start');
         Tournament.start();
         $location.path('tournament');
       };

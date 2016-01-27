@@ -1,5 +1,8 @@
 <div class="container-fluid">
-  <div class="row">
+  <dyp start="start" ng-show="globals.modus == FAIR_FOR_ALL"></dyp>
+  <singles start="start" ng-show="globals.modus == SINGLES"></singels>
+  <doubles start="start" ng-show="globals.modus == DOUBLES"></doubles>
+  <!-- <div class="row">
     <div class="col-sm-4">
       <form ng-submit="add()">
         <ul class="nav nav-tabs">
@@ -62,11 +65,10 @@
       </div>
       <div class="btn-row">
         <button class="btn btn-default" ng-click="createTeams()" ng-disabled="globals.playerList.length == 0 || globals.playerList.length % 2 === 1" ng-hide="globals.ongoing">
-          Lose Teams
+          Lose Teamsdiv
         </button>
       </div>
     </div>
-    <!-- table for dyp --->
 
     <div ng-class="globals.modus === K.FAIR_FOR_ALL ? 'col-md-4' : 'col-md-8'">
       <ul class="nav nav-tabs">
@@ -121,5 +123,5 @@
         </button>
       </div>
     </div>
-  </div>
+  </div>-->
 </div>

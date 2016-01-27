@@ -9,9 +9,22 @@ module.exports = function (grunt) {
         }
       }
     },
+    html2js: {
+      options: {
+        rename: function (moduleName) {
+          var name;
+          name = moduleName.split('/');
+          return 'kickertool-tpls/' + name[name.length - 1];
+        }
+      },
+      app: {
+        src: ['app/src/**/*.html'],
+        dest: 'app/dist/js/templates-kickertool.js'
+      }
+    },
     concat: {
       options: {
-        sourceMap: true
+        sourceMap: false
       },
       js: {
         src: [
@@ -22,21 +35,7 @@ module.exports = function (grunt) {
           'bower_components/angular-scroll-glue/src/scrollglue.js',
           'bower_components/ngstorage/ngStorage.js',
           'bower_components/angular-sanitize/angular-sanitize.js',
-
-          'app/src/app.js',
-          'app/src/directives.js',
-          'app/src/services/update.service.js',
-          'app/src/services/teamdrawer.service.js',
-          'app/src/services/dialog.service.js',
-          'app/src/services/swisssystem.service.js',
-          'app/src/services/ko.service.js',
-          'app/src/services/tournament.service.js',
-          'app/src/services/command.service.js',
-
-          'app/src/controller/start.controller.js',
-          'app/src/controller/tournament.controller.js',
-          'app/src/controller/insert.controller.js',
-          'app/src/controller/player.controller.js'
+          'app/src/**/*.js'
         ],
         dest: 'app/dist/js/app.js'
       }
@@ -54,12 +53,16 @@ module.exports = function (grunt) {
     },
     watch: {
       js: {
-        files: ['**/*.js', '!bower_components/**', '!node_modules/**', '!app/dist/**'],
+        files: ['app/src/**/*.js'],
         tasks: ['concat:js']
       },
       less: {
-        files: ['**/*.less', '!bower_components/**', '!node_modules/**', '!app/dist/**'],
+        files: ['app/src/**/*.less'],
         tasks: ['less']
+      },
+      html: {
+        files: ['app/src/**/*.html'],
+        tasks: ['html2js']
       }
       // css: {
       //   files: ['**/*.css', '!bower_components/**', '!node_modules/**', '!app/dist/**'],
@@ -69,10 +72,11 @@ module.exports = function (grunt) {
   });
 
   grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-html2js');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy');
 
-  grunt.registerTask('b uild', ['less', 'concat', 'copy']);
-  grunt.registerTask('default', ['less', 'concat', 'copy', 'watch']);
+  grunt.registerTask('build', ['less', 'html2js', 'concat', 'copy']);
+  grunt.registerTask('default', ['build', 'watch']);
 };

@@ -102,11 +102,11 @@ angular.module('app')
     self.removeTeam = function (idx) {
       var team = $rootScope.globals.teamList[idx];
       if ($rootScope.globals.ongoing) {
-        $rootScope.globals.teamListOu$rootScope.globals.splice(0, 0, team);
         team.out = true;
+        $rootScope.globals.teamListOut.splice(0, 0, team);
       }
-      $rootScope.globals.teamLis$rootScope.globals.splice(idx, 1);
-    }
+      $rootScope.globals.teamList.splice(idx, 1);
+    };
 
     /**
      * set tables
