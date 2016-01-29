@@ -12,7 +12,7 @@
             <label class="control-label" for="inputModus">Modus</label>
             <select class="form-control"
             ng-disabled="globals.ongoing"
-            id="inputModus" ng-model="globals.modus" ng-options="modus.value as modus.name for modus in optionsModus"></select>
+            id="inputModus" ng-model="globals.modus" ng-options="modus.value as modus.name for modus in settingsCtrl.optionsModus"></select>
           </div>
           <div class="form-group">
             <label class="control-label" for="inputTables">Anzahl Tische</label>
@@ -20,10 +20,10 @@
           </div>
           <div class="form-group">
             <label class="control-label" for="inputDraw">Unentschieden während der Vorrunde?</label>
-            <select class="form-control" id="inputDraw" ng-model="globals.withDraw" ng-options="modus.value as modus.name for modus in optionsDraw"></select>
+            <select class="form-control" id="inputDraw" ng-model="globals.withDraw" ng-options="modus.value as modus.name for modus in settingsCtrl.optionsDraw"></select>
           </div>
           <div class="clearfix" ng-hide="globals.ongoing">
-            <button class="btn btn-default pull-right" ng-click="start()">Turnier starten</button>
+            <button class="btn btn-default pull-right" ng-click="settingsCtrl.start()">Turnier starten</button>
           </div>
         </div>
       </div>

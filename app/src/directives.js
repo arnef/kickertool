@@ -1,6 +1,12 @@
 'use strict';
 
 angular.module('app')
+  .directive('boxHeading', function () {
+    return {
+      template: '<ul class="nav nav-tabs"><li class="active"><a ng-transclude></a></li></ul>',
+      transclude: true
+    };
+  })
   .directive('insertPlayer', function () {
     return {
       restrict: 'E',
@@ -46,9 +52,9 @@ angular.module('app')
   })
 
 .directive('scrolltable', function ($window) {
-  var resize = function (element, attrs) {
+  var resize = function (element, attrs, scope) {
     var diff = 92
-    if (attrs.withBtnRow == "true") {
+    if (scope.$eval(attrs.withBtnRow)) {
       console.log('smaller scrolltable');
       diff = 92 + 34;
     }
@@ -60,9 +66,9 @@ angular.module('app')
   };
 
   return function (scope, element, attrs) {
-    resize(element, attrs);
+    resize(element, attrs, scope);
     angular.element($window).bind('resize', function (e) {
-      resize(element, attrs);
+      resize(element, attrs, scope);
     });
   };
 })
