@@ -26,7 +26,8 @@
     "grunt-contrib-copy": "^0.8.2",
     "grunt-contrib-less": "^1.1.0",
     "grunt-contrib-watch": "^0.6.1",
-    "grunt-electron": "^2.0.1"
+    "grunt-electron": "^2.0.1",
+    "grunt-html2js": "^0.3.5"
   },
   "dependencies": {
     "request": "^2.67.0",
