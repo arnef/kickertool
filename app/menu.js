@@ -1,10 +1,12 @@
 var app,
   dialog,
   BrowserWindow,
+  nativeImage,
   updater;
 
 app = require('app');
 dialog = require('electron').dialog;
+nativeImage = require('electron').nativeImage;
 BrowserWindow = require('browser-window');
 updater = require('../updater')(require('../package.json'));
 
@@ -13,11 +15,13 @@ module.exports = [{
   submenu: [{
     label: 'Über ' + app.getName(),
     click: function () {
+      var icon = nativeImage.createFromPath('icon.png');
+      console.log(icon.isEmpty());
       dialog.showMessageBox(null, {
         title: 'Über ' + app.getName(),
         message: app.getName() + '\nv ' + app.getVersion(),
         buttons: ['Ok'],
-        icon: 'icon.png'
+        icon: icon
       });
     },
   }, {

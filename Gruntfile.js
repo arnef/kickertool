@@ -73,6 +73,6 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy');
 
-  grunt.registerTask('b uild', ['less', 'concat', 'copy']);
+  grunt.registerTask('build', ['less', 'concat', 'copy']);
   grunt.registerTask('default', ['less', 'concat', 'copy', 'watch']);
 };

@@ -3,10 +3,10 @@
   "main": "index.js",
   "version": "0.5.2",
   "scripts": {
-    "start": "electron . --debug",
+    "start": "electron .",
     "pack": "asar p . app.asar --unpack-dir='Kickertool-linux-x64'",
     "build-linux": "electron-packager . Kickertool --platform=linux --arch=x64 --version=0.35.4 --asar --ignore='components|src' --overwrite",
-    "build-osx": "electron-packager .  Kickertool --platform=darwin --arch=x64 --version=0.35.4 --asar --ignore='node_modules/.bin/|node_modules/electron-*|components|src' --overwrite",
+    "build-osx": "electron-packager .  Kickertool --platform=darwin --arch=x64 --version=0.35.4 --asar --ignore='node_modules/.bin/|node_modules/electron-*|components|src' --overwrite && cp icon.icns Kickertool-darwin-x64/Kickertool.app/Contents/Resources/atom.icns",
     "build-win": "electron-packager . kickertool --platform=win32 --arch=ia32 --version=0.35.4 --asar --ignore='node_modules/.bin/|node_modules/electron-*|components|src' --overwrite"
   },
   "update": {
