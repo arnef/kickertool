@@ -76,7 +76,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-copy');
-
+  
   grunt.registerTask('build', ['less', 'html2js', 'concat', 'copy']);
   grunt.registerTask('default', ['build', 'watch']);
 };

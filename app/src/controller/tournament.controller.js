@@ -1,8 +1,8 @@
-(function (angular) {
+(function(angular) {
   'use strict';
 
   angular.module('app')
-    .controller('TournamentController', function ($rootScope, $scope, $location, Dialog, Tournament) {
+    .controller('TournamentController', function($rootScope, $scope, $location, Dialog, Tournament) {
       var T,
         scores;
 
@@ -12,7 +12,7 @@
       $scope.scoreOpen = -1;
       scores = ['2:0', '1:1', '0:2'];
 
-      $scope.toggleLastRound = function () {
+      $scope.toggleLastRound = function() {
         $scope.isLastRound = !$scope.isLastRound;
         if ($scope.isLastRound) {
           T.lastRound = T.round;
@@ -21,36 +21,36 @@
         }
       };
 
-      $scope.add = function () {
+      $scope.add = function() {
         switch (T.modus) {
-        case 200:
-          $location.path('playerDyp');
-          break;
-        case 201:
-          $location.path('player');
-          break;
-        case 202:
-          $location.path('team');
-          break;
+          case 200:
+            $location.path('playerDyp');
+            break;
+          case 201:
+            $location.path('player');
+            break;
+          case 202:
+            $location.path('team');
+            break;
         }
       };
 
-      $scope.addDisabled = function () {
+      $scope.addDisabled = function() {
         return T.round > 1 || T.koRound;
       };
 
-      $scope.isTab = function (tab) {
+      $scope.isTab = function(tab) {
         return T.currentTab === tab;
       };
 
-      $scope.setTab = function (tab) {
+      $scope.setTab = function(tab) {
         if (tab == 1 && !T.koRound) {
           Dialog.confirm({
             title: 'K.o. Runde starten',
             body: 'Soll die K.o. Runde gestartet werden?\nDannach kann nicht mehr zu Vorrunde zurück gewechselt werden!',
             confirm: 'Ja',
             cancel: 'Nein'
-          }).then(function (result) {
+          }).then(function(result) {
             if (result === 1) {
               Tournament.startKo();
               T.currentTab = tab;
@@ -63,13 +63,14 @@
         }
       };
 
-      $scope.showReenterScore = function (round) {
+      $scope.showReenterScore = function(round) {
         return round === T.round;
       };
 
 
-      $scope.toggleScore = function (idx) {
+      $scope.toggleScore = function(idx) {
         if (T.currentMatches[idx] == null) {
+          $scope.scoreOpen = -1;
           Tournament.fillTables(idx);
           return;
         }
@@ -81,7 +82,7 @@
         }
       };
 
-      $scope.insertScore = function (idx, score) {
+      $scope.insertScore = function(idx, score) {
         console.log(score);
         var match = T.currentMatches[idx];
         if (match != null) {
@@ -90,13 +91,14 @@
             if (score == undefined || score == 1 && (!T.withDraw || T.koRound)) {
               return;
             }
-            console.log(scores[score]);
+
             Tournament.enterScore(idx, scores[score]);
+            $scope.scoreOpen == -1;
           }
         }
       };
 
-      $scope.deferMatch = function (tableIdx) {
+      $scope.deferMatch = function(tableIdx) {
         if ($scope.canDeferMatch(tableIdx)) {
           Dialog.confirm({
               title: 'Spiel zurückstellen',
@@ -104,24 +106,24 @@
               cancel: 'Nein',
               confirm: 'Ja'
             })
-            .then(function (result) {
+            .then(function(result) {
               if (result === 1) {
                 Tournament.deferMatch(tableIdx);
               }
             });
         }
       };
-      $scope.disableInsertScore = function (idx) {
+      $scope.disableInsertScore = function(idx) {
         return T.currentMatches[idx] == null;
       };
 
-      $scope.canDeferMatch = function (tableIdx) {
+      $scope.canDeferMatch = function(tableIdx) {
         var match = T.currentMatches[tableIdx];
         return match != null && T.nextMatches.length > 0 && (T.koRound || match.round == T.round);
       };
 
 
-      $scope.editScore = function (match, scoreIdx) {
+      $scope.editScore = function(match, scoreIdx) {
         if (scoreIdx == 1 && (T.koRound || !T.withDraw)) {
           return;
         }
@@ -129,7 +131,7 @@
         $scope.scoreOpen = -1;
       };
 
-      $scope.reenterScore = function (match) {
+      $scope.reenterScore = function(match) {
         if (match.editScore) {
           match.editScore = false;
         } else {
