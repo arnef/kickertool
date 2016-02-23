@@ -1,0 +1,34 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+      <ul class="nav nav-tabs">
+        <li class="active">
+          <a>Einstellungen</a>
+        </li>
+      </ul>
+      <div class="tab-content table-border" style="padding: 20px;">
+        <div>
+          <div class="form-group">
+            <label class="control-label" for="inputModus">Modus</label>
+            <select class="form-control"
+            ng-disabled="globals.ongoing"
+            id="inputModus" ng-model="globals.modus" ng-options="modus.value as modus.name for modus in settingsCtrl.optionsModus"></select>
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="inputTables">Anzahl Tische</label>
+            <input ng-disabled="globals.ongoing" class="form-control" id="inputTables" ng-model="globals.tables" type="number">
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="inputDraw">Unentschieden während der Vorrunde?</label>
+            <select class="form-control" id="inputDraw" ng-model="globals.withDraw" ng-options="modus.value as modus.name for modus in settingsCtrl.optionsDraw"></select>
+          </div>
+          <div class="clearfix" ng-hide="globals.ongoing">
+            <button class="btn btn-default pull-right" ng-click="settingsCtrl.start()">Turnier starten</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

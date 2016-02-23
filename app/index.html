@@ -5,61 +5,23 @@
   <meta charset="utf-8">
   <title>Kickertool</title>
 
-  <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="components/angular-loading-bar/build/loading-bar.min.css">
-  <link rel="stylesheet" href="app.css">
 
-  <!--<script src="js/libs/jquery-2.1.4.min.js"></script>-->
-  <script src="components/angular/angular.min.js"></script>
-  <script src="components/angular-route/angular-route.min.js"></script>
-  <script src="components/angular-bootstrap/ui-bootstrap.min.js"></script>
-  <script src="components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
-  <script src="components/angular-loading-bar/build/loading-bar.min.js"></script>
-  <script src="components/angular-scroll-glue/src/scrollglue.js"></script>
-  <script src="components/ngstorage/ngStorage.min.js"></script>
-  <script src="components/angular-sanitize/angular-sanitize.js"></script>
-
-  <script src="app.js"></script>
-  <script src="directives.js"></script>
-  <script src="services/update-service.js"></script>
-  <script src="services/teamdrawer.service.js"></script>
-  <script src="services/dialog.service.js"></script>
-  <script src="services/swisssystem.service.js"></script>
-  <script src="services/ko.service.js"></script>
-  <script src="services/tournament.service.js"></script>
-
-  <script src="controller/start.controller.js"></script>
-  <script src="controller/tournament.controller.js"></script>
-  <script src="controller/insert.controller.js"></script>
-  <script src="controller/player.controller.js"></script>
+  <link rel="stylesheet" href="dist/css/app.css">
+  <script src="dist/js/app.js"></script>
+  <script src="dist/js/templates-kickertool.js"></script>
 </head>
 
 <body>
-  <div class="modal-backgrop in downloading" ng-show="downloading">
-    <p>Update wird geladen...</p>
-  </div>
-  <!-- .downloading -->
-  <div class="navbar navbar-static-top" ng-controller="NavController as navCtrl">
-    <ul class="nav nav-tabs">
-      <li ng-class="navCtrl.active(0) ? 'active':''"><a href="#/">Kickerturnier</a></li>
-      <li ng-class="navCtrl.active(1) ? 'active':''" ng-if="globals.ongoing || navCtrl.active(1)"><a href="#/insert">Teilnehmer</a></li>
-      <li ng-class="navCtrl.active(2) ? 'active':''" ng-if="globals.ongoing"><a href="#/tournament">Turnier</a></li>
-      <li class="pull-right">
-        <a ng-click="navCtrl.close()"><i class="glyphicon glyphicon-remove"></i></a>
-      </li>
-      <!--<li class="pull-right" uib-dropdown>
-        <a uib-dropdown-toggle>
-          <i class="glyphicon glyphicon-option-vertical"></i>
-        </a>
-        <ul class="uib-dropdown-menu dropdown-menu-right">
-          <li><a href="#/player">Spielerliste bearbeiten</a></li>
-          <li><a ng-click="navCtrl.close()">Kickertool beenden</a></li>
-        </ul>
-      </li>-->
-    </ul>
-
-  </div>
   <ng-view></ng-view>
 </body>
+
+<script>
+  // disable pinch zoom on osx
+  document.addEventListener('mousewheel', function(e) {
+    if (e.ctrlKey) {
+      e.preventDefault();
+    }
+  });
+</script>
 
 </html>

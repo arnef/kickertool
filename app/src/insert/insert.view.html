@@ -1,0 +1,5 @@
+<div class="container-fluid">
+  <dyp start="start" ng-show="globals.modus == FAIR_FOR_ALL && !globals.ongoing"></dyp>
+  <singles start="start" ng-show="globals.modus == SINGLES"></singles>
+  <doubles start="start" ng-show="globals.modus == DOUBLES || (globals.modus == FAIR_FOR_ALL && globals.ongoing)"></doubles>
+</div>

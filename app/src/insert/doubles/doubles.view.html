@@ -1,0 +1,64 @@
+<div class="row">
+  <div class="col-md-4">
+    <box-heading>Team hinzufügen</box-heading>
+    <form ng-submit="doublesCtrl.addTeam()">
+      <div class="tab-content table-border" style="padding: 15px 15px 0 15px">
+        <div class="form-group">
+          <input type="text"
+                 style="text-transform:uppercase"
+                 class="form-control"
+                focus-me="focusInput"
+                 ng-model="doublesCtrl.name1">
+        </div>
+        <div class="form-group">
+          <input type="text" style="text-transform:uppercase" class="form-control" ng-model="doublesCtrl.name2">
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-default" type="submit"
+                ng-disabled="doublesCtrl.data.round > 1">Hinzufügen</button>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-8">
+    <box-heading>Angemeldete Teams</box-heading>
+    <div class="tab-content table-border">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="td-50 text-center">Nr.</th>
+            <th>Name</th>
+            <th class="td-20"></th>
+          </tr>
+        </thead>
+      </table>
+      <div scroll-glue scrolltable with-btn-row="!doublesCtrl.data.ongoing">
+        <table class="table">
+          <tbody>
+            <tr class="hover" ng-repeat="team in doublesCtrl.data.teamList">
+              <td class="active text-center td-50">{{ $index + 1}}</td>
+              <td>{{ team.name }}</td>
+              <td class="td-20 text-right" ng-click="doublesCtrl.removeTeam($index)">
+                <i class="glyphicon glyphicon-remove text-danger"></i>
+              </td>
+            </tr>
+            <tr class="text-muted" ng-repeat="team in doublesCtrl.data.teamListOut">
+              <td class="active text-center td-50">
+                {{ $index + 1 + doublesCtrl.data.teamList.length }}
+              </td>
+              <td>{{ team.name }}</td>
+              <td class="td-20"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="btn-row" ng-hide="doublesCtrl.data.ongoing">
+      <button class="btn btn-default"
+              ng-click="doublesCtrl.startTournament()"
+              ng-disabled="dypCtrl.data.teamList.length < 4">
+        Turnier starten
+      </button>
+    </div>
+  </div>
+</div>

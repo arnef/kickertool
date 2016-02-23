@@ -4,3 +4,9 @@ components/
 tests/
 .idea/
 node_modules/
+npm-debug.log
+bower_components/
+dist/
+# ignore electron build folder
+Kickertool-*/
+app.asar

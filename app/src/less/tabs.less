@@ -1,0 +1,22 @@
+.nav-tabs  > li  {
+    > a {
+      color: @text-color;
+      padding: 4px 9px;
+    }
+
+  &.active > a {
+    &,
+    &:hover,
+    &:focus {
+      background-color: white;
+    }
+  }
+}
+
+.tab-content {
+  background-color: white;
+}
+
+.nav > li.disabled > {
+  pointer-events: none;
+}

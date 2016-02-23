@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="updater.css">
+</head>
+
+<body>
+  <div class="progress">
+    <div class="progress-bar" id="progress" style="width: 100%">
+      Suche nach Updates...
+    </div>
+  </div>
+  <div style="float: right">
+    <button class="btn btn-default" id="cancel" onclick="cancel()">Schließen</button>
+    <button class="btn btn-default" style="display:none;" id="restart" onclick="restart()">App neustarten</button>
+    <button class="btn btn-default" style="display:none;" id="download" onclick="download()">Download</button>
+  </div>
+  <script>
+    var ipc = require('electron').ipcRenderer;
+    console.log(ipc);
+    ipc.on('update', function(event, arg) {
+      var progress = document.getElementById('progress');
+      progress.style.width = arg + '%';
+      progress.innerHTML = arg + '%';
+    });
+
+    ipc.on('message', function(event, arg) {
+      document.getElementById('progress').innerHTML = arg;
+    });
+
+    ipc.on('button', function(event, arg) {
+      for (var i = 0; i < arg.length; i++) {
+        var btn = document.getElementById(arg[i].id);
+        btn.style.display = arg[i].show ? 'inline-block' : 'none';
+        if (arg[i].title) {
+          btn.innerHTML = arg[i].title;
+        }
+      }
+    });
+
+    function download() {
+      ipc.send('download');
+      document.getElementById('download').disabled = true;
+      document.getElementById('progress').innerHTML = 'Starte Download...';
+    }
+
+    function cancel() {
+      window.close();
+    }
+
+    function restart() {
+      ipc.send('window', 'restart');
+    }
+    ipc.send('window', 'ready');
+  </script>
+</body>
+
+</html>

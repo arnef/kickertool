@@ -1,0 +1,112 @@
+<div class="row">
+  <div class="col-md-4">
+    <box-heading>Spieler hinzufügen</box-heading>
+    <form ng-submit="dypCtrl.addPlayer()">
+    <div class="tab-content table-border" style="padding:15px 15px 0 15px">
+        <div class="form-group">
+          <input style="text-transform: uppercase"
+                 type="text"
+                 class="form-control input-sm"
+                 placeholder="Name"
+                 focus-me="focusInput"
+                 ng-model="dypCtrl.player.name" required>
+        </div>
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="btn-group-vertical btn-block">
+                <label class="btn btn-default" ng-repeat="position in dypCtrl.positions" ng-model="dypCtrl.player.position" uib-btn-radio="{{ position.value }}">
+                  {{ position.name }}
+                </label>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="btn-group-vertical btn-block">
+                <label class="btn btn-default" ng-repeat="type in dypCtrl.types" ng-model="dypCtrl.player.type" uib-btn-radio="{{ type.value }}">
+                  {{ type.name }}
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button type="submit" class="btn btn-default"
+        ng-disabled="dypCtrl.data.round > 1">Hinzufügen</button>
+      </div>
+    </form>
+
+  </div>
+  <div class="col-md-4">
+    <box-heading>Angemeldete Spieler</box-heading>
+    <div class="tab-content table-border">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="td-50">Nr.</th>
+            <th>Name</th>
+            <th class="td-20"></th>
+          </tr>
+        </thead>
+      </table>
+      <div scroll-glue scrolltable with-btn-row="!dypCtrl.data.ongoing">
+        <table class="table">
+          <tbody>
+            <tr class="hover" ng-repeat="player in dypCtrl.data.playerList">
+              <td class="active text-center td-50">
+                {{ $index + 1}}
+              </td>
+              <td>
+                {{ player.name }}
+              </td>
+              <td class="td-20" ng-click="dypCtrl.removePlayer($index)">
+                <i class="glyphicon glyphicon-remove text-danger" ng-hide="dypCtrl.data.ongoing"></i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="btn-row" ng-hide="dypCtrl.data.ongoing">
+      <button class="btn btn-default" ng-click="dypCtrl.drawTeams()" ng-disabled="dypCtrl.data.playerList.length < 3">
+        Teams losen
+      </button>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <box-heading>Teams</box-heading>
+    <div class="tab-content table-border">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="td-50">Nr.</th>
+            <th>Name</th>
+            <th class="td-20"></th>
+          </tr>
+        </thead>
+      </table>
+      <div scroll-glue scrolltable with-btn-row="!dypCtrl.data.ongoing">
+        <table class="table">
+          <tbody>
+            <tr class="hover" ng-repeat="team in dypCtrl.data.teamList">
+              <td class="active text-center td-50">
+                {{ $index + 1}}
+              </td>
+              <td ng-class="team.danger ? 'text-danger':''">
+                {{ team.name }}
+              </td>
+              <td class="td-20"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="btn-row" ng-hide="dypCtrl.data.ongoing">
+      <button class="btn btn-default"
+              ng-click="dypCtrl.startTournament()"
+              ng-disabled="dypCtrl.data.teamList.length < 4">
+        Turnier starten
+      </button>
+    </div>
+  </div>
+</div>

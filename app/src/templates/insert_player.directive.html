@@ -1,0 +1,20 @@
+<div class="form-group">
+  <input type="text" class="form-control input-sm" ng-model="player.name" placeholder="Name" focus-me="focus" ng-disabled="disableInput">
+</div>
+<div class="form-group row" ng-if="showOptions">
+  <div class="col-sm-6">
+    <div class="btn-group-vertical btn-block">
+      <label class="btn btn-default btn-sm" ng-model="player.position" ng-repeat="position in POSITIONS" uib-btn-radio="{{ position.value }}">
+        {{ position.name }}
+      </label>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="btn-group-vertical btn-block">
+      <label class="btn btn-default btn-sm" ng-model="player.type" ng-repeat="type in TYPES" uib-btn-radio="{{ type.value }}">
+        {{ type.name }}
+      </label>
+    </div>
+  </div>
+</div>
+</div>
