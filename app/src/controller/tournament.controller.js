@@ -47,7 +47,7 @@
         if (tab == 1 && !T.koRound) {
           Dialog.confirm({
             title: 'K.o. Runde starten',
-            body: 'Soll die K.o. Runde gestartet werden?\nDannach kann nicht mehr zu Vorrunde zurück gewechselt werden!',
+            body: 'Soll die K.O. Runde gestartet werden?\nDannach kann nicht mehr zu Vorrunde zurück gewechselt werden!',
             confirm: 'Ja',
             cancel: 'Nein'
           }).then(function(result) {
@@ -63,7 +63,9 @@
         }
       };
 
-      $scope.showReenterScore = function(round) {
+      $scope.showReenterScore = function(round, freilos) {
+        if (freilos) return false;
+        
         return round === T.round;
       };
 

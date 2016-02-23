@@ -82,6 +82,7 @@ angular.module('app')
               element[0].focus();
               scope[attrs.focusMe] = false;
             }
+
           }, 200);
         });
       }

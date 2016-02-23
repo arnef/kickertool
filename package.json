@@ -1,7 +1,7 @@
 {
   "name": "Kickertool",
   "main": "index.js",
-  "version": "0.5.2",
+  "version": "0.5.4",
   "scripts": {
     "start": "electron .",
     "pack": "asar p . app.asar --unpack-dir='Kickertool-linux-x64'",
@@ -13,10 +13,6 @@
     "pkg": "http://arnefeil.de/kickertool/test/package.json",
     "url": "http://arnefeil.de/kickertool/test/app.asar"
   },
-  "changelog": [
-    "Fehler (Wiederholungen bei Paarungen) in der Vorrunde behoben",
-    "K.O. Baum wird fairer befüllt"
-  ],
   "devDependencies": {
     "asar": "^0.8.3",
     "electron-packager": "^5.1.1",

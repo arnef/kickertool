@@ -4,7 +4,12 @@
     <form ng-submit="dypCtrl.addPlayer()">
     <div class="tab-content table-border" style="padding:15px 15px 0 15px">
         <div class="form-group">
-          <input style="text-transform: uppercase" type="text" class="form-control input-sm" placeholder="Name" ng-model="dypCtrl.player.name" required>
+          <input style="text-transform: uppercase"
+                 type="text"
+                 class="form-control input-sm"
+                 placeholder="Name"
+                 focus-me="focusInput"
+                 ng-model="dypCtrl.player.name" required>
         </div>
         <div class="form-group">
           <div class="row">
@@ -97,7 +102,11 @@
       </div>
     </div>
     <div class="btn-row" ng-hide="dypCtrl.data.ongoing">
-      <button class="btn btn-default" ng-click="dypCtrl.startTournament()">Turnier starten</button>
+      <button class="btn btn-default"
+              ng-click="dypCtrl.startTournament()"
+              ng-disabled="dypCtrl.data.teamList.length < 4">
+        Turnier starten
+      </button>
     </div>
   </div>
 </div>

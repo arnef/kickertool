@@ -14,6 +14,7 @@
 
           lastId = 0;
           vm = this;
+          $scope.focusInput = true;
           vm.player = {};
           vm.data = $localStorage;
           vm.addPlayer = addPlayer;
@@ -43,6 +44,7 @@
            * add player to list
            */
           function addPlayer() {
+            if (vm.data.round > 1) return;
             vm.player.name = vm.player.name.toUpperCase();
             if (vm.player.name && vm.player.type && vm.player.position) {
               if (playerNotInList()) {
@@ -53,6 +55,7 @@
                 clearTeams();
                 delete vm.player.name;
                 delete vm.player.id;
+                $scope.focusInput = true;
               }
             } else {
               Dialog.alert({

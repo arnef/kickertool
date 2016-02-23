@@ -70,8 +70,7 @@ angular.module('app')
         newScore = newScore.split(':');
         match.team1.points += parseInt(newScore[0], 10);
         match.team2.points += parseInt(newScore[1], 10);
-        //  ScoreService.reenterScore(match, newScore);
-        //  TODO implement this feature
+        if (getModus().sortTable) getModus().sortTable();
       }
     };
 

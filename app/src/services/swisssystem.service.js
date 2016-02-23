@@ -1,6 +1,6 @@
 'use strict';
 angular.module('app')
-  .service('SwissSystem', ['$rootScope',
+  .service('SwissSystem', ['$rootScope', '$localStorage',
     function ($rootScope, $localStorage) {
       var self = this,
         matchMatrix = [];
@@ -197,7 +197,9 @@ angular.module('app')
         updateMatrix();
         buildMatches();
         sortTableByPointsAndMatches();
-      }
+      };
+
+      self.sortTable = sortTable;
 
 
     }

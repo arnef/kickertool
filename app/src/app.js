@@ -110,31 +110,31 @@ angular.module('app', ['ngRoute', 'ngSanitize', 'ngStorage', 'ui.bootstrap', 'lu
       $rootScope.globals.currentTab = 0;
     }
 
-    // if (!$rootScope.globals.tables) {
-    //   init();
-    //   $location.path('/');
-    // } else if ($rootScope.globals.ongoing && !($rootScope.globals.playedMatches.length > 0 && $rootScope.globals.playedMatches[$rootScope.globals.playedMatches.length - 1].round === 'Finale')) {
-    //   Dialog.confirm({
-    //     title: 'Turnierdaten vorhanden',
-    //     body: 'Es wurden vorhandene Daten eines laufenden Turniers gefunden. ' +
-    //       'Sollten diese wiederhergestellt werden ? ',
-    //     cancel: 'Nein, neues Turnier starten',
-    //     confirm: 'Ja, Turnier fortsetzen'
-    //   }).then(function (result) {
-    //     if (result === 0) {
-    //       Tournament.clear();
-    //       $location.path('/');
-    //     } else {
-    //       restoreData();
-    //       $location.path('tournament');
-    //     }
-    //   });
-    // } else {
-    //   Tournament.clear();
-    //   if ($location.path() !== '/insert') {
-    //     $location.path('/');
-    //   }
-    // }
+    if (!$rootScope.globals.tables) {
+      init();
+      $location.path('/');
+    } else if ($rootScope.globals.ongoing && !($rootScope.globals.playedMatches.length > 0 && $rootScope.globals.playedMatches[$rootScope.globals.playedMatches.length - 1].round === 'Finale')) {
+      Dialog.confirm({
+        title: 'Turnierdaten vorhanden',
+        body: 'Es wurden vorhandene Daten eines laufenden Turniers gefunden. ' +
+          'Sollten diese wiederhergestellt werden ? ',
+        cancel: 'Nein, neues Turnier starten',
+        confirm: 'Ja, Turnier fortsetzen'
+      }).then(function (result) {
+        if (result === 0) {
+          Tournament.clear();
+          $location.path('/');
+        } else {
+          restoreData();
+          $location.path('tournament');
+        }
+      });
+    } else {
+      Tournament.clear();
+      if ($location.path() !== '/insert') {
+        $location.path('/');
+      }
+    }
   })
   // menu
   .run(function ($rootScope, $location, Command, Tournament) {

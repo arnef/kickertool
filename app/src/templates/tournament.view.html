@@ -147,7 +147,7 @@
                   <td class="td-50" uib-dropdown uib-dropdown-toggle >
                     <i class="glyphicon glyphicon-option-vertical text-muted"></i>
                     <ul class="uib-dropdown-menu dropdown-menu-right">
-                      <li ng-class="showReenterScore(match.round) ? '':'disabled'">
+                      <li ng-class="showReenterScore(match.round, match.team2.ghost) ? '':'disabled'">
                         <a href ng-click="toggleScore($index)">Ergebnis bearbeiten</a>
                       </li>
                     </ul>

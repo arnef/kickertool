@@ -11,7 +11,7 @@
       controller: ['$scope', '$attrs', '$localStorage', 'Dialog', 'Tournament',
         function ($scope, $attrs, $localStorage, Dialog, Tournament) {
           var vm;
-
+          $scope.focusInput = true;
           vm = this;
           vm.player = {
             points: 0,
@@ -26,10 +26,13 @@
 
 
           function addPlayer() {
+            if (vm.data.round > 1) return;
+
             vm.player.name = vm.player.name.toUpperCase();
             if (playerNotInList()) {
               vm.data.teamList.push(angular.copy(vm.player));
               delete vm.player.name;
+              $scope.focusInput = true;
             }
           }
 
@@ -38,7 +41,7 @@
             for (i = 0; i < vm.data.teamList.length; i++) {
               if (vm.player.name.toLowerCase() == vm.data.teamList[i].name.toLowerCase()) {
                 Dialog.alert({
-                  title: 'Spieler schon vorhande',
+                  title: 'Spieler schon vorhanden',
                   body: vm.player.name + ' bereits vorhanden'
                 });
                 return false;

@@ -4,11 +4,17 @@
     <form ng-submit="singlesCtrl.addPlayer()">
       <div class="tab-content table-border" style="padding:15px 15px 0 15px">
         <div class="form-group">
-          <input type="text" style="text-transform: uppercase" class="form-control input-sm" placeholder="Name" ng-model="singlesCtrl.player.name" required>
+          <input type="text"
+                style="text-transform: uppercase"
+                class="form-control input-sm"
+                placeholder="Name"
+                focus-me="focusInput"
+                ng-model="singlesCtrl.player.name" required>
         </div>
       </div>
       <div class="btn-row">
-        <button class="btn btn-default" type="submit">Hinzufügen</button>
+        <button class="btn btn-default" type="submit"
+                ng-disabled="singlesCtrl.data.round > 1">Hinzufügen</button>
       </div>
     </form>
   </div>
@@ -48,7 +54,9 @@
       </div>
     </div>
     <div class="btn-row" ng-hide="singlesCtrl.data.ongoing">
-      <button class="btn btn-default" ng-click="singlesCtrl.startTournament()">
+      <button class="btn btn-default"
+              ng-click="singlesCtrl.startTournament()"
+              ng-disabled="dypCtrl.data.teamList.length < 4">
         Turnier starten
       </button>
   </div>

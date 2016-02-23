@@ -9,4 +9,4 @@ bower_components/
 dist/
 # ignore electron build folder
 Kickertool-*/
-kickertool-*/
+app.asar
