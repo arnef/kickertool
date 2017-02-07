@@ -7,7 +7,7 @@ Akutelle Version ist v0.5.1
 - [Linux 32bit](http://arnefeil.de/kickertool/linux32.zip) /
  [Linux 64bit](http://arnefeil.de/kickertool/linux64.zip)
 - [Mac OSX 32 / 64bit](http://arnefeil.de/kickertool/osx.zip)
-- [Windows 32 / 64bit](http://arnefeil.de/kickertool.zip)
+- [Windows 32 / 64bit](http://arnefeil.de/kickertool/win.zip)
 
 ## Changelog ##
 
