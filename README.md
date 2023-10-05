@@ -1,6 +1,6 @@
 # Kickertool #
 ## Disclaimer ##
-Dieses Repo steht nicht in zusammenhang zum kickertool ([kickertool.de](https://kickertool.de/)
+Dieses Repo steht nicht in zusammenhang zum kickertool ([kickertool.de](https://kickertool.de/))
 
 ## Download ##
 Hier gibts die ausführbaren Programme für verschiedene Systeme.
