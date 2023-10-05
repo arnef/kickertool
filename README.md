@@ -1,4 +1,6 @@
 # Kickertool #
+## Disclaimer ##
+Dieses Repo steht nicht in zusammenhang zum kickertool ([kickertool.de](https://kickertool.de/)
 
 ## Download ##
 Hier gibts die ausführbaren Programme für verschiedene Systeme.
@@ -30,6 +32,7 @@ Akutelle Version ist v0.5.1
     - Unentschienden kann deaktiviert werden
     - Letzte Einstellungen werden gespeichert
     - Mac Icon
+    
 
     v0.4.2
     - Menubar deaktiviert
